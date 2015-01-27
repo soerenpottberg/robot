@@ -1,15 +1,14 @@
 import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
-import lejos.nxt.Motor;
-import lejos.robotics.RegulatedMotor;
 
 public class Lightsensor {
 	private static final int MIDDLE_LIGHT_VALUE = 45;
 	private static final int BASE_SPEED = 500;
 	private static final float Kp = 3;
 	private static final float Ki = 2;
-	private static final float Kd = 4f;
+	private static final float Kd = 0f;
 	private static final float DELTA_T = 0.5f;
 
 	public static void main(String[] args) throws Exception {
@@ -21,6 +20,8 @@ public class Lightsensor {
 		float errorIntegrated = 0;
 		float errorDerivated = 0;
 		float lastError = 0;
+		float oldPowerMotorA = 0;
+		float oldPowerMotorB = 0;
 		while (true) {
 			int lightValue = light.getLightValue();
 			int error = lightValue - MIDDLE_LIGHT_VALUE;
@@ -28,15 +29,22 @@ public class Lightsensor {
 			errorDerivated = (error - lastError) / DELTA_T;
 			float compensation = error * Kp + errorIntegrated * Ki + errorDerivated * Kd;
 			System.out.println(errorDerivated);
-			setMotorPower(Motor.A, BASE_SPEED + compensation);
-			setMotorPower(Motor.B, BASE_SPEED - compensation);
+			float powerMotorA = BASE_SPEED + compensation;
+			float powerMotorB = BASE_SPEED - compensation;
+			setMotorPower(Motor.A, powerMotorA, oldPowerMotorA);
+			setMotorPower(Motor.B, powerMotorB, oldPowerMotorB);
 			lastError = error;
+			oldPowerMotorA = powerMotorA;
+			oldPowerMotorB = powerMotorB;
 		}
 	}
 
-	private static void setMotorPower(NXTRegulatedMotor motor, float power) {
+	private static void setMotorPower(NXTRegulatedMotor motor, float power, float oldPower) {
 		float absPower = Math.abs(power);
 		motor.setSpeed(absPower);
+		if(Math.signum(power) == Math.signum(oldPower)) {
+			return;
+		}
 		if(power > 0) {
 			motor.forward();
 		} else {
