@@ -1,4 +1,9 @@
 
+/**
+ * Writes a certain number of lines to the debug output.
+ * @author Nico
+ *
+ */
 public class DebugOutput {
 	
 	private final char MAX_LINES = 7;
@@ -11,6 +16,11 @@ public class DebugOutput {
 		descriptions = new String[MAX_LINES];
 	};
 	
+	/**
+	 * Allows to specify the description to be shown before the output value of the line with lineNumber.
+	 * @param lineNumber
+	 * @param description
+	 */
 	public void setDescription(char lineNumber, String description) {
 		if ( lineNumber < 0 || lineNumber >= MAX_LINES )
 			return;
@@ -33,6 +43,11 @@ public class DebugOutput {
 		}
 	}
 	
+	/**
+	 * Writes a value to debug output line lineNumber.
+	 * @param lineNumber
+	 * @param value
+	 */
 	public void write(char lineNumber, float value) {
 		if ( lineNumber < 0 || lineNumber >= MAX_LINES )
 			return;
@@ -42,8 +57,11 @@ public class DebugOutput {
 		refresh();
 	}
 	
-	private void refresh() {
-		
+	/**
+	 * Refreshes all debug output lines.
+	 */
+	private void refresh()
+	{
 		for ( char i = 0; i < MAX_LINES; ++i )
 		{
 			if ( !descriptions[i].isEmpty() )
