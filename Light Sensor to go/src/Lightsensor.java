@@ -4,13 +4,13 @@ import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
 
 public class Lightsensor {
-	private static final float BREAK_COOEFICIENT = 0; //10f;
-	private static final int MIDDLE_LIGHT_VALUE = 45;
-	private static final int BASE_SPEED = 500;
-	private static final float Kp = 4;
-	private static final float Ki = 0; //2;
+	private static final float BREAK_COOEFICIENT = 20f;
+	private static final int MIDDLE_LIGHT_VALUE = 45; //45;
+	private static final int BASE_SPEED = 300;
+	private static final float Kp = 6;
+	private static final float Ki = 0; //60; //2;
 	private static final float Kd = 0f;
-	private static final long DELTA_T_ms = 10; // in milliseconds
+	private static final long DELTA_T_ms = 5; // in milliseconds
 	private static final float DELTA_T = DELTA_T_ms / 1000f; // in seconds
 
 	public static void main(String[] args) throws Exception {
@@ -27,8 +27,10 @@ public class Lightsensor {
 		float maxBreak = 0;
 		int i = 0;
 		while (true) {
+			//System.out.println(errorIntegrated * Ki);
+			
 			if(i % 10 == 0) {
-				System.out.println(maxBreak);
+				//System.out.println(maxBreak);
 				maxBreak = 0;
 			}
 			int lightValue = light.getLightValue();
@@ -36,10 +38,15 @@ public class Lightsensor {
 			if((error - lastError) > 1) {
 				//System.out.println(error - lastError);
 			}
-			errorIntegrated = 2f / 3f * errorIntegrated + DELTA_T * error;
+			System.out.println(error);
+			float motorBreak = Math.abs(error) / BREAK_COOEFICIENT * BASE_SPEED;
+			if(Math.abs(error) > BREAK_COOEFICIENT) {
+				motorBreak = BASE_SPEED;
+			}
+			errorIntegrated = 8f / 9f * errorIntegrated + DELTA_T * error;
 			errorDerivated = (error - lastError) / DELTA_T;
 			float compensation = error * Kp + errorIntegrated * Ki + errorDerivated * Kd;
-			float motorBreak = Math.abs(errorDerivated) * BREAK_COOEFICIENT;
+			//float motorBreak = Math.abs(errorIntegrated) * BREAK_COOEFICIENT;
 			maxBreak = Math.max(maxBreak, motorBreak);
 			float powerMotorA = BASE_SPEED - motorBreak + compensation;
 			float powerMotorB = BASE_SPEED - motorBreak - compensation;
