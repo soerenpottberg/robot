@@ -53,7 +53,6 @@ public class DebugOutput {
 			return;
 		
 		values[lineNumber] = value;
-		
 		refresh();
 	}
 	
