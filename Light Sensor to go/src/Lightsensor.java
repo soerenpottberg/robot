@@ -41,9 +41,10 @@ public class Lightsensor {
 			int lightValue = light.getLightValue();
 			int error = lightValue - MIDDLE_LIGHT_VALUE;
 			errorIntegrated = (int) (2f / 3f * errorIntegrated) + error;
-			if (error > 25) {
-				Sound.beep();
-				// errorIntegrated += 70;
+			System.out.println(errorIntegrated);
+			if (error > 0) {
+				//Sound.beep();
+				errorIntegrated += error;
 			}
 			errorDerivated = (error - lastError);
 			int compensation = (error * Kp + errorIntegrated * Ki + errorDerivated
@@ -54,7 +55,7 @@ public class Lightsensor {
 			setMotorPower(MotorA, powerMotorA, lastPowerMotorA);
 			setMotorPower(MotorB, powerMotorB, lastPowerMotorB);
 			long time = System.currentTimeMillis();
-			System.out.println(time - lastTime);
+			//System.out.println(time - lastTime);
 			lastTime = time;
 			lastlastError = lastError;
 			lastError = error;
