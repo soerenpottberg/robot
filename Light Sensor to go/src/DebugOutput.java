@@ -18,6 +18,7 @@ public class DebugOutput {
 
 	public DebugOutput() {
 		descriptions = new String[MAX_LINES];
+		values = new float[MAX_LINES];
 	};
 
 	/**
