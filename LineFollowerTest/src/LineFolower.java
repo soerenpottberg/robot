@@ -7,8 +7,8 @@ import lejos.nxt.Sound;
 
 public class LineFolower {
 	private static final int PRECISION_FACTOR = 100;
-	private static final int MIDDLE_LIGHT_VALUE = 45;
-	private static final int BASE_POWER = 25;
+	private static final int MIDDLE_LIGHT_VALUE = 40;
+	private static final int BASE_POWER = 30;
 
 	private static final double K_CRITICAL = 1.5;
 	private static final double T_PERIOD = 0.05;
@@ -46,6 +46,7 @@ public void follow() {
 		int error = lightValue - MIDDLE_LIGHT_VALUE;
 		
 		int compensation = pid(error);
+		output( compensation );
 		
 		int motorBreak = Math.min(BASE_POWER, Math.abs(compensation));
 		int powerMotorA = BASE_POWER - motorBreak + compensation;
@@ -56,6 +57,18 @@ public void follow() {
 		lastPowerMotorA = powerMotorA;
 		lastPowerMotorB = powerMotorB;
 	}
+}
+
+static int counter = 1;
+static int val_max = 0;
+static void output(int value) {
+	counter %= 20;
+	if ( counter == 0 ) {
+		System.out.println(val_max);
+		val_max = -10000;
+	}
+	val_max = Math.max(value, val_max);
+	++counter;
 }
 
 
@@ -82,7 +95,8 @@ public int pid(int sensor_error) {
 	final long t1 = System.currentTimeMillis();
 	
 	int delta_t = (int)(t1 - t2);
-	final int integral100 = integrate(x1, x2, delta_t);
+	final int integral100 = integrate(x1, x2, delta_t) +
+			  ( ( sensor_error > 0 ) ? 2 * x1 : 0 );
 	final int derivate100 = derive(t1, t3, x1, x2, x3);
 	
 	// remember last two measures
@@ -115,14 +129,19 @@ public int derive( long t1, long t3, int x1, int x2, int x3 ) {
 	final int MULTIPLICATOR = 100;
 	
 	int divisor = x1_x2 * x2_x3 * x3_x1;
-	divisor = ( divisor == 0 ) ? 1 : divisor;
+	//divisor = ( divisor == 0 ) ? 1 : divisor;
 	
 	//ax^2 + bx + c
 	int a = MULTIPLICATOR * ( 2 * x2 - (x1 + x3) ) * delta_t;
-	a /= divisor;
-	
 	int b = MULTIPLICATOR * ( x1_sqr - 2 * x2_sqr + x3_sqr ) * delta_t;
-	b /= divisor;
+	
+	if ( divisor == 0 ) {
+		a *= 5;
+		b *= 10;
+	} else {
+		a /= divisor;
+		a /= divisor;
+	}
 	
 	return a * x3 + b;
 }
