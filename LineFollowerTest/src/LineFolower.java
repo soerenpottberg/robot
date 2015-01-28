@@ -26,6 +26,8 @@ public class LineFolower {
 	public static final float ALPHA_INTEGRAL = 0.0f;
 
 	//static final float EWMA_ALPHA = 0.125f;
+	
+public LineFolower() {}
 
 public void follow() {	
 	NXTMotor MotorA = new NXTMotor(MotorPort.A);
