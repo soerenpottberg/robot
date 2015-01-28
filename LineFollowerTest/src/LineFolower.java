@@ -72,9 +72,9 @@ public void follow() {
 
 
 static int  x2 = 0;
-static long t2 = System.currentTimeMillis();
+static long t2 = 0;
 static int  x3 = 0;
-static long t3 = System.currentTimeMillis();
+static long t3 = 0;
 
 
 public int pid(int sensor_error) { 
@@ -114,7 +114,8 @@ public int derive( long t1, long t3, int x1, int x2, int x3 ) {
 	
 	final int MULTIPLICATOR = 100;
 	
-	final int divisor = x1_x2 * x2_x3 * x3_x1;
+	int divisor = x1_x2 * x2_x3 * x3_x1;
+	divisor = ( divisor == 0 ) ? 1 : divisor;
 	
 	//ax^2 + bx + c
 	int a = MULTIPLICATOR * ( 2 * x2 - (x1 + x3) ) * delta_t;
