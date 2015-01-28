@@ -1,3 +1,5 @@
+import javax.microedition.sensor.MindsensorsAccelerationSensorInfo;
+
 import lejos.nxt.LightSensor;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
@@ -46,8 +48,9 @@ public class Lightsensor {
 			errorDerivated = (error - lastError);
 			int compensation = (error * Kp + errorIntegrated * Ki + errorDerivated
 					* Kd) / 100;
-			int powerMotorA = BASE_POWER + compensation;
-			int powerMotorB = BASE_POWER - compensation;
+			int motorBreak = Math.min(BASE_POWER, Math.abs(compensation));
+			int powerMotorA = BASE_POWER - motorBreak + compensation;
+			int powerMotorB = BASE_POWER - motorBreak - compensation;
 			setMotorPower(MotorA, powerMotorA, lastPowerMotorA);
 			setMotorPower(MotorB, powerMotorB, lastPowerMotorB);
 			long time = System.currentTimeMillis();
