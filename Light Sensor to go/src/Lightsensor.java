@@ -1,5 +1,3 @@
-import javax.microedition.sensor.MindsensorsAccelerationSensorInfo;
-
 import lejos.nxt.LightSensor;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
