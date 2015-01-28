@@ -1,3 +1,5 @@
+import lejos.nxt.SensorPort;
+
 
 public class MainClass {
 
@@ -6,7 +8,8 @@ public class MainClass {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		LineFolower f = new LineFolower();
+		Sensor s = new LSensor(SensorPort.S1);
+		ExceptionalFollower f = new ExceptionalFollower(s);
 		f.follow();
 	}
 
