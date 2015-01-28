@@ -7,9 +7,18 @@ import lejos.nxt.Sound;
 public class Lightsensor {
 	private static final int MIDDLE_LIGHT_VALUE = 45;
 	private static final int BASE_POWER = 25;
-	private static final int Kp = (int) (1.5 * 100); // 1.5 critical; 1.0
-	private static final int Ki = (int) (0.0 * 100); // 0.25
-	private static final int Kd = (int) (0.0 * 100);
+
+	private static final double K_CRITICAL = 1.5;
+	private static final double T_PERIOD = 0.05;
+	private static final double DELTA_2 = 2.5 / 1000; // 2-3 ms
+
+	private static final double Kp_CALC = 0.6 * K_CRITICAL;
+	private static final double Ki_CALC = 2 * Kp_CALC * DELTA_2 / T_PERIOD;
+	private static final double Kd_CALC = Kp_CALC * T_PERIOD / (8 * DELTA_2);
+
+	private static final int Kp = (int) (Kp_CALC * 100);
+	private static final int Ki = (int) (Ki_CALC * 100) + 2;
+	private static final int Kd = (int) (Kd_CALC * 100);
 
 	public static void main(String[] args) throws Exception {
 		NXTMotor MotorA = new NXTMotor(MotorPort.A);
@@ -42,7 +51,8 @@ public class Lightsensor {
 			setMotorPower(MotorA, powerMotorA, lastPowerMotorA);
 			setMotorPower(MotorB, powerMotorB, lastPowerMotorB);
 			long time = System.currentTimeMillis();
-			System.out.println(lastTime - time);
+			System.out.println(time - lastTime);
+			lastTime = time;
 			lastlastError = lastError;
 			lastError = error;
 			lastPowerMotorA = powerMotorA;
