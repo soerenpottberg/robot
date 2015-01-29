@@ -2,8 +2,7 @@ import lejos.nxt.LCD;
 
 /**
  * Writes a certain number of lines to the debug output.
- * 
- * @author Nico
+ * @author Nico Weyand
  *
  */
 public class DebugOutput {
