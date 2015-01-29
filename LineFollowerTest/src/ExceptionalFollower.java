@@ -11,7 +11,7 @@ public class ExceptionalFollower {
 	
 	
 	//private static final int PRECISION_FACTOR = 100;
-	private static final int BASE_POWER = 10;
+	private static final int BASE_POWER = 18;
 
 	// TODO: are those the optimum values?
 //	private static final double K_CRITICAL = 1.5;
@@ -65,8 +65,8 @@ public class ExceptionalFollower {
 
 		DebugOutput out = new DebugOutput();
 		out.setDescription( 0, "cycl_t" );
-		out.setDescription( 0, "deviat" );
-		out.setDescription( 0, "comp." );
+		out.setDescription( 1, "deviat" );
+		out.setDescription( 2, "comp." );
 		
 		double nextCycleCompletion = System.currentTimeMillis();
 		// TODO there must be an exit to the loop at some point!!!

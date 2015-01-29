@@ -1,7 +1,7 @@
 import lejos.nxt.SensorPort;
 
 
-public class ExceptionalFollowerTest {
+public class ExceptionalMain {
 
 	/**
 	 * @param args
