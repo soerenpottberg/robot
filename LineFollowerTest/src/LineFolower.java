@@ -25,7 +25,6 @@ public class LineFolower {
 	// allows reducing the integral by an exp. value if necessary
 	public static final float ALPHA_INTEGRAL = 0.0f;
 
-	//static final float EWMA_ALPHA = 0.125f;
 	
 public LineFolower() {}
 
@@ -70,19 +69,6 @@ static void output(int value) {
 	val_max = Math.max(value, val_max);
 	++counter;
 }
-
-
-//static float ewma = 0.0f;
-/**
- * Returns an exponentially smoothed sensor data.
- */
-/*private float measure() {
-	// insert sensor data here
-	float sensor_measure = 1234;
-	ewma = ( 1 - EWMA_ALPHA ) * ewma + EWMA_ALPHA * sensor_measure;
-	return ewma;
-}*/
-
 
 static int  x2 = 0;
 static long t2 = 0;
