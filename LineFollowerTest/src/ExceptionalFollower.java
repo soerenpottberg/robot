@@ -161,7 +161,7 @@ public class ExceptionalFollower {
 	private long  t1 = 0;
 
 	/**
-	 * PID regulates tho loop :)
+	 * PID regulates the loop :)
 	 * @param sensor_error
 	 * @return
 	 */
