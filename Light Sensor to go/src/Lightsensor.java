@@ -47,7 +47,7 @@ public class Lightsensor {
 			errorDerivated = (error - lastError);
 			int compensation = (error * Kp + errorIntegrated * Ki + errorDerivated
 					* Kd) / 100;
-			int motorBreak = Math.min(BASE_POWER, Math.abs(compensation));
+			int motorBreak = 0; //Math.min(BASE_POWER, Math.abs(compensation));
 			int powerMotorA = BASE_POWER - motorBreak - compensation;
 			int powerMotorB = BASE_POWER - motorBreak + compensation;
 			setMotorPower(MotorA, powerMotorA, lastPowerMotorA);
@@ -71,7 +71,7 @@ public class Lightsensor {
 		if (power > 0) {
 			motor.forward();
 		} else {
-			motor.backward();
+			motor.stop();
 		}
 	}
 }
