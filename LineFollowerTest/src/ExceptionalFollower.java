@@ -1,3 +1,4 @@
+import sensor.evaluation.SensorEvaluation;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.Sound;
@@ -35,7 +36,7 @@ public class ExceptionalFollower {
 
 	//static final float EWMA_ALPHA = 0.125f;
 	
-	private Sensor s_input;
+	private SensorEvaluation s_input;
 	private NXTMotor MotorA;
 	private NXTMotor MotorB;
 	private int lastPowerMotorA = 0;
@@ -46,7 +47,7 @@ public class ExceptionalFollower {
 	// TODO: parametrize this class with values for power, Kp, Ki, Kd, ...
 	// TODO: add mechanism to leave the loop dynamically
 	// (create abstract class as parameter that evaluates whether to leave the loop for good)
-	public ExceptionalFollower(Sensor s_input, LoopCondition[] conditions) {
+	public ExceptionalFollower(SensorEvaluation s_input, LoopCondition[] conditions) {
 		this.s_input = s_input;
 		this.conditions = conditions;
 		this.MotorA = new NXTMotor(MotorPort.A);
@@ -75,7 +76,7 @@ public class ExceptionalFollower {
 			
 			nextCycleCompletion += MS_COMPLETE_CYCLE_TIME;
 			// get at least 1 time new data from the sensor.
-			final float deviation = s_input.measure();
+			final float deviation = s_input.measureError();
 			
 			// Warn if insufficient cycle time is detected.
 			// This can be an early warning system for all kinds of problems.
@@ -110,7 +111,7 @@ public class ExceptionalFollower {
 			while ( System.currentTimeMillis() + MS_MEASURE_CYCLE_TIME
 					< nextCycleCompletion ) {
 				++count;
-				s_input.measure();
+				s_input.measureError();
 				// Wait for a given number of ms before continuing.
 				Delay.msDelay( MS_MEASURE_CYCLE_TIME );
 			}
