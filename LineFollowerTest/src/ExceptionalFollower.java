@@ -11,7 +11,7 @@ public class ExceptionalFollower {
 	
 	
 	//private static final int PRECISION_FACTOR = 100;
-	private static final int BASE_POWER = 30;
+	private static final int BASE_POWER = 10;
 
 	// TODO: are those the optimum values?
 //	private static final double K_CRITICAL = 1.5;
@@ -26,12 +26,12 @@ public class ExceptionalFollower {
 //	private static final float Ki = (float) (Ki_CALC /* * PRECISION_FACTOR*/) + 2;
 //	private static final float Kd = (float) (Kd_CALC /* * PRECISION_FACTOR*/);
 	
-	private static final float Kp = 2.5f;
-	private static final float Ki = 0.05f;
-	private static final float Kd = 0.0f;
+	private static final float Kp = 0.1f;
+	private static final float Ki = 0.00f;
+	private static final float Kd = 0.00f;
 	
 	// allows reducing the integral by an exp. value if necessary
-	private static final float ALPHA_INTEGRAL = 0.001f;
+	private static final float ALPHA_INTEGRAL = 0.000f;
 
 	//static final float EWMA_ALPHA = 0.125f;
 	
@@ -63,16 +63,23 @@ public class ExceptionalFollower {
 	public void follow() {
 		initMotors();
 
+		DebugOutput out = new DebugOutput();
+		out.setDescription( 0, "cycl_t" );
+		out.setDescription( 0, "deviat" );
+		out.setDescription( 0, "comp." );
+		
 		double nextCycleCompletion = System.currentTimeMillis();
 		// TODO there must be an exit to the loop at some point!!!
 		while (true) {
+			final long tCycleStart = System.currentTimeMillis();
+			
 			nextCycleCompletion += MS_COMPLETE_CYCLE_TIME;
 			// get at least 1 time new data from the sensor.
 			final float deviation = s_input.measure();
 			
 			// Warn if insufficient cycle time is detected.
 			// This can be an early warning system for all kinds of problems.
-			if ( nextCycleCompletion - System.currentTimeMillis()
+			if ( nextCycleCompletion - tCycleStart
 				 < MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME ) {
 				Sound.beep();
 				
@@ -87,14 +94,16 @@ public class ExceptionalFollower {
 			//output( compensation );
 			calculateMotorSpeeds( compensation );
 			
-			output( (int)(nextCycleCompletion - System.currentTimeMillis()) );
-			
 			// exit loop if one of the conditions returns true.
 			for ( int n = 0; n < conditions.length; ++n ) {
 				if ( conditions[n].evaluate(s_input.getTargetValue(), deviation ) ) {
 					break;
 				}
 			}
+			
+			out.write( 0, (float)(System.currentTimeMillis() - tCycleStart));
+			out.write(1, deviation);
+			out.write(2, (float)compensation);
 			
 			// do as many measures as is possible before the current cycle ends
 			int count = 0;
@@ -117,7 +126,7 @@ public class ExceptionalFollower {
 }
 	
 	private void calculateMotorSpeeds(int compensation) {
-		int motorBreak = 0;//Math.min(BASE_POWER, Math.abs(compensation));
+		int motorBreak = Math.min(BASE_POWER, Math.abs(compensation));
 		int powerMotorA = BASE_POWER - motorBreak + compensation;
 		int powerMotorB = BASE_POWER - motorBreak - compensation;
 		// TODO: muss da nicht noch ein Vorfaktor rein (n*compensation)?
@@ -129,18 +138,19 @@ public class ExceptionalFollower {
 	}
 	
 	
+	/*static private final int NO_OF_ITERATIONS = 1;
 	private int counter = 1;
 	private int val_max = 0;
 	
 	private void output(int value) {
-		counter %= 5;
+		counter %= NO_OF_ITERATIONS;
 		if ( counter == 0 ) {
 			System.out.println(val_max);
 			val_max = -10000;
 		}
 		val_max = Math.max(value, val_max);
 		++counter;
-	}
+	}*/
 	
 	// (y2;t2) represents the previous measure and point in time
 	private float y2 = 0.0f;
@@ -162,8 +172,8 @@ public class ExceptionalFollower {
 		
 		// accumulate integral over the last two points
 		int last_delta_t = (int)(t3 - t2);
-		final float integral = integrate(y3, y2, last_delta_t) +
-				( ( sensor_error > 0 ) ? 2 * y3 : 0 );
+		final float integral = integrate(y3, y2, last_delta_t) ;
+				               //+ ( ( sensor_error > 0 ) ? 2 * y3 : 0 );
 		
 		// calculate the derivate over the last 2 or 3 points
 		final float derivate = derive2pt(y3, y2, last_delta_t);
