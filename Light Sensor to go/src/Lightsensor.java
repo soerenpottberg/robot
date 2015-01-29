@@ -1,3 +1,4 @@
+import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
@@ -16,7 +17,7 @@ public class Lightsensor {
 	private static final double Ki_CALC = 1.2 * Kp_CALC * DELTA_2 / T_PERIOD;  // 2
 	private static final double Kd_CALC = Kp_CALC * T_PERIOD / (8 * DELTA_2);  // 1
 
-	private static final int Kp = (int) ((0 * Kp_CALC + 3.5) * 100); // 1.0
+	private static final int Kp = (int) ((0 * Kp_CALC + 2.5) * 100); // 1.0
 	private static final int Ki = (int) ((0 * Ki_CALC + 0.05) * 100) + 2; // 0.25
 	private static final int Kd = (int) (0 * Kd_CALC * 100);
 
@@ -39,14 +40,18 @@ public class Lightsensor {
 			int lightValue = light.getLightValue();
 			int error = lightValue - MIDDLE_LIGHT_VALUE;
 			errorIntegrated = (int) (2f / 3f * errorIntegrated) + error;
-			System.out.println(errorIntegrated);
 			if (error > 0) {
 				//Sound.beep();
-				//errorIntegrated += 2* error;
+				errorIntegrated += error;
 			}
 			errorDerivated = (error - lastError);
 			int compensation = (error * Kp + errorIntegrated * Ki + errorDerivated
 					* Kd) / 100;
+			LCD.clear(0);
+			LCD.drawString(Integer.toString(error * Kp), 0, 0);
+			LCD.clear(1);
+			LCD.drawString(Integer.toString(errorIntegrated * Ki), 0, 1);
+			
 			int motorBreak = 0; //Math.min(BASE_POWER, Math.abs(compensation));
 			int powerMotorA = BASE_POWER - motorBreak - compensation;
 			int powerMotorB = BASE_POWER - motorBreak + compensation;
@@ -71,7 +76,7 @@ public class Lightsensor {
 		if (power > 0) {
 			motor.forward();
 		} else {
-			motor.stop();
+			motor.backward();
 		}
 	}
 }
