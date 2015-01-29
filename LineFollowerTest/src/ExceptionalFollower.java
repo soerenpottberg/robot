@@ -41,11 +41,14 @@ public class ExceptionalFollower {
 	private int lastPowerMotorA = 0;
 	private int lastPowerMotorB = 0;
 	
+	private LoopCondition[] conditions;
+	
 	// TODO: parametrize this class with values for power, Kp, Ki, Kd, ...
 	// TODO: add mechanism to leave the loop dynamically
 	// (create abstract class as parameter that evaluates whether to leave the loop for good)
-	public ExceptionalFollower(Sensor s_input) {
+	public ExceptionalFollower(Sensor s_input, LoopCondition[] conditions) {
 		this.s_input = s_input;
+		this.conditions = conditions;
 		this.MotorA = new NXTMotor(MotorPort.A);
 		this.MotorB = new NXTMotor(MotorPort.B);
 	}
@@ -65,7 +68,7 @@ public class ExceptionalFollower {
 		while (true) {
 			nextCycleCompletion += MS_COMPLETE_CYCLE_TIME;
 			// get at least 1 time new data from the sensor.
-			float deviation = s_input.measure();
+			final float deviation = s_input.measure();
 			
 			// Warn if insufficient cycle time is detected.
 			// This can be an early warning system for all kinds of problems.
@@ -86,6 +89,12 @@ public class ExceptionalFollower {
 			
 			output( (int)(nextCycleCompletion - System.currentTimeMillis()) );
 			
+			// exit loop if one of the conditions returns true.
+			for ( int n = 0; n < conditions.length; ++n ) {
+				if ( conditions[n].evaluate(s_input.getTargetValue(), deviation ) ) {
+					break;
+				}
+			}
 			
 			// do as many measures as is possible before the current cycle ends
 			int count = 0;
