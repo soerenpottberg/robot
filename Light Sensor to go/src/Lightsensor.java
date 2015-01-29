@@ -16,7 +16,7 @@ public class Lightsensor {
 	private static final double Ki_CALC = 2 * Kp_CALC * DELTA_2 / T_PERIOD;
 	private static final double Kd_CALC = Kp_CALC * T_PERIOD / (8 * DELTA_2);
 
-	private static final int Kp = (int) ((0 * Kp_CALC + 2) * 100);
+	private static final int Kp = (int) ((0 * Kp_CALC + 3) * 100);
 	private static final int Ki = (int) (0 * Ki_CALC * 100) + 2;
 	private static final int Kd = (int) (0 * Kd_CALC * 100);
 
