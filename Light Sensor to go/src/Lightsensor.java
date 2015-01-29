@@ -48,8 +48,8 @@ public class Lightsensor {
 			int compensation = (error * Kp + errorIntegrated * Ki + errorDerivated
 					* Kd) / 100;
 			int motorBreak = Math.min(BASE_POWER, Math.abs(compensation));
-			int powerMotorA = BASE_POWER - motorBreak + compensation;
-			int powerMotorB = BASE_POWER - motorBreak - compensation;
+			int powerMotorA = BASE_POWER - motorBreak - compensation;
+			int powerMotorB = BASE_POWER - motorBreak + compensation;
 			setMotorPower(MotorA, powerMotorA, lastPowerMotorA);
 			setMotorPower(MotorB, powerMotorB, lastPowerMotorB);
 			long time = System.currentTimeMillis();
