@@ -5,7 +5,7 @@ import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 
 public class Lightsensor {
-	private static final int MIDDLE_LIGHT_VALUE = 45;
+	private static final int MIDDLE_LIGHT_VALUE = 40;
 	private static final int BASE_POWER = 25;
 
 	private static final double K_CRITICAL = 1.5;
