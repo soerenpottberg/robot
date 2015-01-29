@@ -64,9 +64,9 @@ public class ExceptionalFollower {
 		initMotors();
 
 		DebugOutput out = new DebugOutput();
-		out.setDescription( 0, "cycl_t" );
-		out.setDescription( 1, "deviat" );
-		out.setDescription( 2, "comp." );
+		out.setDescription( 0, "cycle_t" );
+		out.setDescription( 1, "deviat." );
+		out.setDescription( 2, "compens" );
 		
 		double nextCycleCompletion = System.currentTimeMillis();
 		// TODO there must be an exit to the loop at some point!!!

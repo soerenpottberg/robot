@@ -12,7 +12,7 @@ public class DebugOutput {
 	private static final short TOTAL_DIGITS = 16;
 	private static final short OUTPUT_NUMERIC_DIGITS = 8;
 	private static final short MAX_DESCRIPTION_LENGTH =
-			TOTAL_DIGITS - OUTPUT_NUMERIC_DIGITS - 2;
+			TOTAL_DIGITS - OUTPUT_NUMERIC_DIGITS - 1;
 
 	private String[] descriptions;
 	private float[] values;
@@ -64,6 +64,7 @@ public class DebugOutput {
 			redraw();
 		} else {
 			LCD.drawString(description, 0, lineNumber);
+			LCD.drawChar(':', maxLength, lineNumber);
 		}
 	}
 
@@ -88,7 +89,7 @@ public class DebugOutput {
 		for (char i = 0; i < MAX_LINES; ++i) {
 			if (!descriptions[i].isEmpty()) {
 				LCD.drawString(descriptions[i], 0, i);
-				LCD.drawString(": ", maxLength, i);
+				LCD.drawChar(':', maxLength, i);
 				drawFloat( values[i], (char)(TOTAL_DIGITS - OUTPUT_NUMERIC_DIGITS), i );
 			}
 
@@ -102,12 +103,13 @@ public class DebugOutput {
 		if ( f_abs > 9999 ) {
 			LCD.drawString( "Owerfl.", x + 1, y);
 		}
-		else if ( f_abs < 1 ) {
+		else if ( f_abs < 10 ) {
 			LCD.drawInt( (int)(10000 * f_abs), OUTPUT_NUMERIC_DIGITS, x, y );
-			LCD.drawString( "0.", x + 1, y );
+			LCD.drawInt( (int) f_abs, 1 , x + 1, y );
+			LCD.drawChar( '.', x + 2, y);
 		} else {
 			LCD.drawInt( (int)(100 * f_abs), OUTPUT_NUMERIC_DIGITS, x, y );
-			LCD.drawString( ".", x + OUTPUT_NUMERIC_DIGITS - 3, y );
+			LCD.drawChar( '.', x + OUTPUT_NUMERIC_DIGITS - 3, y );
 			LCD.drawInt( (int)( f_abs ), OUTPUT_NUMERIC_DIGITS - 3, x, y);
 		}
 		
