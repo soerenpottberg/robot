@@ -14,25 +14,19 @@ public class gogogo {
 		while (true) {
 			pilot.setTravelSpeed(20);
 			pilot.setRotateSpeed(60);
-			//pilot.setAcceleration(2);
 			pilot.forward();
 			int a = Ultra.getDistance();
 
 		
 			if (touchl.isPressed() && a < 25){
 				pilot.travel(-25);
-				//pilot.travelArc(8, 5);
 				pilot.rotate(90);
 			}
 			else if (touchl.isPressed() && a >= 25) {
 				pilot.travel(-10);
-				//pilot.travelArc(-8, 5);
 				pilot.rotate(-15);
 			}
 			else if (touchr.isPressed() && (touchl.isPressed() == false) ) {
-				//pilot.travel(-5);
-				//pilot.travelArc(8, 5);
-				//Sound.beep();
 				pilot.travel(-10);
 				pilot.rotate(15);
 			}
