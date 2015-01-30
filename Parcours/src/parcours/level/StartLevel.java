@@ -6,11 +6,12 @@ import parcours.task.Task;
 
 public class StartLevel extends Level {
 	
-	private static Task[] tasks;
+	private static int TASK_COUNT = 1;
+	private static Task[] tasks = new Task[TASK_COUNT];
 	
 	static {
-		tasks = new Task[1];
-		tasks[0] = new FollowRightLineTask();
+		int i = 0;
+		tasks[i++] = new FollowRightLineTask();
 	}
 	
 	@Override

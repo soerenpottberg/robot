@@ -9,25 +9,15 @@ import parcours.level.StartLevel;
 
 public class Parcours {
 	
-	enum UsedLevels {
-		START_LEVEL(new StartLevel()),
-		FOLLOW_LINE(new FollowLine()),
-		BRIDGE(new Bridge()),
-		ELEVATOR(new Elevator());
-		
-		private final Level level;
+	private static int LEVEL_COUNT = 4;
+	private static Level[] levels = new Level[LEVEL_COUNT];
 
-		private UsedLevels(Level level) {
-			this.level = level;
-		}
-
-		public static Level[] getLevels() {
-			Level[] levels = new Level[values().length];
-			for (int i = 0; i < values().length; i++) {
-				levels[i] = values()[i].level;
-			}
-			return levels;
-		}
+	static {
+		int i = 0;
+		levels[i++] = new StartLevel();
+		levels[i++] = new FollowLine();
+		levels[i++] = new Bridge();
+		levels[i++] = new Elevator();
 	}
 	
 	public static void main(String[] args) {
@@ -35,8 +25,6 @@ public class Parcours {
 	}
 	
 	public Parcours() {		
-		Level[] levels = UsedLevels.getLevels();
-		
 		LevelMenu menu = new LevelMenu(levels);
 		while(true) {
 			Level selectedLevel = menu.selectLevel();
