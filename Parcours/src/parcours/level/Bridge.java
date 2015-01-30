@@ -1,5 +1,7 @@
 package parcours.level;
 
+import parcours.task.Task;
+
 
 public class Bridge extends Level {
 
@@ -9,9 +11,9 @@ public class Bridge extends Level {
 	}
 
 	@Override
-	public void run() {
+	public Task[] getTasks() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }
