@@ -1,24 +1,23 @@
 package parcours.task;
 
-import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
+import parcours.detector.LineDetector;
 
 public class FollowRightWallTask extends Task {
 
-	private static final int WHITE_LINE_THRESHOLD = 50;
 	private UltrasonicSensor ultra;
 	private DifferentialPilot pilot;
-	private LightSensor light;
 	private boolean isAboarted = false;
+	private LineDetector lineDetector;
 
 	@Override
 	protected void init() {
 		ultra = new UltrasonicSensor(SensorPort.S3);
 		pilot = new DifferentialPilot(8.16, 13, Motor.B, Motor.A);
-		light = new LightSensor(SensorPort.S1);
+		lineDetector = new LineDetector();
 	}
 
 	@Override
@@ -62,7 +61,7 @@ public class FollowRightWallTask extends Task {
 
 	@Override
 	protected boolean abort() {
-		return isAboarted || light.getLightValue() >= WHITE_LINE_THRESHOLD;
+		return isAboarted || lineDetector.hasDetected();
 	}
 
 	@Override
