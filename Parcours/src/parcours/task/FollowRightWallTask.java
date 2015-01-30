@@ -33,8 +33,6 @@ public class FollowRightWallTask extends Task {
 		int a = ultra.getDistance();
 		pilot.setTravelSpeed(20);
 		pilot.forward();
-		
-		a = 17;
 
 		if (touchl.isPressed() && a < 25){
 			pilot.travel(-25,true);
@@ -59,14 +57,14 @@ public class FollowRightWallTask extends Task {
 			awaitRotation();
 			pilot.rotate(-20, true);
 			awaitRotation();
-		} /*else if (a > 15 && a < 20) {
+		} else if (a > 15 && a < 20) {
 			pilot.rotate(10, true);
 			awaitRotation();
 			pilot.travel(20, true);
 			awaitRotation();
 			pilot.rotate(-10, true);
 			awaitRotation();
-		} */else if ((a > 25 && a < 50)  && (touchr.isPressed() == false)) {
+		} else if ((a > 25 && a < 50)  && (touchr.isPressed() == false)) {
 			pilot.rotate(-10, true);
 			awaitRotation();
 			pilot.travel(20, true);
