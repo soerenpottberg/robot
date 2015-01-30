@@ -1,6 +1,7 @@
 package parcours.level;
 
 import lejos.nxt.LCD;
+import lejos.nxt.Sound;
 import lejos.util.Delay;
 import parcours.task.Task;
 
@@ -18,6 +19,7 @@ public abstract class Level {
 		for (Task task : getTasks()) {
 			task.run();
 		}
+		Sound.beepSequenceUp();
 	}
 
 	private void showWarning(String message) {

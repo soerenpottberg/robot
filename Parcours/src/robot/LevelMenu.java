@@ -6,6 +6,7 @@ import lejos.util.TextMenu;
 public class LevelMenu extends TextMenu {
 
 	private Level[] levels;
+	private int selectedLevelIndex = -1;
 
 	public LevelMenu(Level[] levels) {
 		super(getItems(levels));
@@ -22,7 +23,20 @@ public class LevelMenu extends TextMenu {
 	}
 
 	public Level selectLevel() {
-		int selectedLevelIndex = select();
+		selectedLevelIndex = select();
+		return getLevel();
+	}
+	
+	public Level getNextLevel() {
+		if(selectedLevelIndex + 1 >= levels.length) {
+			selectedLevelIndex = -1;
+			return null;
+		}
+		selectedLevelIndex++;
+		return getLevel();
+	}
+
+	private Level getLevel() {
 		if(selectedLevelIndex < 0) {
 			return null;
 		}
