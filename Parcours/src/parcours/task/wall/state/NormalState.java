@@ -33,7 +33,7 @@ public class NormalState extends WallStateBase {
 			 * awaitRotation(); pilot.rotate(10, true); awaitRotation();
 			 */
 		} else if (distance > FAR_DISTANCE) {
-			context.getPilot().travel(5, true);
+			context.getPilot().travel(7, true);
 			context.setState(WallState.START_90_DEGREE_RIGHT_TURN);
 			/*
 			 * pilot.travel(7, true); awaitRotation(); pilot.rotate(-90, true);
