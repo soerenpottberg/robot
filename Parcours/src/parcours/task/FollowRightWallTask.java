@@ -12,6 +12,7 @@ public class FollowRightWallTask extends Task {
 	private UltrasonicSensor ultra;
 	private DifferentialPilot pilot;
 	private LightSensor light;
+	private boolean isAboarted = false;
 
 	@Override
 	protected void init() {
@@ -27,23 +28,41 @@ public class FollowRightWallTask extends Task {
 		pilot.forward();
 
 		if (a < 10) {
-			pilot.rotate(10);
-			pilot.travel(10);
-			pilot.rotate(-10);
+			pilot.rotate(10, true);
+			awaitRotation();
+			pilot.travel(10, true);
+			awaitRotation();
+			pilot.rotate(-10, true);
+			awaitRotation();
 		} else if (a > 20 && a < 50) {
-			pilot.rotate(-10);
-			pilot.travel(15);
-			pilot.rotate(10);
+			pilot.rotate(-10, true);
+			awaitRotation();
+			pilot.travel(15, true);
+			awaitRotation();
+			pilot.rotate(10, true);
+			awaitRotation();
 		} else if (a > 55) {
-			pilot.travel(5);
-			pilot.rotate(-90);
-			pilot.travel(25);
+			pilot.travel(5, true);
+			awaitRotation();
+			pilot.rotate(-90, true);
+			awaitRotation();
+			pilot.travel(25, true);
+			awaitRotation();
+		}
+	}
+
+	private void awaitRotation() {
+		while (pilot.isMoving()) {
+			if(abort()) {
+				isAboarted  = true;
+			}
+			Thread.yield();
 		}
 	}
 
 	@Override
 	protected boolean abort() {
-		return light.getLightValue() >= WHITE_LINE_THRESHOLD;
+		return isAboarted || light.getLightValue() >= WHITE_LINE_THRESHOLD;
 	}
 
 	@Override
