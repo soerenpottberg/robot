@@ -1,8 +1,6 @@
 package parcours.task.wall.state;
 
-public class Start90DegreeRightTurn extends WallStateBase {
-
-
+public class StartGoingRight extends WallStateBase {
 
 	@Override
 	public void handleNoButtonIsPressed(WallStateContext context, int distance) {
@@ -10,8 +8,8 @@ public class Start90DegreeRightTurn extends WallStateBase {
 			return;
 		}
 		
-		context.getPilot().rotate(-90, true);
-		context.setState(WallState.END_90_DEGREE_RIGHT_TURN);
+		context.getPilot().rotate(20, true);
+		context.setState(WallState.FINISH_MOVEMENT);
 	}
 
 }

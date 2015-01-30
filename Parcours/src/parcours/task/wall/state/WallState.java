@@ -11,7 +11,9 @@ public enum WallState {
 	START_CHANGING_DISTANCE_RIGHT(new StartChangingDistance(END_CHANGING_DISTANCE_RIGHT)),
 	FINISH_MOVEMENT(new FinishMovementState()),
 	START_90_DEGREE_RIGHT_TURN(new Start90DegreeRightTurn()),
-	END_90_DEGREE_RIGHT_TURN(new End90DegreeRightTurn());
+	END_90_DEGREE_RIGHT_TURN(new End90DegreeRightTurn()),
+	START_GOING_LEFT(new StartGoingLeft()), 
+	START_GOING_RIGHT(new StartGoingRight());
 	
 	private WallStateBase state;
 

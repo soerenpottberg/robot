@@ -1,6 +1,5 @@
 package parcours.level;
 
-import parcours.task.FollowRightWallTask;
 import parcours.task.FollowRightWallTaskStateFull;
 import parcours.task.Task;
 

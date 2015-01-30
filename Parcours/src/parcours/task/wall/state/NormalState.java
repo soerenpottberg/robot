@@ -7,17 +7,7 @@ public class NormalState extends WallStateBase {
 	private static final int MINIMAL_DISTANCE = 20;
 	private static final int CLOSE_DISTANCE = 15;
 
-	@Override
-	public void handleLeftButtonPressed(WallStateContext context, int distance) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void handleRightButtonPressed(WallStateContext context, int distance) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public void handleNoButtonIsPressed(WallStateContext context, int distance) {

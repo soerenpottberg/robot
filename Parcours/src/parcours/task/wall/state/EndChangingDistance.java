@@ -8,17 +8,7 @@ public class EndChangingDistance extends WallStateBase {
 		this.turnAngle = turnAngle;
 	}
 
-	@Override
-	public void handleLeftButtonPressed(WallStateContext context, int distance) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void handleRightButtonPressed(WallStateContext context, int distance) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public void handleNoButtonIsPressed(WallStateContext context, int distance) {

@@ -2,13 +2,10 @@ package parcours.task;
 
 import lejos.nxt.Motor;
 import lejos.nxt.SensorPort;
-import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
-import parcours.task.wall.state.NormalState;
-import parcours.task.wall.state.WallStateBase;
 import parcours.task.wall.state.WallStateContext;
 
 public class FollowRightWallTaskStateFull extends Task {
@@ -17,13 +14,11 @@ public class FollowRightWallTaskStateFull extends Task {
 	private DifferentialPilot pilot;
 	private boolean isAboarted = false;
 
-	
 	private TouchSensor touchl;
-	private TouchSensor touchr; 
+	private TouchSensor touchr;
 
 	private LineDetector lineDetector;
 	private WallStateContext context;
-
 
 	@Override
 	protected void init() {
@@ -40,83 +35,21 @@ public class FollowRightWallTaskStateFull extends Task {
 	@Override
 	protected void control() {
 		int distance = ultra.getDistance();
-		
-		
-		
+
 		boolean leftIsPressed = touchl.isPressed();
 		boolean rightIsPressed = touchr.isPressed();
-		
-		if(leftIsPressed && rightIsPressed) {
+
+		if (leftIsPressed && rightIsPressed) {
 			context.handleBothButtonsPressed(distance);
-		} else if(leftIsPressed) {
+		} else if (leftIsPressed) {
 			context.handleLeftButtonPressed(distance);
-		} else if(rightIsPressed) {
+		} else if (rightIsPressed) {
 			context.handleRightButtonPressed(distance);
 		} else {
 			context.handleNoButtonIsPressed(distance);
 		}
+
 		
-		/*
-		///////////////////
-
-		if (touchl.isPressed() && distance < 25){
-			pilot.travel(-25,true);
-			awaitRotation();
-			pilot.rotate(90,true);
-			awaitRotation();
-		} else if (touchl.isPressed() && distance >= 25) {
-			pilot.travel(-10,true);
-			awaitRotation();
-			pilot.rotate(-15,true);
-			awaitRotation();
-		} else if (touchr.isPressed()) {
-			//Sound.beep();
-			pilot.travel(-10,true);
-			awaitRotation();
-			pilot.rotate(20,true);
-			awaitRotation();
-		} else if ((distance < 15) && (touchr.isPressed() == false)) {
-			pilot.rotate(20, true);
-			awaitRotation();
-			pilot.travel(20, true);
-			awaitRotation();
-			pilot.rotate(-20, true);
-			awaitRotation();
-		} else if (distance > 15 && distance < 20) {
-			pilot.rotate(10, true);
-			awaitRotation();
-			pilot.travel(20, true);
-			awaitRotation();
-			pilot.rotate(-10, true);
-			awaitRotation();
-		} else if ((distance > 25 && distance < 50)  && (touchr.isPressed() == false)) {
-			pilot.rotate(-10, true);
-			awaitRotation();
-			pilot.travel(20, true);
-			awaitRotation();
-			pilot.rotate(10, true);
-			awaitRotation();
-		} else if (distance > 55) {
-			pilot.travel(7, true);
-			awaitRotation();
-			pilot.rotate(-90, true);
-			awaitRotation();
-			pilot.travel(25, true);
-			awaitRotation();
-		}
-		*/
-	}
-
-	private void awaitRotation() {
-		while (pilot.isMoving()) {
-			if(abort()) {
-				isAboarted  = true;
-			}
-			if (touchr.isPressed()) {
-				//Sound.beep();
-			}
-			Thread.yield();
-		}
 	}
 
 	@Override

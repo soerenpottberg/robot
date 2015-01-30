@@ -1,6 +1,6 @@
 package parcours.task.wall.state;
 
-public class Start90DegreeRightTurn extends WallStateBase {
+public class StartGoingLeft extends WallStateBase {
 
 
 
@@ -10,8 +10,8 @@ public class Start90DegreeRightTurn extends WallStateBase {
 			return;
 		}
 		
-		context.getPilot().rotate(-90, true);
-		context.setState(WallState.END_90_DEGREE_RIGHT_TURN);
+		context.getPilot().rotate(-15, true);
+		context.setState(WallState.FINISH_MOVEMENT);
 	}
 
 }
