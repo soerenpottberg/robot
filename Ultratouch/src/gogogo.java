@@ -18,39 +18,43 @@ public class gogogo {
 			pilot.forward();
 			int a = Ultra.getDistance();
 
-			if (touchr.isPressed()) {
-				//pilot.travel(-5);
-				//pilot.travelArc(8, 5);
-				pilot.travel(-10);
-				pilot.rotate(15);
-			}
-			else if (touchl.isPressed() && a < 25){
+		
+			if (touchl.isPressed() && a < 25){
 				pilot.travel(-25);
 				//pilot.travelArc(8, 5);
 				pilot.rotate(90);
 			}
-			else if (touchl.isPressed() && a > 25) {
-				pilot.travel(-5);
-				pilot.travelArc(-8, 5);
+			else if (touchl.isPressed() && a >= 25) {
+				pilot.travel(-10);
+				//pilot.travelArc(-8, 5);
+				pilot.rotate(-15);
+			}
+			else if (touchr.isPressed() && (touchl.isPressed() == false) ) {
+				//pilot.travel(-5);
+				//pilot.travelArc(8, 5);
+				//Sound.beep();
+				pilot.travel(-10);
+				pilot.rotate(15);
 			}
 
 			else if (a<15){
 				pilot.rotate(20);
-				pilot.travel(10);
+				pilot.travel(20);
 				pilot.rotate(-20);
 			}
 			else if ( a > 15 && a < 20) {
 				pilot.rotate(10);
-				pilot.travel(10);
+				pilot.travel(20);
 				pilot.rotate(-10);
 			}
 
 			else if (a > 30 && a < 50) {
 				pilot.rotate(-10);
-				pilot.travel(15);
+				pilot.travel(20);
 				pilot.rotate(10);
 				
-			} else if (a > 55) {
+			} else if (a > 65) {
+				Sound.beep();
 				pilot.travel(15);
 				pilot.rotate(-90);
 				pilot.travel(25);
