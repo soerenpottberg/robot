@@ -1,5 +1,6 @@
 package parcours.level;
 
+import lejos.nxt.LCD;
 import lejos.util.Delay;
 import parcours.task.Task;
 
@@ -11,13 +12,19 @@ public abstract class Level {
 
 	public void run() {
 		if (getTasks() == null) {
-			System.out.println("Level " + getLabel() + " contains no tasks.");
-			Delay.msDelay(1000);
+			showWarning("Level " + getLabel() + " contains no tasks.");
 			return;
 		}
 		for (Task task : getTasks()) {
 			task.run();
 		}
+	}
+
+	private void showWarning(String message) {
+		LCD.clear();
+		System.out.println(message);
+		Delay.msDelay(1000);
+		LCD.clear();
 	}
 
 }
