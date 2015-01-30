@@ -9,7 +9,7 @@ public class End90DegreeRightTurn extends WallStateBase {
 			return;
 		}
 		
-		context.getPilot().travel(25, true);
+		context.getPilot().travel(30, true);
 		context.setState(WallState.FINISH_MOVEMENT);
 	}
 

@@ -2,7 +2,7 @@ package parcours.task.wall.state;
 
 public class NormalState extends WallStateBase {
 
-	private static final int FAR_DISTANCE = 50; // There is still a wall
+	private static final int FAR_DISTANCE = 60; // There is still a wall
 	private static final int MAXIMAL_DISTANCE = 25;
 	private static final int MINIMAL_DISTANCE = 20;
 	private static final int CLOSE_DISTANCE = 15;

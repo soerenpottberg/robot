@@ -12,7 +12,7 @@ public abstract class WallStateBase {
 			int distance) {
 		// TODO Auto-generated method stub
 		if (distance < 25) {
-			context.getPilot().travel(-25, true);
+			context.getPilot().travel(-20, true);
 			context.setState(WallState.START_90_DEGREE_LEFT_TURN);
 			/*
 			 * awaitRotation(); pilot.rotate(90,true); awaitRotation();
