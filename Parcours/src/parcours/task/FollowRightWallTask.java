@@ -5,7 +5,7 @@ import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 
-public class FollowRightLineTask extends Task {
+public class FollowRightWallTask extends Task {
 
 	private UltrasonicSensor ultra;
 	private DifferentialPilot pilot;
