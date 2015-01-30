@@ -7,7 +7,12 @@ import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
 
 public class FindLineTask extends Task {
-
+	private static final int BASE_SPEED = 20;
+	private static final int INITIAL_TRAVEL_DISTANCE = 15; // used to clear the 3 lines at the beginning
+	
+	private static final int BACKOFF_DISTANCE = -3;
+	private static final int IMPACT_CORRECTION_ANGLE = 15;
+	
 	private DifferentialPilot pilot;
 	private LineDetector lineDetector;
 	private TouchSensor touchR, touchL;
@@ -19,8 +24,8 @@ public class FindLineTask extends Task {
 		
 		pilot = new DifferentialPilot(8.16, 13, Motor.B, Motor.A);
 		lineDetector = new LineDetector();
-		pilot.setTravelSpeed(20);
-		pilot.travel(15);
+		pilot.setTravelSpeed(BASE_SPEED);
+		pilot.travel(INITIAL_TRAVEL_DISTANCE);
 		pilot.forward();
 	}
 
@@ -28,15 +33,15 @@ public class FindLineTask extends Task {
 	protected void control() {
 		if ( touchR.isPressed() ) {
 			pilot.stop();
-			pilot.travel(-3);
-			pilot.rotate(+10);
+			pilot.travel(BACKOFF_DISTANCE);
+			pilot.rotate(IMPACT_CORRECTION_ANGLE);
 			pilot.forward();
 		}
 		
 		if (touchL.isPressed() ) {
 			pilot.stop();
-			pilot.travel(-3);
-			pilot.rotate(-10);
+			pilot.travel(BACKOFF_DISTANCE);
+			pilot.rotate(-1 * IMPACT_CORRECTION_ANGLE);
 			pilot.forward();
 		}
 	}
