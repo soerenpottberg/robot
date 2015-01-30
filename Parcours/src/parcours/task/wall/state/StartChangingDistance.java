@@ -2,6 +2,7 @@ package parcours.task.wall.state;
 
 public class StartChangingDistance extends WallStateBase {
 
+	private static final int DISTANCE = 20;
 	private final WallState endChangingDistanceState;
 
 	public StartChangingDistance(WallState endChangingDistanceState) {
@@ -14,7 +15,7 @@ public class StartChangingDistance extends WallStateBase {
 			return;
 		}
 		
-		context.getPilot().travel(20, true);
+		context.getPilot().travel(DISTANCE, true);
 		context.setState(endChangingDistanceState);
 	}
 
