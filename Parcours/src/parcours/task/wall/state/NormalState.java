@@ -2,7 +2,7 @@ package parcours.task.wall.state;
 
 public class NormalState extends WallStateBase {
 
-	private static final int CUTTING_EDGE = 7;
+	private static final int CUTTING_EDGE = 20;
 	private static final int LARGE_TURN_LEFT_ANGLE = 20;
 	private static final int SMALL_TURN_LEFT_ANGLE = 10;
 	private static final double TURN_RIGHT_ANGLE = -10;
