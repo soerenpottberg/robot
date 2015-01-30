@@ -46,4 +46,10 @@ public class FollowRightWallTask extends Task {
 		return light.getLightValue() >= WHITE_LINE_THRESHOLD;
 	}
 
+	@Override
+	protected void tearDown() {
+		Motor.B.suspendRegulation();
+		Motor.A.suspendRegulation();
+	}
+
 }

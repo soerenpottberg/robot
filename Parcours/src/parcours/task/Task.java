@@ -17,4 +17,6 @@ public abstract class Task {
 
 	protected abstract boolean abort();
 
+	protected abstract void tearDown();
+
 }
