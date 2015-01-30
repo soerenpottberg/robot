@@ -8,7 +8,7 @@ public abstract class Task {
 		do {
 			control();
 		} while (!abort());
-
+		tearDown();
 	}
 
 	protected abstract void init();
