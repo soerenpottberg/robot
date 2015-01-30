@@ -1,3 +1,4 @@
+import sensor.evaluation.SensorEvaluation;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.Sound;
@@ -5,13 +6,13 @@ import lejos.util.Delay;
 
 
 public class ExceptionalFollower {
-	private static final long MS_COMPLETE_CYCLE_TIME = 50;
-	private static final long MS_MEASURE_CYCLE_TIME  = 7;
-	private static final long MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME = 15;
+	private static final long MS_COMPLETE_CYCLE_TIME = 30;
+	private static final long MS_MEASURE_CYCLE_TIME  = 5;
+	private static final long MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME = 11;
 	
 	
 	//private static final int PRECISION_FACTOR = 100;
-	private static final int BASE_POWER = 18;
+	private static final int BASE_POWER = 20;
 
 	// TODO: are those the optimum values?
 //	private static final double K_CRITICAL = 1.5;
@@ -35,7 +36,7 @@ public class ExceptionalFollower {
 
 	//static final float EWMA_ALPHA = 0.125f;
 	
-	private Sensor s_input;
+	private SensorEvaluation s_input;
 	private NXTMotor MotorA;
 	private NXTMotor MotorB;
 	private int lastPowerMotorA = 0;
@@ -46,7 +47,7 @@ public class ExceptionalFollower {
 	// TODO: parametrize this class with values for power, Kp, Ki, Kd, ...
 	// TODO: add mechanism to leave the loop dynamically
 	// (create abstract class as parameter that evaluates whether to leave the loop for good)
-	public ExceptionalFollower(Sensor s_input, LoopCondition[] conditions) {
+	public ExceptionalFollower(SensorEvaluation s_input, LoopCondition[] conditions) {
 		this.s_input = s_input;
 		this.conditions = conditions;
 		this.MotorA = new NXTMotor(MotorPort.A);
@@ -75,7 +76,7 @@ public class ExceptionalFollower {
 			
 			nextCycleCompletion += MS_COMPLETE_CYCLE_TIME;
 			// get at least 1 time new data from the sensor.
-			final float deviation = s_input.measure();
+			final float deviation = s_input.measureError();
 			
 			// Warn if insufficient cycle time is detected.
 			// This can be an early warning system for all kinds of problems.
@@ -101,16 +102,16 @@ public class ExceptionalFollower {
 				}
 			}
 			
-			out.write( 0, (float)(System.currentTimeMillis() - tCycleStart));
 			out.write(1, deviation);
 			out.write(2, (float)compensation);
+			out.write( 0, (float)(System.currentTimeMillis() - tCycleStart));
 			
 			// do as many measures as is possible before the current cycle ends
 			int count = 0;
 			while ( System.currentTimeMillis() + MS_MEASURE_CYCLE_TIME
 					< nextCycleCompletion ) {
 				++count;
-				s_input.measure();
+				s_input.measureError();
 				// Wait for a given number of ms before continuing.
 				Delay.msDelay( MS_MEASURE_CYCLE_TIME );
 			}
