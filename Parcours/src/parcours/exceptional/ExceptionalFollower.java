@@ -44,14 +44,14 @@ public class ExceptionalFollower {
 	private int lastPowerMotorA = 0;
 	private int lastPowerMotorB = 0;
 	
-	private LoopCondition[] conditions;
+	//private LoopCondition[] conditions;
 	
 	// TODO: parametrize this class with values for power, Kp, Ki, Kd, ...
 	// TODO: add mechanism to leave the loop dynamically
 	// (create abstract class as parameter that evaluates whether to leave the loop for good)
-	public ExceptionalFollower(SensorEvaluation s_input, LoopCondition[] conditions) {
+	public ExceptionalFollower(SensorEvaluation s_input /*LoopCondition[] conditions*/) {
 		this.s_input = s_input;
-		this.conditions = conditions;
+		//this.conditions = conditions;
 		this.MotorA = new NXTMotor(MotorPort.A);
 		this.MotorB = new NXTMotor(MotorPort.B);
 	}
@@ -98,11 +98,11 @@ public class ExceptionalFollower {
 			calculateMotorSpeeds( compensation );
 			
 			// exit loop if one of the conditions returns true.
-			for ( int n = 0; n < conditions.length; ++n ) {
+			/*for ( int n = 0; n < conditions.length; ++n ) {
 				if ( conditions[n].evaluate(s_input.getTargetValue(), deviation ) ) {
 					break;
 				}
-			}
+			}*/
 			
 			out.write(1, deviation);
 			out.write(2, (float)compensation);
