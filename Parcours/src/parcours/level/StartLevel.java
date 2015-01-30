@@ -1,6 +1,7 @@
 package parcours.level;
 
 import parcours.task.FollowRightWallTask;
+import parcours.task.FollowRightWallTaskStateFull;
 import parcours.task.Task;
 
 
@@ -11,7 +12,7 @@ public class StartLevel extends Level {
 	
 	static {
 		int i = 0;
-		tasks[i++] = new FollowRightWallTask();
+		tasks[i++] = new FollowRightWallTaskStateFull();
 	}
 	
 	@Override
