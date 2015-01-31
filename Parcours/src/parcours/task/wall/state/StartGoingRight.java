@@ -1,17 +1,17 @@
 package parcours.task.wall.state;
 
-public class StartGoingRight extends WallStateBase {
+public class StartGoingRight extends LabyrinthStateBase {
 
 	private static final int GOING_RIGHT_ANGLE = 20;
 
 	@Override
-	public void handleNoButtonIsPressed(WallStateContext context, int distance) {
+	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
 		if(context.getPilot().isMoving()) {
 			return;
 		}
 		
 		context.getPilot().rotate(GOING_RIGHT_ANGLE, true);
-		context.setState(WallState.FINISH_MOVEMENT);
+		context.setState(LabyrinthState.FINISH_MOVEMENT);
 	}
 
 }

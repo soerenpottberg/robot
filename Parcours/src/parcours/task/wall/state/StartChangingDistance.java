@@ -1,16 +1,16 @@
 package parcours.task.wall.state;
 
-public class StartChangingDistance extends WallStateBase {
+public class StartChangingDistance extends LabyrinthStateBase {
 
 	private static final int DISTANCE = 20;
-	private final WallState endChangingDistanceState;
+	private final LabyrinthState endChangingDistanceState;
 
-	public StartChangingDistance(WallState endChangingDistanceState) {
+	public StartChangingDistance(LabyrinthState endChangingDistanceState) {
 		this.endChangingDistanceState = endChangingDistanceState;
 	}
 
 	@Override
-	public void handleNoButtonIsPressed(WallStateContext context, int distance) {
+	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
 		if(context.getPilot().isMoving()) {
 			return;
 		}

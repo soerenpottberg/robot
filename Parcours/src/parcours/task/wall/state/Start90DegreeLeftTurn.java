@@ -1,18 +1,18 @@
 package parcours.task.wall.state;
 
-public class Start90DegreeLeftTurn extends WallStateBase {
+public class Start90DegreeLeftTurn extends LabyrinthStateBase {
 
 
 	private static final int LEFT_ANGLE = 90;
 
 	@Override
-	public void handleNoButtonIsPressed(WallStateContext context, int distance) {
+	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
 		if(context.getPilot().isMoving()) {
 			return;
 		}
 		
 		context.getPilot().rotate(LEFT_ANGLE, true);
-		context.setState(WallState.FINISH_MOVEMENT);
+		context.setState(LabyrinthState.FINISH_MOVEMENT);
 	}
 
 }

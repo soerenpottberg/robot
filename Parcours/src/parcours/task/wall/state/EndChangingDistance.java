@@ -1,6 +1,6 @@
 package parcours.task.wall.state;
 
-public class EndChangingDistance extends WallStateBase {
+public class EndChangingDistance extends LabyrinthStateBase {
 
 	private int turnAngle;
 
@@ -11,13 +11,13 @@ public class EndChangingDistance extends WallStateBase {
 	
 
 	@Override
-	public void handleNoButtonIsPressed(WallStateContext context, int distance) {
+	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
 		if(context.getPilot().isMoving()) {
 			return;
 		}
 		
 		context.getPilot().rotate(turnAngle, true);
-		context.setState(WallState.FINISH_MOVEMENT);
+		context.setState(LabyrinthState.FINISH_MOVEMENT);
 	}
 
 }

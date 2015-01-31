@@ -2,13 +2,13 @@ package parcours.task.wall.state;
 
 import lejos.robotics.navigation.DifferentialPilot;
 
-public class WallStateContext {
+public class LabyrinthContext {
 	
-	private WallStateBase state;
+	private LabyrinthStateBase state;
 	private DifferentialPilot pilot;
 	
-	public WallStateContext(DifferentialPilot pilot) {
-		state = WallState.NORMAL.getState();
+	public LabyrinthContext(DifferentialPilot pilot) {
+		state = LabyrinthState.NORMAL.getState();
 		this.pilot = pilot;
 	}
 
@@ -28,7 +28,7 @@ public class WallStateContext {
 		state.handleNoButtonIsPressed(this, distance);
 	}
 
-	public void setState(WallState stateEnumEntry) {
+	public void setState(LabyrinthState stateEnumEntry) {
 		this.state = stateEnumEntry.getState();		
 	}
 
