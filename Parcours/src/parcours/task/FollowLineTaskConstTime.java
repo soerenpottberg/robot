@@ -1,6 +1,5 @@
 package parcours.task;
 
-import lejos.nxt.Motor;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.SensorPort;
@@ -18,22 +17,11 @@ public class FollowLineTaskConstTime extends Task {
 	
 	private static final int BASE_POWER = 25;
 
-	// TODO: are those the optimum values?
-//	private static final double K_CRITICAL = 1.5;
-//	private static final double T_PERIOD = 0.05;
-//	private static final double DELTA_2 = MS_COMPLETE_CYCLE_TIME; // previously: 2.5 / 1000; // 2-3 ms
-//
-//	private static final double Kp_CALC = 0.6 * K_CRITICAL;
-//	private static final double Ki_CALC = 2 * Kp_CALC * DELTA_2 / T_PERIOD;
-//	private static final double Kd_CALC = Kp_CALC * T_PERIOD / (8 * DELTA_2);
-//
-//	private static final float Kp = (float) (Kp_CALC /* * PRECISION_FACTOR*/);
-//	private static final float Ki = (float) (Ki_CALC /* * PRECISION_FACTOR*/) + 2;
-//	private static final float Kd = (float) (Kd_CALC /* * PRECISION_FACTOR*/);
+	private static final int K_FACTOR = 100;
+	private static final float Kp = 0.30f / K_FACTOR;
+	private static final float Ki = 0.40f / K_FACTOR;
+	private static final float Kd = 0.00f / K_FACTOR;
 	
-	private static final float Kp = 0.003f;
-	private static final float Ki = 0.004f;
-	private static final float Kd = 1.000f; // todo revert to 2
 	
 	// allows reducing the integral by an exp. value if necessary
 	private static final float ALPHA_INTEGRAL = 0.0f;
@@ -50,7 +38,7 @@ public class FollowLineTaskConstTime extends Task {
 	private float y2 = 0.0f;
 	private long  t2 = 0;
 	
-	// (y1;t1) represents the first measure and point in time
+	// (y1;t1) represents the first measure and point in time (t1 < t2 < t3)
 	private float y1 = 0.0f;
 	private long  t1 = 0;
 	
@@ -152,8 +140,8 @@ public class FollowLineTaskConstTime extends Task {
 		int last_delta_t = (int)(t3 - t2);
 		final float integral = integrate(y3, y2, last_delta_t) ;
 		
-		// calculate the derivate over the last 2 or 3 points
-		final float derivate = derive2pt(y3, y2, last_delta_t);
+		// calculate the derivate over the last 3 points
+		final float derivate = derive3pt(t1, t2, t3, y1, y2, y3);
 		
 		// remember last two measures
 		y1 = y2;
@@ -180,8 +168,7 @@ public class FollowLineTaskConstTime extends Task {
 	 * @return The current integration value.
 	 */
 	private float integrate(float y3, float y2, int delta_t) {
-		return ( 1.0f - ALPHA_INTEGRAL ) * integral + 
-	           (y3 + y2) * delta_t / 2 ;
+		return ( 1.0f - ALPHA_INTEGRAL ) * integral + y3 * delta_t;
 	}
 
 	/**
@@ -196,37 +183,30 @@ public class FollowLineTaskConstTime extends Task {
 	}
 	
 	/**
-	 * Calculates the derivate for a parabol of three equally spaced points (x1;t1), (x2;t2); (x3;t3).
-	 * (x1;t1) is the current/last point in time and (x3;t3) the first one. (e.g. t1 > t3)
-	 * Returns the derivate at the point (x1;t1).
-	 * t is supposed to be given in ms
+	 * Calculates the derivate for a parabol threw three points (t1;y1), (t2;y2); (t3;y3).
+	 * (t1;y1) is the first point in time and (t3;y3) the last (current) one. (e.g. t1 < t3)
+	 * Returns the derivate at the point (t3;y3).
 	 */
-	/*public int derive3pt( long t1, long t3, float x1, float x2, float x3 ) {
-		final int delta_t = (int)( (t3 - t1) / 2 );
-		final float x1_x2 = x1 - x2;
-		final float x2_x3 = x2 - x3;
-		final float x3_x1 = x3 - x1;
-		final float x1_sqr = x1 * x1;
-		final float x2_sqr = x2 * x2;
-		final float x3_sqr = x3 * x3;
+	public float derive3pt(long t1, long t2, long t3, float y1, float y2, float y3) {
+		final int t1_t2 = (int) (t1 - t2);
+		final int t2_t3 = (int) (t2 - t3);
+		final int t3_t1 = (int) (t3 - t1);
 		
-		float divisor = x1_x2 * x2_x3 * x3_x1;
+		final int divisor = t1_t2 * t3_t1 * t2_t3;
 		
-		divisor = ( Math.abs(divisor) < 0.0001f ) ? 0.0001f : divisor;
+		final float y1_y2 = t3 * (y1 - y2);
+		final float y2_y3 = t1 * (y2 - y3);
+		final float y3_y1 = t2 * (y3 - y1);
 		
-		//ax^2 + bx + c
-		float a = ( 2 * x2 - (x1 + x3) ) * delta_t;
-		float b = ( x1_sqr - 2 * x2_sqr + x3_sqr ) * delta_t;
+		final float a = y2_y3      + y3_y1      + y1_y2     ;
+		final float b = y2_y3 * t1 + y3_y1 * t2 + y1_y2 * t3;
 		
-		a /= divisor;
-		b /= divisor;
-		
-		return (int)(a * x3 + b);
-	}*/
+		return ( 2 * a * t3 + b ) / divisor;
+	}
 	
 	private void calculateMotorSpeeds(float compensation) {
-		int powerMotorA = (int) (BASE_POWER * (1 + compensation));
-		int powerMotorB = (int) (BASE_POWER * (1 - compensation));
+		int powerMotorA = (int) (BASE_POWER * (1 - compensation));
+		int powerMotorB = (int) (BASE_POWER * (1 + compensation));
 		
 		setMotorPower(motorA, powerMotorA, lastPowerMotorA);
 		setMotorPower(motorB, powerMotorB, lastPowerMotorB);
