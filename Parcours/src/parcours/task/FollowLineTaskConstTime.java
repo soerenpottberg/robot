@@ -20,11 +20,11 @@ public class FollowLineTaskConstTime extends Task {
 	private static final int K_FACTOR = 100;
 	private static final float Kp = 0.30f / K_FACTOR;
 	private static final float Ki = 0.40f / K_FACTOR;
-	private static final float Kd = 0.00f / K_FACTOR;
-	
+	private static final float Kd = 0.20f / K_FACTOR;
 	
 	// allows reducing the integral by an exp. value if necessary
 	private static final float ALPHA_INTEGRAL = 0.0f;
+	static final float INTEGRAL_100_PERCENT = 1.0f;
 	
 	private SensorEvaluation lightSensor;
 	private NXTMotor motorA;
@@ -140,6 +140,8 @@ public class FollowLineTaskConstTime extends Task {
 		int last_delta_t = (int)(t3 - t2);
 		final float integral = integrate(y3, y2, last_delta_t) ;
 		
+		final float weightedIntegral = weightenIntegral(integral, Ki);
+		
 		// calculate the derivate over the last 3 points
 		final float derivate = derive3pt(t1, t2, t3, y1, y2, y3);
 		
@@ -150,13 +152,13 @@ public class FollowLineTaskConstTime extends Task {
 		t2 = t3;
 
 		out.write(4, deviationFromTarget * Kp);
-		out.write(5, integral * Ki);
+		out.write(5, weightedIntegral);
 		out.write(6, derivate * Kd);
 		
 		// TODO: use algorithm from NXTRegulatedMotor l 715
 		// TODO: try out improved derivate.
 		// TODO: add integral only if above a certain threshold.
-		return deviationFromTarget * Kp + derivate * Kd + integral * Ki;
+		return deviationFromTarget * Kp + derivate * Kd + weightedIntegral;
 	}
 	
 	private float integral = 0.0f;
@@ -170,6 +172,18 @@ public class FollowLineTaskConstTime extends Task {
 	private float integrate(float y3, float y2, int delta_t) {
 		return ( 1.0f - ALPHA_INTEGRAL ) * integral + y3 * delta_t;
 	}
+	
+	/**
+	 * 
+	 * @param integral
+	 * @param Ki
+	 * @return
+	 */
+	private float weightenIntegral(float integral, float Ki) {
+		final float intTmp = integral * Ki;
+		return intTmp * (intTmp / INTEGRAL_100_PERCENT) * (intTmp / INTEGRAL_100_PERCENT);
+	}
+	
 
 	/**
 	 * Calculates the derivate over 2 points.
@@ -178,7 +192,7 @@ public class FollowLineTaskConstTime extends Task {
 	 * @param delta_t : the time between those two measures
 	 * @return The slope of a line between the two given points of data.
 	 */
-	private float derive2pt(float y3, float y2, int delta_t) {
+	protected float derive2pt(float y3, float y2, int delta_t) {
 		return ( y3 - y2 ) / delta_t;
 	}
 	
@@ -187,7 +201,7 @@ public class FollowLineTaskConstTime extends Task {
 	 * (t1;y1) is the first point in time and (t3;y3) the last (current) one. (e.g. t1 < t3)
 	 * Returns the derivate at the point (t3;y3).
 	 */
-	public float derive3pt(long t1, long t2, long t3, float y1, float y2, float y3) {
+	protected float derive3pt(long t1, long t2, long t3, float y1, float y2, float y3) {
 		final int t1_t2 = (int) (t1 - t2);
 		final int t2_t3 = (int) (t2 - t3);
 		final int t3_t1 = (int) (t3 - t1);
