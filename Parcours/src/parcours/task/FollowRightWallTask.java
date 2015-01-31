@@ -5,6 +5,7 @@ import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
+import lejos.robotics.navigation.MoveController;
 import parcours.detector.LineDetector;
 
 public class FollowRightWallTask extends Task {
@@ -23,7 +24,7 @@ public class FollowRightWallTask extends Task {
 	@Override
 	protected void init() {
 		ultra = new UltrasonicSensor(SensorPort.S3);
-		pilot = new DifferentialPilot(8.16, 13, Motor.B, Motor.A);
+		pilot = new DifferentialPilot(MoveController.WHEEL_SIZE_RCX, 13, Motor.B, Motor.A);
 		touchr = new TouchSensor(SensorPort.S4);
 		touchl = new TouchSensor(SensorPort.S2);
 		lineDetector = new LineDetector();
