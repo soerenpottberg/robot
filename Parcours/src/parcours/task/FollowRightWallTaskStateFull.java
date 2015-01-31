@@ -6,10 +6,16 @@ import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
-import parcours.task.wall.state.WallStateContext;
+import parcours.task.labyrinth.state.LabyrinthContext;
 
+// TODO: Don't stop all the time for turning, do it while maintaining speed
+// TODO: verify with higher speeds
+// TODO: Measure which values for wheel diameter and track width are optimal (current ones don't perfectly match angles when turning)
+// TODO: Move generation of differential pilot object (with optimum parameters) to separate utility class to be used anywhere in the project.
 public class FollowRightWallTaskStateFull extends Task {
 
+	private static final int BASE_TRAVEL_SPEED = 30;
+	
 	private UltrasonicSensor ultra;
 	private DifferentialPilot pilot;
 	private boolean isAboarted = false;
@@ -18,7 +24,7 @@ public class FollowRightWallTaskStateFull extends Task {
 	private TouchSensor touchr;
 
 	private LineDetector lineDetector;
-	private WallStateContext context;
+	private LabyrinthContext context;
 
 	@Override
 	protected void init() {
@@ -27,8 +33,8 @@ public class FollowRightWallTaskStateFull extends Task {
 		touchr = new TouchSensor(SensorPort.S4);
 		touchl = new TouchSensor(SensorPort.S2);
 		lineDetector = new LineDetector();
-		context = new WallStateContext(pilot);
-		pilot.setTravelSpeed(20);
+		context = new LabyrinthContext(pilot);
+		pilot.setTravelSpeed(BASE_TRAVEL_SPEED);
 		pilot.forward();
 	}
 

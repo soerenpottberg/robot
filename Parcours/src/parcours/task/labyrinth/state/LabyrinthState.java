@@ -1,11 +1,11 @@
-package parcours.task.wall.state;
+package parcours.task.labyrinth.state;
 
-public enum WallState {
+public enum LabyrinthState {
 	NORMAL(new NormalState()),
 	START_90_DEGREE_LEFT_TURN(new Start90DegreeLeftTurn()),
-	END_CHANGING_DISTANCE_LITTLE_LEFT(new EndChangingDistance(-10)),
-	END_CHANGING_DISTANCE_LEFT(new EndChangingDistance(-20)),
-	END_CHANGING_DISTANCE_RIGHT(new EndChangingDistance(10)),
+	END_CHANGING_DISTANCE_LITTLE_LEFT(new EndChangingDistance(-10)), // -SMALL_TURN_LEFT_ANGLE
+	END_CHANGING_DISTANCE_LEFT(new EndChangingDistance(-20)), // -Large_TURN_LEFT_ANGLE
+	END_CHANGING_DISTANCE_RIGHT(new EndChangingDistance(10)),  // -turn_RIGHT_ANGLE
 	START_CHANGING_DISTANCE_LITTLE_LEFT(new StartChangingDistance(END_CHANGING_DISTANCE_LITTLE_LEFT)),
 	START_CHANGING_DISTANCE_LEFT(new StartChangingDistance(END_CHANGING_DISTANCE_LEFT)),
 	START_CHANGING_DISTANCE_RIGHT(new StartChangingDistance(END_CHANGING_DISTANCE_RIGHT)),
@@ -15,13 +15,13 @@ public enum WallState {
 	START_GOING_LEFT(new StartGoingLeft()), 
 	START_GOING_RIGHT(new StartGoingRight());
 	
-	private WallStateBase state;
+	private LabyrinthStateBase state;
 
-	private WallState(WallStateBase state) {
+	private LabyrinthState(LabyrinthStateBase state) {
 		this.state = state;
 	}
 
-	public WallStateBase getState() {
+	public LabyrinthStateBase getState() {
 		return state;
 	}
 
