@@ -1,9 +1,10 @@
 package parcours.detector;
 
+import lejos.nxt.LightSensor;
+import lejos.nxt.SensorPort;
+import utils.EWMA;
 import debug.DebugOutput;
 import debug.TimingDebug;
-import sensor.evaluation.LightSensorEvaluation;
-import lejos.nxt.SensorPort;
 
 /**
  * This detects a single line if one is located beneath the light sensor.
@@ -17,20 +18,24 @@ public class LineDetector {
 	private static final int WHITE_LINE_DETECTION_THRESHOLD = 39;
 	private static final float EWMA_ALPHA = 0.7f;
 	private static final int DETECTION_TIME_MS = 50;
+	private static final float BLACK = 0;
 	
 	private DebugOutput out;
 	private TimingDebug timingDebug;
 	
 	private long tLastCycleStart;
 	
-	private LightSensorEvaluation evaluation;
 	private float tCurrentDetectionIntervalLength = 0.0f;
+	private EWMA ewma;
+	private LightSensor lightSensor;
 
 	public LineDetector() {
 		// This makes sure that the detector generates no hit after its initialization if the first measure is by chance a hit.
-		tLastCycleStart = System.currentTimeMillis() + CYCLE_TIME_STARTING_VALUE;
+		tLastCycleStart = System.currentTimeMillis() + CYCLE_TIME_STARTING_VALUE; // TODO: It might be removed now, see below.
 		
-		evaluation = new LightSensorEvaluation( SensorPort.S1, EWMA_ALPHA, WHITE_LINE_DETECTION_THRESHOLD );
+		// Initialize ewma with black
+		ewma = new EWMA(EWMA_ALPHA, BLACK);
+		lightSensor = new LightSensor(SensorPort.S1);
 		
 		// for debugging purposes only:
 		out = new DebugOutput();
@@ -46,12 +51,13 @@ public class LineDetector {
 		// debug output:
 		timingDebug.triggerCycle();
 		
-		if ( evaluation.measureError() > 0 ) {
+		ewma.addValue(lightSensor.getLightValue());
+		if (ewma.getValue() > WHITE_LINE_DETECTION_THRESHOLD ) {
 			tCurrentDetectionIntervalLength += tDifference;
 		} else {
 			tCurrentDetectionIntervalLength = 0;
 		}
-		
+
 		return tCurrentDetectionIntervalLength > DETECTION_TIME_MS;
 	}
 }

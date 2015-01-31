@@ -40,7 +40,7 @@ public class EWMA {
 	/**
 	 * @return The current value of the ewma.
 	 */
-	public float value() {
+	public float getValue() {
 		return ewma;
 	}
 }
