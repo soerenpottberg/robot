@@ -1,8 +1,8 @@
 package parcours.task.labyrinth.state;
 
-public class StartGoingRight extends LabyrinthStateBase {
+import parcours.task.labyrinth.LabyrinthContext;
 
-	private static final int GOING_RIGHT_ANGLE = 20;
+public class StartGoingRight extends LabyrinthStateBase {
 
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
@@ -10,7 +10,7 @@ public class StartGoingRight extends LabyrinthStateBase {
 			return;
 		}
 		
-		context.rotate(GOING_RIGHT_ANGLE);
+		context.rotate(context.getGoingRightAngle());
 		context.setState(LabyrinthState.FINISH_MOVEMENT);
 	}
 

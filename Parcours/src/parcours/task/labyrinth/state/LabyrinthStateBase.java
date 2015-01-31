@@ -1,44 +1,30 @@
 package parcours.task.labyrinth.state;
 
-public abstract class LabyrinthStateBase {
+import parcours.task.labyrinth.LabyrinthContext;
 
-	private static final int BACKWARD_LEFT_BUTTON_WALL = -20;
-	private static final int BACKWARD_LEFT_BUTTON = -10;
-	private static final int BACKWARD_RIGHT_BUTTON = -10;
-	private static final int NO_WALL_DISTANCE = 25;
-	private static final int BACKWARD_BOTH_BUTTONS = -25;
+public abstract class LabyrinthStateBase {
 
 	public final void handleBothButtonsPressed(LabyrinthContext context,
 			int distance) {
-		context.travel(BACKWARD_BOTH_BUTTONS);
+		context.travel(context.getBackwardBothButton());
 		context.setState(LabyrinthState.START_90_DEGREE_LEFT_TURN);
 	}
 
 	public final void handleLeftButtonPressed(LabyrinthContext context,
 			int distance) {
-		// TODO Auto-generated method stub
-		if (distance < NO_WALL_DISTANCE) {
-			context.travel(BACKWARD_LEFT_BUTTON_WALL);
+		if (distance < context.getNoWallDistance()) {
+			context.travel(context.getBackwardLeftButtonWall());
 			context.setState(LabyrinthState.START_90_DEGREE_LEFT_TURN);
-			/*
-			 * awaitRotation(); pilot.rotate(90,true); awaitRotation();
-			 */
 		} else {
-			context.travel(BACKWARD_LEFT_BUTTON);
+			context.travel(context.getBackwardLeftButton());
 			context.setState(LabyrinthState.START_GOING_LEFT);
-			/*
-			 * a1waitRotation(); pi1lot.rotate(-15,true); awaitRotation();
-			 */
 		}
 	}
 
 	public final void handleRightButtonPressed(LabyrinthContext context,
 			int distance) {
-		context.travel(BACKWARD_RIGHT_BUTTON,true);
+		context.travel(context.getBackwardRightButton(), true);
 		context.setState(LabyrinthState.START_GOING_RIGHT);
-		/*awaitRotation();
-		pilot.rotate(20,true);
-		awaitRotation();*/
 	}
 
 	public abstract void handleNoButtonIsPressed(LabyrinthContext context,

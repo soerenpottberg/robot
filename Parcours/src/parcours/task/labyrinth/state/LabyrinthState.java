@@ -1,11 +1,13 @@
 package parcours.task.labyrinth.state;
 
+import parcours.task.labyrinth.state.EndChangingDistance.DistanceChange;
+
 public enum LabyrinthState {
 	NORMAL(new NormalState()),
 	START_90_DEGREE_LEFT_TURN(new Start90DegreeLeftTurn()),
-	END_CHANGING_DISTANCE_LITTLE_LEFT(new EndChangingDistance(-10)), // -SMALL_TURN_LEFT_ANGLE
-	END_CHANGING_DISTANCE_LEFT(new EndChangingDistance(-20)), // -Large_TURN_LEFT_ANGLE
-	END_CHANGING_DISTANCE_RIGHT(new EndChangingDistance(10)),  // -turn_RIGHT_ANGLE
+	END_CHANGING_DISTANCE_LITTLE_LEFT(new EndChangingDistance(DistanceChange.SMALL_INCREASE_OF_DISTANCE)),
+	END_CHANGING_DISTANCE_LEFT(new EndChangingDistance(DistanceChange.LARGE_INCREASE_OF_DISTANCE)),
+	END_CHANGING_DISTANCE_RIGHT(new EndChangingDistance(DistanceChange.DECREASE_OF_DISTANCE)),
 	START_CHANGING_DISTANCE_LITTLE_LEFT(new StartChangingDistance(END_CHANGING_DISTANCE_LITTLE_LEFT)),
 	START_CHANGING_DISTANCE_LEFT(new StartChangingDistance(END_CHANGING_DISTANCE_LEFT)),
 	START_CHANGING_DISTANCE_RIGHT(new StartChangingDistance(END_CHANGING_DISTANCE_RIGHT)),

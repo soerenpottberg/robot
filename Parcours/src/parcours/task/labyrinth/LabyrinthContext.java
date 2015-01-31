@@ -1,5 +1,8 @@
-package parcours.task.labyrinth.state;
+package parcours.task.labyrinth;
 
+import parcours.task.labyrinth.config.LabyrinthConfiguration;
+import parcours.task.labyrinth.state.LabyrinthState;
+import parcours.task.labyrinth.state.LabyrinthStateBase;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Move;
 import lejos.robotics.navigation.MoveListener;
@@ -9,8 +12,10 @@ public class LabyrinthContext implements RotateMoveController {
 
 	private LabyrinthStateBase state;
 	private DifferentialPilot pilot;
+	private LabyrinthConfiguration config;
 
-	public LabyrinthContext(DifferentialPilot pilot) {
+	public LabyrinthContext(LabyrinthConfiguration config, DifferentialPilot pilot) {
+		this.config = config;
 		state = LabyrinthState.NORMAL.getState();
 		this.pilot = pilot;
 	}
@@ -123,6 +128,74 @@ public class LabyrinthContext implements RotateMoveController {
 	@Override
 	public void addMoveListener(MoveListener listener) {
 		pilot.addMoveListener(listener);
+	}
+
+	public int getCloseDistance() {
+		return config.getCloseDistance();
+	}
+
+	public int getLargeInreaseDistanceAngle() {
+		return config.getLargeInreaseDistanceAngle();
+	}
+
+	public int getMinimalDistance() {
+		return config.getMinimalDistance();
+	}
+
+	public int getSmallInreaseDistanceAngle() {
+		return config.getSmallInreaseDistanceAngle();
+	}
+
+	public int getMaximalDistance() {
+		return config.getMaximalDistance();
+	}
+
+	public int getDecreaseDistanceAngle() {
+		return config.getDecreaseDistanceAngle();
+	}
+
+	public int getFarDistance() {
+		return config.getFarDistance();
+	}
+
+	public int getCuttingEdge() {
+		return config.getCuttingEdge();
+	}
+
+	public int getAfterCuttingEdge() {
+		return config.getAfterCuttingEdge();
+	}
+
+	public int getNoWallDistance() {
+		return config.getNoWallDistance();
+	}
+
+	public int getBackwardLeftButtonWall() {
+		return config.getBackwardLeftButtonWall();
+	}
+
+	public int getBackwardLeftButton() {
+		return config.getBackwardLeftButton();
+	}
+
+	public int getBackwardRightButton() {
+		return config.getBackwardRightButton();
+	}
+
+	public int getBackwardBothButton() {
+		return config.getBackwardBothButton();
+	}
+
+	public int getAdjustmentDistance() {
+		return config.getAdjustmentDistance();
+	}
+
+	public int getGoingLeftAngle() {
+		return config.getGoingLeftAngle();
+	}
+	
+	public int getGoingRightAngle() {
+		return config.getGoingRightAngle();
 	}
 
 }

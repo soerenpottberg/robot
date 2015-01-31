@@ -1,7 +1,8 @@
 package parcours.task.labyrinth.state;
 
-public class Start90DegreeLeftTurn extends LabyrinthStateBase {
+import parcours.task.labyrinth.LabyrinthContext;
 
+public class Start90DegreeLeftTurn extends LabyrinthStateBase {
 
 	private static final int LEFT_ANGLE = 90;
 

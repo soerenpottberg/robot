@@ -1,29 +1,22 @@
 package parcours.task.labyrinth.state;
 
-public class NormalState extends LabyrinthStateBase {
+import parcours.task.labyrinth.LabyrinthContext;
 
-	private static final int CUTTING_EDGE = 20;
-	private static final int LARGE_TURN_LEFT_ANGLE = 20;
-	private static final int SMALL_TURN_LEFT_ANGLE = 10;
-	private static final double TURN_RIGHT_ANGLE = -10;
-	private static final int FAR_DISTANCE = 60; // There is still a wall
-	private static final int MAXIMAL_DISTANCE = 25;
-	private static final int MINIMAL_DISTANCE = 20;
-	private static final int CLOSE_DISTANCE = 15;
+public class NormalState extends LabyrinthStateBase {
 
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
-		if ((distance < CLOSE_DISTANCE)) {
-			context.rotate(LARGE_TURN_LEFT_ANGLE);
+		if ((distance < context.getCloseDistance())) {
+			context.rotate(context.getLargeInreaseDistanceAngle());
 			context.setState(LabyrinthState.START_CHANGING_DISTANCE_LEFT);
-		} else if (distance > CLOSE_DISTANCE && distance < MINIMAL_DISTANCE) {
-			context.rotate(SMALL_TURN_LEFT_ANGLE);
+		} else if (distance > context.getCloseDistance() && distance < context.getMinimalDistance()) {
+			context.rotate(context.getSmallInreaseDistanceAngle());
 			context.setState(LabyrinthState.START_CHANGING_DISTANCE_LITTLE_LEFT);
-		} else if ((distance > MAXIMAL_DISTANCE && distance < FAR_DISTANCE)) {
-			context.rotate(TURN_RIGHT_ANGLE);
+		} else if ((distance > context.getMaximalDistance() && distance < context.getFarDistance())) {
+			context.rotate(context.getDecreaseDistanceAngle());
 			context.setState(LabyrinthState.START_CHANGING_DISTANCE_RIGHT);
-		} else if (distance > FAR_DISTANCE) {
-			context.travel(CUTTING_EDGE);
+		} else if (distance > context.getFarDistance()) {
+			context.travel(context.getCuttingEdge());
 			context.setState(LabyrinthState.START_90_DEGREE_RIGHT_TURN);
 		}
 	}

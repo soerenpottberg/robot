@@ -6,7 +6,8 @@ import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
-import parcours.task.labyrinth.state.LabyrinthContext;
+import parcours.task.labyrinth.LabyrinthContext;
+import parcours.task.labyrinth.config.LabyrinthConfiguration;
 
 // TODO: Don't stop all the time for turning, do it while maintaining speed
 // TODO: verify with higher speeds
@@ -33,7 +34,7 @@ public class FollowRightWallTaskStateFull extends Task {
 		touchr = new TouchSensor(SensorPort.S4);
 		touchl = new TouchSensor(SensorPort.S2);
 		lineDetector = new LineDetector();
-		context = new LabyrinthContext(pilot);
+		context = new LabyrinthContext(new LabyrinthConfiguration(), pilot);
 		pilot.setTravelSpeed(BASE_TRAVEL_SPEED);
 		pilot.forward();
 	}

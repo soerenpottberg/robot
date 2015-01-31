@@ -1,8 +1,9 @@
 package parcours.task.labyrinth.state;
 
+import parcours.task.labyrinth.LabyrinthContext;
+
 public class StartChangingDistance extends LabyrinthStateBase {
 
-	private static final int DISTANCE = 20;
 	private final LabyrinthState endChangingDistanceState;
 
 	public StartChangingDistance(LabyrinthState endChangingDistanceState) {
@@ -15,7 +16,7 @@ public class StartChangingDistance extends LabyrinthStateBase {
 			return;
 		}
 		
-		context.travel(DISTANCE);
+		context.travel(context.getAdjustmentDistance());
 		context.setState(endChangingDistanceState);
 	}
 
