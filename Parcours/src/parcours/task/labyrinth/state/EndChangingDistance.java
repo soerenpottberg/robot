@@ -12,11 +12,11 @@ public class EndChangingDistance extends LabyrinthStateBase {
 
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
-		if(context.getPilot().isMoving()) {
+		if(context.isMoving()) {
 			return;
 		}
 		
-		context.getPilot().rotate(turnAngle, true);
+		context.rotate(turnAngle);
 		context.setState(LabyrinthState.FINISH_MOVEMENT);
 	}
 

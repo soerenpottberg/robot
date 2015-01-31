@@ -6,11 +6,11 @@ public class FinishMovementState extends LabyrinthStateBase {
 
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
-		if(context.getPilot().isMoving()) {
+		if(context.isMoving()) {
 			return;
 		}
 		
-		context.getPilot().forward();
+		context.forward();
 		context.setState(LabyrinthState.NORMAL);
 	}
 

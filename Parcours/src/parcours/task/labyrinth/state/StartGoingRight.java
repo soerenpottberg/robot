@@ -6,11 +6,11 @@ public class StartGoingRight extends LabyrinthStateBase {
 
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
-		if(context.getPilot().isMoving()) {
+		if(context.isMoving()) {
 			return;
 		}
 		
-		context.getPilot().rotate(GOING_RIGHT_ANGLE, true);
+		context.rotate(GOING_RIGHT_ANGLE);
 		context.setState(LabyrinthState.FINISH_MOVEMENT);
 	}
 

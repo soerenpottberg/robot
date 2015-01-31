@@ -11,11 +11,11 @@ public class StartChangingDistance extends LabyrinthStateBase {
 
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
-		if(context.getPilot().isMoving()) {
+		if(context.isMoving()) {
 			return;
 		}
 		
-		context.getPilot().travel(DISTANCE, true);
+		context.travel(DISTANCE);
 		context.setState(endChangingDistanceState);
 	}
 

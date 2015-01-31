@@ -84,7 +84,7 @@ public class LabyrinthContext implements RotateMoveController {
 	 */
 	@Override
 	public void rotate(double angle) {
-		pilot.rotate(angle, true);
+		pilot.rotate(angle);
 	}
 
 	@Override
@@ -102,7 +102,7 @@ public class LabyrinthContext implements RotateMoveController {
 	 */
 	@Override
 	public void travel(double distance) {
-		pilot.travel(distance, true);
+		pilot.travel(distance);
 	}
 
 	@Override

@@ -10,7 +10,7 @@ public abstract class LabyrinthStateBase {
 
 	public final void handleBothButtonsPressed(LabyrinthContext context,
 			int distance) {
-		context.getPilot().travel(BACKWARD_BOTH_BUTTONS, true);
+		context.travel(BACKWARD_BOTH_BUTTONS);
 		context.setState(LabyrinthState.START_90_DEGREE_LEFT_TURN);
 	}
 
@@ -18,13 +18,13 @@ public abstract class LabyrinthStateBase {
 			int distance) {
 		// TODO Auto-generated method stub
 		if (distance < NO_WALL_DISTANCE) {
-			context.getPilot().travel(BACKWARD_LEFT_BUTTON_WALL, true);
+			context.travel(BACKWARD_LEFT_BUTTON_WALL);
 			context.setState(LabyrinthState.START_90_DEGREE_LEFT_TURN);
 			/*
 			 * awaitRotation(); pilot.rotate(90,true); awaitRotation();
 			 */
 		} else {
-			context.getPilot().travel(BACKWARD_LEFT_BUTTON, true);
+			context.travel(BACKWARD_LEFT_BUTTON);
 			context.setState(LabyrinthState.START_GOING_LEFT);
 			/*
 			 * a1waitRotation(); pi1lot.rotate(-15,true); awaitRotation();
@@ -34,7 +34,7 @@ public abstract class LabyrinthStateBase {
 
 	public final void handleRightButtonPressed(LabyrinthContext context,
 			int distance) {
-		context.getPilot().travel(BACKWARD_RIGHT_BUTTON,true);
+		context.travel(BACKWARD_RIGHT_BUTTON,true);
 		context.setState(LabyrinthState.START_GOING_RIGHT);
 		/*awaitRotation();
 		pilot.rotate(20,true);

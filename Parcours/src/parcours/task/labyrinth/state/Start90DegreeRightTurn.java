@@ -8,11 +8,11 @@ public class Start90DegreeRightTurn extends LabyrinthStateBase {
 
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
-		if(context.getPilot().isMoving()) {
+		if(context.isMoving()) {
 			return;
 		}
 		
-		context.getPilot().rotate(RIGHT_ANGLE, true);
+		context.rotate(RIGHT_ANGLE);
 		context.setState(LabyrinthState.END_90_DEGREE_RIGHT_TURN);
 	}
 
