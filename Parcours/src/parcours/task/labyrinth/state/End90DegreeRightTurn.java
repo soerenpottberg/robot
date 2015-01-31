@@ -1,9 +1,9 @@
-package parcours.task.wall.state;
+package parcours.task.labyrinth.state;
 
-public class Start90DegreeLeftTurn extends LabyrinthStateBase {
+public class End90DegreeRightTurn extends LabyrinthStateBase {
 
 
-	private static final int LEFT_ANGLE = 90;
+	private static final int AFTER_TURN_CUTTING_EDGE = 30;
 
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
@@ -11,7 +11,7 @@ public class Start90DegreeLeftTurn extends LabyrinthStateBase {
 			return;
 		}
 		
-		context.getPilot().rotate(LEFT_ANGLE, true);
+		context.getPilot().travel(AFTER_TURN_CUTTING_EDGE, true);
 		context.setState(LabyrinthState.FINISH_MOVEMENT);
 	}
 

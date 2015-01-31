@@ -1,4 +1,4 @@
-package parcours.task.wall.state;
+package parcours.task.labyrinth.state;
 
 public abstract class LabyrinthStateBase {
 

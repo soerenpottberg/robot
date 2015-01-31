@@ -6,7 +6,7 @@ import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
-import parcours.task.wall.state.LabyrinthContext;
+import parcours.task.labyrinth.state.LabyrinthContext;
 
 // TODO: Don't stop all the time for turning, do it while maintaining speed
 // TODO: verify with higher speeds
