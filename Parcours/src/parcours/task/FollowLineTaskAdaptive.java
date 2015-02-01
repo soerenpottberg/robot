@@ -9,8 +9,8 @@ import lejos.nxt.Sound;
 public class FollowLineTaskAdaptive extends Task {
 
 	private static final int FOUND_BLACK = -15;
-	private static final int FIND_BLACK_COMPENSATION = 5;
-	private static final int SWITCH_EDGE_ERROR = 25;
+	private static final int FIND_BLACK_COMPENSATION = 20;
+	private static final int SWITCH_EDGE_ERROR = 30;
 	private static final int MIDDLE_LIGHT_VALUE = 40;
 	private static final int BASE_POWER = 40;
 
@@ -86,12 +86,22 @@ public class FollowLineTaskAdaptive extends Task {
 		int powerMotorA;
 		int powerMotorB;
 
-		if (!isInverted) {
-			powerMotorA = BASE_POWER - compensation;
-			powerMotorB = BASE_POWER + compensation;
+		if (!findBlack) {
+			if (!isInverted) {
+				powerMotorA = BASE_POWER - compensation;
+				powerMotorB = BASE_POWER + compensation;
+			} else {
+				powerMotorA = BASE_POWER + compensation;
+				powerMotorB = BASE_POWER - compensation;
+			}
 		} else {
-			powerMotorA = BASE_POWER + compensation;
-			powerMotorB = BASE_POWER - compensation;
+			if (!isInverted) {
+				powerMotorA = -compensation;
+				powerMotorB = +compensation;
+			} else {
+				powerMotorA = +compensation;
+				powerMotorB = -compensation;
+			}
 		}
 		setMotorPower(MotorA, powerMotorA, lastPowerMotorA);
 		setMotorPower(MotorB, powerMotorB, lastPowerMotorB);
