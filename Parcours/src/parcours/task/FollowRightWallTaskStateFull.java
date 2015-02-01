@@ -21,8 +21,8 @@ public class FollowRightWallTaskStateFull extends Task {
 	private DifferentialPilot pilot;
 	private boolean isAboarted = false;
 
-	private TouchSensor touchl;
-	private TouchSensor touchr;
+	private TouchSensor touchL;
+	private TouchSensor touchR;
 
 	private LineDetector lineDetector;
 	private LabyrinthContext context;
@@ -31,8 +31,8 @@ public class FollowRightWallTaskStateFull extends Task {
 	protected void init() {
 		ultra = new UltrasonicSensor(SensorPort.S3);
 		pilot = new DifferentialPilot(8.16, 13, Motor.B, Motor.A);
-		touchr = new TouchSensor(SensorPort.S4);
-		touchl = new TouchSensor(SensorPort.S2);
+		touchR = new TouchSensor(SensorPort.S4);
+		touchL = new TouchSensor(SensorPort.S2);
 		lineDetector = new LineDetector();
 		context = new LabyrinthContext(new LabyrinthConfiguration(), pilot);
 		pilot.setTravelSpeed(BASE_TRAVEL_SPEED);
@@ -43,8 +43,8 @@ public class FollowRightWallTaskStateFull extends Task {
 	protected void control() {
 		int distance = ultra.getDistance();
 
-		boolean leftIsPressed = touchl.isPressed();
-		boolean rightIsPressed = touchr.isPressed();
+		boolean leftIsPressed = touchL.isPressed();
+		boolean rightIsPressed = touchR.isPressed();
 
 		if (leftIsPressed && rightIsPressed) {
 			context.handleBothButtonsPressed(distance);
