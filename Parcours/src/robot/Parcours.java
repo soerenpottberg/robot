@@ -1,14 +1,10 @@
 package robot;
 
-import parcours.level.Bridge;
-import parcours.level.Elevator;
-import parcours.level.FollowLine;
-import parcours.level.Level;
-import parcours.level.StartLevel;
+import parcours.level.*;
 
 public class Parcours {
 
-	private static int LEVEL_COUNT = 4;
+	private static int LEVEL_COUNT = 5;
 	private static Level[] levels = new Level[LEVEL_COUNT];
 
 	static {
@@ -17,6 +13,7 @@ public class Parcours {
 		levels[i++] = new FollowLine();
 		levels[i++] = new Bridge();
 		levels[i++] = new Elevator();
+		levels[i++] = new DebugMeasure();
 	}
 
 	public static void main(String[] args) {

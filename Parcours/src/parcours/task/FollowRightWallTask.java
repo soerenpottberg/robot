@@ -1,58 +1,58 @@
 package parcours.task;
 
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
-import lejos.robotics.navigation.MoveController;
 import parcours.detector.LineDetector;
+import utils.RobotDesign;
 
 public class FollowRightWallTask extends Task {
 
-	private UltrasonicSensor ultra;
+	private UltrasonicSensor distanceSensor;
 	private DifferentialPilot pilot;
 	private boolean isAboarted = false;
 
 	
-	private TouchSensor touchl;
-	private TouchSensor touchr; 
+	private TouchSensor touchL;
+	private TouchSensor touchR; 
 
 	private LineDetector lineDetector;
 
 
 	@Override
 	protected void init() {
-		ultra = new UltrasonicSensor(SensorPort.S3);
-		pilot = new DifferentialPilot(MoveController.WHEEL_SIZE_RCX, 13, Motor.B, Motor.A);
-		touchr = new TouchSensor(SensorPort.S4);
-		touchl = new TouchSensor(SensorPort.S2);
+		distanceSensor = RobotDesign.distanceSensor;
+		pilot          = RobotDesign.differentialPilot;
+		touchR         = RobotDesign.touchSensorRight;
+		touchL         = RobotDesign.touchSensorLeft;
+		
 		lineDetector = new LineDetector();
 	}
 
 	@Override
 	protected void control() {
-		int a = ultra.getDistance();
+		int a = distanceSensor.getDistance();
 		pilot.setTravelSpeed(20);
 		pilot.forward();
 
-		if (touchl.isPressed() && a < 25){
+		if (touchL.isPressed() && a < 25){
 			pilot.travel(-25,true);
 			awaitRotation();
 			pilot.rotate(90,true);
 			awaitRotation();
-		} else if (touchl.isPressed() && a >= 25) {
+		} else if (touchL.isPressed() && a >= 25) {
 			pilot.travel(-10,true);
 			awaitRotation();
 			pilot.rotate(-15,true);
 			awaitRotation();
-		} else if (touchr.isPressed()) {
+		} else if (touchR.isPressed()) {
 			//Sound.beep();
 			pilot.travel(-10,true);
 			awaitRotation();
 			pilot.rotate(20,true);
 			awaitRotation();
-		} else if ((a < 15) && (touchr.isPressed() == false)) {
+		} else if ((a < 15) && (touchR.isPressed() == false)) {
 			pilot.rotate(20, true);
 			awaitRotation();
 			pilot.travel(20, true);
@@ -66,7 +66,7 @@ public class FollowRightWallTask extends Task {
 			awaitRotation();
 			pilot.rotate(-10, true);
 			awaitRotation();
-		} else if ((a > 25 && a < 50)  && (touchr.isPressed() == false)) {
+		} else if ((a > 25 && a < 50)  && (touchR.isPressed() == false)) {
 			pilot.rotate(-10, true);
 			awaitRotation();
 			pilot.travel(20, true);
@@ -88,7 +88,7 @@ public class FollowRightWallTask extends Task {
 			if(abort()) {
 				isAboarted  = true;
 			}
-			if (touchr.isPressed()) {
+			if (touchR.isPressed()) {
 				//Sound.beep();
 			}
 			Thread.yield();

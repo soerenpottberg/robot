@@ -1,8 +1,8 @@
 package parcours.detector;
 
 import lejos.nxt.LightSensor;
-import lejos.nxt.SensorPort;
 import utils.EWMA;
+import utils.RobotDesign;
 import debug.DebugOutput;
 import debug.TimingDebug;
 
@@ -35,7 +35,7 @@ public class LineDetector {
 		
 		// Initialize ewma with black
 		ewma = new EWMA(EWMA_ALPHA, BLACK);
-		lightSensor = new LightSensor(SensorPort.S1);
+		lightSensor = RobotDesign.lightSensor;
 		
 		// for debugging purposes only:
 		out = new DebugOutput();

@@ -1,8 +1,8 @@
 package parcours.level;
 
 import parcours.task.FindLineTask;
-import parcours.task.FollowLineTask;
-import parcours.task.FollowLineTaskAdaptive;
+//import parcours.task.FollowLineTask;
+//import parcours.task.FollowLineTaskAdaptive;
 import parcours.task.FollowLineTaskConstTime;
 import parcours.task.Task;
 
@@ -15,7 +15,8 @@ public class FollowLine extends Level {
 	static {
 		int i = 0;
 		tasks[i++] = new FindLineTask();
-		tasks[i++] = new FollowLineTaskAdaptive();
+		tasks[i++] = new FollowLineTaskConstTime();
+		//tasks[i++] = new FollowLineTaskAdaptive();
 	}
 	
 	@Override

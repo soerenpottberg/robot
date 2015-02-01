@@ -1,12 +1,11 @@
 package parcours.task;
 
-import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 import lejos.util.Delay;
 import sensor.evaluation.LightSensorEvaluation;
 import sensor.evaluation.SensorEvaluation;
+import utils.RobotDesign;
 import debug.DebugOutput;
 
 public class FollowLineTaskConstTime extends Task {
@@ -18,9 +17,9 @@ public class FollowLineTaskConstTime extends Task {
 	private static final int BASE_POWER = 25;
 
 	private static final int K_FACTOR = 100;
-	private static final float Kp = 0.25f / K_FACTOR;
-	private static final float Ki = 0.40f / K_FACTOR;
-	private static final float Kd = 0.03f / K_FACTOR;
+	private static final float Kp = 3.00f / K_FACTOR;
+	private static final float Ki = 0.0f / K_FACTOR; // 40
+	private static final float Kd = 0.0f / K_FACTOR; // 03
 	
 	// allows reducing the integral by an exp. value if necessary
 	private static final float ALPHA_INTEGRAL = 0.0f;
@@ -39,7 +38,9 @@ public class FollowLineTaskConstTime extends Task {
 	private long  t2 = 0;
 	
 	// (y1;t1) represents the first measure and point in time (t1 < t2 < t3)
+	@SuppressWarnings("unused")
 	private float y1 = 0.0f;
+	@SuppressWarnings("unused")
 	private long  t1 = 0;
 	
 	// for debugging purposes only:
@@ -47,9 +48,9 @@ public class FollowLineTaskConstTime extends Task {
 
 	@Override
 	protected void init() {
-		lightSensor = new LightSensorEvaluation(SensorPort.S1, 0.25f, 39);
-		motorA = new NXTMotor(MotorPort.A);
-		motorB = new NXTMotor(MotorPort.B);
+		lightSensor = new LightSensorEvaluation(0.25f, 39);
+		motorA = RobotDesign.unregulatedMotorRight;
+		motorB = RobotDesign.unregulatedMotorLeft;
 		motorA.setPower(BASE_POWER);
 		motorB.setPower(BASE_POWER);
 		motorA.forward();
@@ -182,16 +183,19 @@ public class FollowLineTaskConstTime extends Task {
 	 * @param Ki
 	 * @return
 	 */
+	//@SuppressWarnings("unused")
 	private float weightenIntegral1(float integral, float Ki) {
 		final float intTmp = integral * Ki;
 		return intTmp * ( intTmp / INTEGRAL_100_PERCENT ) * ( intTmp / INTEGRAL_100_PERCENT );
 	}
 	
+	@SuppressWarnings("unused")
 	private float weightenIntegral2(float integral, float Ki) {
 		final float intTmp = integral * Ki;
 		return intTmp * ( Math.abs( intTmp ) / INTEGRAL_100_PERCENT );
 	}
 	
+	@SuppressWarnings("unused")
 	private float weightenIntegral3(float integral, float Ki) {
 		//-x / (e^2)^x
 		final double intTmp = integral * Ki;

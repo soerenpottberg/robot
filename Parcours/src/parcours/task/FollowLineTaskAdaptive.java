@@ -1,9 +1,8 @@
 package parcours.task;
 
+import utils.RobotDesign;
 import lejos.nxt.LightSensor;
-import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.Sound;
 
 public class FollowLineTaskAdaptive extends Task {
@@ -27,8 +26,8 @@ public class FollowLineTaskAdaptive extends Task {
 	private static final int Kd = (int) (0 * Kd_CALC * 100);
 
 	private LightSensor light;
-	private NXTMotor MotorA;
-	private NXTMotor MotorB;
+	private NXTMotor motorA;
+	private NXTMotor motorB;
 
 	private int errorIntegrated;
 	private int errorDerivated;
@@ -42,13 +41,13 @@ public class FollowLineTaskAdaptive extends Task {
 
 	@Override
 	protected void init() {
-		MotorA = new NXTMotor(MotorPort.A);
-		MotorB = new NXTMotor(MotorPort.B);
-		light = new LightSensor(SensorPort.S1);
-		MotorA.setPower(BASE_POWER);
-		MotorB.setPower(BASE_POWER);
-		MotorA.forward();
-		MotorB.forward();
+		motorA = RobotDesign.unregulatedMotorRight;
+		motorB = RobotDesign.unregulatedMotorLeft;
+		light  = RobotDesign.lightSensor;
+		motorA.setPower(BASE_POWER);
+		motorB.setPower(BASE_POWER);
+		motorA.forward();
+		motorB.forward();
 		errorIntegrated = 0;
 		errorDerivated = 0;
 		lastError = 0;
@@ -103,8 +102,8 @@ public class FollowLineTaskAdaptive extends Task {
 				powerMotorB = -compensation;
 			}
 		}
-		setMotorPower(MotorA, powerMotorA, lastPowerMotorA);
-		setMotorPower(MotorB, powerMotorB, lastPowerMotorB);
+		setMotorPower(motorA, powerMotorA, lastPowerMotorA);
+		setMotorPower(motorB, powerMotorB, lastPowerMotorB);
 
 		long time = System.currentTimeMillis();
 		// System.out.println(time - lastTime);

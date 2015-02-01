@@ -1,10 +1,10 @@
 package parcours.task;
 
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
+import utils.RobotDesign;
 
 public class FindLineTask extends Task {
 	private static final int BASE_SPEED = 20;
@@ -19,10 +19,10 @@ public class FindLineTask extends Task {
 
 	@Override
 	protected void init() {
-		touchR = new TouchSensor(SensorPort.S4);
-		touchL = new TouchSensor(SensorPort.S2);
+		touchR = RobotDesign.touchSensorRight;
+		touchL = RobotDesign.touchSensorLeft;
 		
-		pilot = new DifferentialPilot(8.16, 13, Motor.B, Motor.A);
+		pilot = RobotDesign.differentialPilot;
 		lineDetector = new LineDetector();
 		pilot.setTravelSpeed(BASE_SPEED);
 		pilot.travel(INITIAL_TRAVEL_DISTANCE);

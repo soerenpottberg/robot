@@ -1,13 +1,13 @@
 package parcours.task;
 
 import lejos.nxt.Motor;
-import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
 import parcours.task.labyrinth.LabyrinthContext;
 import parcours.task.labyrinth.config.LabyrinthConfiguration;
+import utils.RobotDesign;
 
 // TODO: Don't stop all the time for turning, do it while maintaining speed
 // TODO: verify with higher speeds
@@ -17,7 +17,7 @@ public class FollowRightWallTaskStateFull extends Task {
 
 	private static final int BASE_TRAVEL_SPEED = 30;
 	
-	private UltrasonicSensor ultra;
+	private UltrasonicSensor distanceSensor;
 	private DifferentialPilot pilot;
 	private boolean isAboarted = false;
 
@@ -29,10 +29,11 @@ public class FollowRightWallTaskStateFull extends Task {
 
 	@Override
 	protected void init() {
-		ultra = new UltrasonicSensor(SensorPort.S3);
-		pilot = new DifferentialPilot(8.16, 13, Motor.B, Motor.A);
-		touchR = new TouchSensor(SensorPort.S4);
-		touchL = new TouchSensor(SensorPort.S2);
+		distanceSensor = RobotDesign.distanceSensor;
+		touchR = RobotDesign.touchSensorRight;
+		touchL = RobotDesign.touchSensorLeft;
+		pilot = RobotDesign.differentialPilot;
+		
 		lineDetector = new LineDetector();
 		context = new LabyrinthContext(new LabyrinthConfiguration(), pilot);
 		pilot.setTravelSpeed(BASE_TRAVEL_SPEED);
@@ -41,7 +42,7 @@ public class FollowRightWallTaskStateFull extends Task {
 
 	@Override
 	protected void control() {
-		int distance = ultra.getDistance();
+		int distance = distanceSensor.getDistance();
 
 		boolean leftIsPressed = touchL.isPressed();
 		boolean rightIsPressed = touchR.isPressed();
