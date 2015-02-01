@@ -9,6 +9,13 @@ import utils.RobotDesign;
 import debug.DebugOutput;
 
 public class FollowLineTaskConstTime extends Task {
+	private static final int WEIGHTEN_0      = 0;
+	private static final int WEIGHTEN_LINEAR = 1;
+	private static final int WEIGHTEN_SQR    = 2;
+	private static final int WEIGHTEN_EXP    = 3;
+	
+	private static final int WEIGHTENING_SETTING = WEIGHTEN_0;
+	
 	private static final long MS_COMPLETE_CYCLE_TIME = 25;
 	private static final long MS_MEASURE_CYCLE_TIME  = 4;
 	private static final long MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME = 11;
@@ -18,9 +25,9 @@ public class FollowLineTaskConstTime extends Task {
 	private static final float DEVIATION_FROM_GRAY_TARGET = 0.2f;
 
 	private static final int K_FACTOR = 100;
-	private static final float Kp = 3.00f / K_FACTOR;
-	private static final float Ki = 0.0f / K_FACTOR; // 40
-	private static final float Kd = 0.0f / K_FACTOR; // 03
+	private static final float Kp = 5.00f / K_FACTOR;
+	private static final float Ki = 0.03f / K_FACTOR;
+	private static final float Kd = 80.0f / K_FACTOR;
 	
 	// allows reducing the integral by an exp. value if necessary
 	private static final float ALPHA_INTEGRAL = 0.0f;
@@ -145,7 +152,23 @@ public class FollowLineTaskConstTime extends Task {
 		int last_delta_t = (int)(t3 - t2);
 		final float integral = integrate(y3, y2, last_delta_t) ;
 		
-		final float weightedIntegral = weightenIntegral1(integral, Ki);
+		float weightedIntegral;
+		
+		switch (WEIGHTENING_SETTING) {
+		case WEIGHTEN_0:
+		default:
+			weightedIntegral = 0;
+			break;
+		case WEIGHTEN_SQR:
+			weightedIntegral = weightenIntegralSqr(integral, Ki);
+			break;
+		case WEIGHTEN_LINEAR:
+			weightedIntegral = weightenIntegralLinear(integral, Ki);
+			break;
+		case WEIGHTEN_EXP:
+			weightedIntegral = weightenIntegralExp(integral, Ki);
+			break;	
+		}
 		
 		// calculate the derivate over the last 3 points
 		final float derivate = derive2pt(y3, y2, last_delta_t);
@@ -180,26 +203,17 @@ public class FollowLineTaskConstTime extends Task {
 		return ( 1.0f - ALPHA_INTEGRAL ) * integral + y3 * delta_t;
 	}
 	
-	/**
-	 * 
-	 * @param integral
-	 * @param Ki
-	 * @return
-	 */
-	//@SuppressWarnings("unused")
-	private float weightenIntegral1(float integral, float Ki) {
+	private float weightenIntegralSqr(float integral, float Ki) {
 		final float intTmp = integral * Ki;
 		return intTmp * ( intTmp / INTEGRAL_100_PERCENT ) * ( intTmp / INTEGRAL_100_PERCENT );
 	}
 	
-	@SuppressWarnings("unused")
-	private float weightenIntegral2(float integral, float Ki) {
+	private float weightenIntegralLinear(float integral, float Ki) {
 		final float intTmp = integral * Ki;
 		return intTmp * ( Math.abs( intTmp ) / INTEGRAL_100_PERCENT );
 	}
 	
-	@SuppressWarnings("unused")
-	private float weightenIntegral3(float integral, float Ki) {
+	private float weightenIntegralExp(float integral, float Ki) {
 		//-x / (e^2)^x
 		final double intTmp = integral * Ki;
 		final double e2 = Math.E * Math.E;
