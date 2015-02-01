@@ -141,7 +141,7 @@ public class FollowLineTaskConstTime extends Task {
 		int last_delta_t = (int)(t3 - t2);
 		final float integral = integrate(y3, y2, last_delta_t) ;
 		
-		final float weightedIntegral = weightenIntegral(integral, Ki);
+		final float weightedIntegral = weightenIntegral1(integral, Ki);
 		
 		// calculate the derivate over the last 3 points
 		final float derivate = derive2pt(y3, y2, last_delta_t);
@@ -182,11 +182,22 @@ public class FollowLineTaskConstTime extends Task {
 	 * @param Ki
 	 * @return
 	 */
-	private float weightenIntegral(float integral, float Ki) {
+	private float weightenIntegral1(float integral, float Ki) {
 		final float intTmp = integral * Ki;
-		return intTmp * (intTmp / INTEGRAL_100_PERCENT) * (intTmp / INTEGRAL_100_PERCENT);
+		return intTmp * ( intTmp / INTEGRAL_100_PERCENT ) * ( intTmp / INTEGRAL_100_PERCENT );
 	}
 	
+	private float weightenIntegral2(float integral, float Ki) {
+		final float intTmp = integral * Ki;
+		return intTmp * ( Math.abs( intTmp ) / INTEGRAL_100_PERCENT );
+	}
+	
+	private float weightenIntegral3(float integral, float Ki) {
+		//-x / (e^2)^x
+		final double intTmp = integral * Ki;
+		final double e2 = Math.E * Math.E;
+		return (float)( intTmp - intTmp * ( Math.abs(intTmp) / Math.pow( e2, Math.abs( intTmp ) ) ) );
+	}
 
 	/**
 	 * Calculates the derivate over 2 points.
