@@ -9,12 +9,13 @@ import utils.RobotDesign;
 import debug.DebugOutput;
 
 public class FollowLineTaskConstTime extends Task {
-	
-	private static final long MS_COMPLETE_CYCLE_TIME = 50;
+	private static final long MS_COMPLETE_CYCLE_TIME = 25;
 	private static final long MS_MEASURE_CYCLE_TIME  = 4;
 	private static final long MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME = 11;
 	
 	private static final int BASE_POWER = 25;
+	
+	private static final float DEVIATION_FROM_GRAY_TARGET = 0.2f;
 
 	private static final int K_FACTOR = 100;
 	private static final float Kp = 3.00f / K_FACTOR;
@@ -48,7 +49,9 @@ public class FollowLineTaskConstTime extends Task {
 
 	@Override
 	protected void init() {
-		lightSensor = new LightSensorEvaluation(0.25f, 39);
+		final float gray   = (RobotDesign.BLACK + RobotDesign.SILVER) / 2;
+		final float target = gray - DEVIATION_FROM_GRAY_TARGET * (RobotDesign.SILVER - RobotDesign.BLACK);
+		lightSensor = new LightSensorEvaluation(0.25f, target );
 		motorA = RobotDesign.unregulatedMotorRight;
 		motorB = RobotDesign.unregulatedMotorLeft;
 		motorA.setPower(BASE_POWER);

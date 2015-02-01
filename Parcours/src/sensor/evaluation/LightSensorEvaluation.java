@@ -17,7 +17,7 @@ public class LightSensorEvaluation extends SensorEvaluation {
 	 * Average used to smoothen the measured values.
 	 * @param targetValue : Offset subtracted from any measure before returning.
 	 */
-	public LightSensorEvaluation(float alpha, int targetValue ) {
+	public LightSensorEvaluation(float alpha, float targetValue ) {
 		super(alpha, targetValue);
 		this.sensor = RobotDesign.lightSensor;
 	}

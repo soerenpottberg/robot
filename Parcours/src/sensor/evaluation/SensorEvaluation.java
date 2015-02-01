@@ -9,7 +9,7 @@ import utils.EWMA;
  */
 public abstract class SensorEvaluation {
 	private EWMA ewma;
-	private int targetValue;
+	private float targetValue;
 	
 	/**
 	 * Creates a new Sensor with support for value smooting based on
@@ -17,16 +17,13 @@ public abstract class SensorEvaluation {
 	 * @param alpha weighting decrease
 	 * @param targetValue
 	 */
-	public SensorEvaluation(float alpha, int targetValue) {
+	public SensorEvaluation(float alpha, float targetValue) {
 		this.ewma = new EWMA(alpha, targetValue);
 		this.targetValue = targetValue;
 	}
 	
-	public int getTargetValue() {
+	public float getTargetValue() {
 		return targetValue;
-	}
-	public void setTargetValue(int targetValue) {
-		this.targetValue = targetValue;
 	}
 	
 	protected abstract int getSensorData();
