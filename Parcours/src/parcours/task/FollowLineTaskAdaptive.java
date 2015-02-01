@@ -62,28 +62,25 @@ public class FollowLineTaskAdaptive extends Task {
 		int lightValue = measureLight();
 
 		int error = calculateError(lightValue);
-		if (findBlack && error <= FOUND_BLACK) {
-			findBlack = false;
-			Sound.playTone(200, 200);
-		}
-		if (!findBlack) {
-			integrateError(error);
-		}
+
+		integrateError(error);
 		deriveError(error);
 
 		int compensation = pid(error);
 
-		if (findBlack) {
-			compensation = FIND_BLACK_COMPENSATION;
-		}
-
-		System.out.println(errorIntegrated);
-		if (errorIntegrated >= SWITCH_EDGE_ERROR) {
+		if (!findBlack && errorIntegrated >= SWITCH_EDGE_ERROR) {
 			Sound.beep();
 			isInverted = !isInverted;
 			findBlack = true;
-			compensation = FIND_BLACK_COMPENSATION;
-			errorIntegrated = 0;
+		}
+
+		if (findBlack) {
+			if (error <= FOUND_BLACK) {
+				findBlack = false;
+				Sound.playTone(200, 200);
+			} else {
+				compensation = FIND_BLACK_COMPENSATION;
+			}
 		}
 
 		int powerMotorA;
