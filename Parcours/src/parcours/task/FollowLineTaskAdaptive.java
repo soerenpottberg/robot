@@ -4,11 +4,15 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.SensorPort;
+import lejos.nxt.Sound;
 
 public class FollowLineTaskAdaptive extends Task {
 
+	private static final int FOUND_BLACK = -15;
+	private static final int FIND_BLACK_COMPENSATION = 5;
+	private static final int SWITCH_EDGE_ERROR = 25;
 	private static final int MIDDLE_LIGHT_VALUE = 40;
-	private static final int BASE_POWER = 30;
+	private static final int BASE_POWER = 40;
 
 	private static final double K_CRITICAL = 3;
 	private static final double T_PERIOD = 0.05;
@@ -18,8 +22,8 @@ public class FollowLineTaskAdaptive extends Task {
 	private static final double Ki_CALC = 1.2 * Kp_CALC * DELTA_2 / T_PERIOD; // 2
 	private static final double Kd_CALC = Kp_CALC * T_PERIOD / (8 * DELTA_2); // 1
 
-	private static final int Kp = (int) ((0 * Kp_CALC + 1.5) * 100); // 1.0
-	private static final int Ki = (int) ((0 * Ki_CALC + 0.05) * 100) + 2; // 0.25
+	private static final int Kp = (int) ((0 * Kp_CALC + 0.5) * 100); // 1.0
+	private static final int Ki = (int) ((0 * Ki_CALC + 0.2) * 100) + 2; // 0.25
 	private static final int Kd = (int) (0 * Kd_CALC * 100);
 
 	private LightSensor light;
@@ -34,6 +38,7 @@ public class FollowLineTaskAdaptive extends Task {
 	@SuppressWarnings("unused")
 	private long lastTime;
 	private boolean isInverted = false;
+	private boolean findBlack = false;
 
 	@Override
 	protected void init() {
@@ -57,13 +62,28 @@ public class FollowLineTaskAdaptive extends Task {
 		int lightValue = measureLight();
 
 		int error = calculateError(lightValue);
-		integrateError(error);
+		if (findBlack && error <= FOUND_BLACK) {
+			findBlack = false;
+			Sound.playTone(200, 200);
+		}
+		if (!findBlack) {
+			integrateError(error);
+		}
 		deriveError(error);
 
 		int compensation = pid(error);
-		
-		if(error >= 50) {
+
+		if (findBlack) {
+			compensation = FIND_BLACK_COMPENSATION;
+		}
+
+		System.out.println(errorIntegrated);
+		if (errorIntegrated >= SWITCH_EDGE_ERROR) {
+			Sound.beep();
 			isInverted = !isInverted;
+			findBlack = true;
+			compensation = FIND_BLACK_COMPENSATION;
+			errorIntegrated = 0;
 		}
 
 		int powerMotorA;
@@ -106,10 +126,6 @@ public class FollowLineTaskAdaptive extends Task {
 
 	private void integrateError(int error) {
 		errorIntegrated = (int) (2f / 3f * errorIntegrated) + error;
-		if (error > 0) {
-			// Sound.beep();
-			errorIntegrated += error;
-		}
 	}
 
 	private static void setMotorPower(NXTMotor motor, int power, int oldPower) {
