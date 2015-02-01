@@ -18,13 +18,13 @@ public class FollowLineTaskConstTime extends Task {
 	private static final int BASE_POWER = 25;
 
 	private static final int K_FACTOR = 100;
-	private static final float Kp = 0.30f / K_FACTOR;
+	private static final float Kp = 0.25f / K_FACTOR;
 	private static final float Ki = 0.40f / K_FACTOR;
-	private static final float Kd = 0.20f / K_FACTOR;
+	private static final float Kd = 0.03f / K_FACTOR;
 	
 	// allows reducing the integral by an exp. value if necessary
 	private static final float ALPHA_INTEGRAL = 0.0f;
-	static final float INTEGRAL_100_PERCENT = 1.0f;
+	static final float INTEGRAL_100_PERCENT = 3.5f;
 	
 	private SensorEvaluation lightSensor;
 	private NXTMotor motorA;
@@ -61,11 +61,12 @@ public class FollowLineTaskConstTime extends Task {
 		out.setDescription( 0, "cycle_t" );
 		out.setDescription( 1, "deviat." );
 		out.setDescription( 2, "compens" );
-		out.setDescription( 3, "measures" );
+		out.setDescription( 3, "MNumber" );
 
 		out.setDescription( 4, "Kp * p" );
 		out.setDescription( 5, "Ki * i" );
-		out.setDescription( 6, "Kd * d" );
+		out.setDescription( 6, "I Adj." );
+		out.setDescription( 7, "Kd * d" );
 	}
 
 	@Override
@@ -143,7 +144,8 @@ public class FollowLineTaskConstTime extends Task {
 		final float weightedIntegral = weightenIntegral(integral, Ki);
 		
 		// calculate the derivate over the last 3 points
-		final float derivate = derive3pt(t1, t2, t3, y1, y2, y3);
+		final float derivate = derive2pt(y3, y2, last_delta_t);
+		//final float derivate = derive3pt(t1, t2, t3, y1, y2, y3);
 		
 		// remember last two measures
 		y1 = y2;
@@ -152,8 +154,9 @@ public class FollowLineTaskConstTime extends Task {
 		t2 = t3;
 
 		out.write(4, deviationFromTarget * Kp);
-		out.write(5, weightedIntegral);
-		out.write(6, derivate * Kd);
+		out.write(5, integral * Ki);
+		out.write(6, weightedIntegral);
+		out.write(7, derivate * Kd);
 		
 		// TODO: use algorithm from NXTRegulatedMotor l 715
 		// TODO: try out improved derivate.
@@ -201,6 +204,8 @@ public class FollowLineTaskConstTime extends Task {
 	 * (t1;y1) is the first point in time and (t3;y3) the last (current) one. (e.g. t1 < t3)
 	 * Returns the derivate at the point (t3;y3).
 	 */
+	
+	// TODO: recheck and maybe fix this.
 	protected float derive3pt(long t1, long t2, long t3, float y1, float y2, float y3) {
 		final int t1_t2 = (int) (t1 - t2);
 		final int t2_t3 = (int) (t2 - t3);
