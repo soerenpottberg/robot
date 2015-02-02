@@ -7,9 +7,7 @@ import parcours.detector.LineDetector;
 import utils.RobotDesign;
 
 public class FindLineTask extends Task {
-	private static final int BASE_SPEED = 20;
-	private static final int INITIAL_TRAVEL_DISTANCE = 15; // used to clear the 3 lines at the beginning
-	
+	private static final int BASE_SPEED = 20;	
 	private static final int BACKOFF_DISTANCE = -3;
 	private static final int IMPACT_CORRECTION_ANGLE = 15;
 	
@@ -25,7 +23,6 @@ public class FindLineTask extends Task {
 		pilot = RobotDesign.differentialPilot;
 		lineDetector = new LineDetector();
 		pilot.setTravelSpeed(BASE_SPEED);
-		pilot.travel(INITIAL_TRAVEL_DISTANCE);
 		pilot.forward();
 	}
 
