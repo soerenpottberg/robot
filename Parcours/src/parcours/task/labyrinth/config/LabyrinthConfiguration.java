@@ -11,7 +11,7 @@ public abstract class LabyrinthConfiguration {
 	}
 
 	public int getMinimalDistance() {
-		return 20;
+		return 16;
 	}
 	
 	public int getMaximalDistance() {
@@ -59,7 +59,7 @@ public abstract class LabyrinthConfiguration {
 	 */
 
 	public int getNoWallDistance() {
-		return 40;//25
+		return 50;//25
 	}
 
 	public int getBackwardLeftButtonWall() {
@@ -91,7 +91,7 @@ public abstract class LabyrinthConfiguration {
 	 */
 
 	public int getAdjustmentDistance() {
-		return 20;
+		return 30;
 	}
 	
 	public int getSmallIncreaseDistanceAngle() {
