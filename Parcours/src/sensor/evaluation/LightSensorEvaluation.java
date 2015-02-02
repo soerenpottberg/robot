@@ -16,9 +16,10 @@ public class LightSensorEvaluation extends SensorEvaluation {
 	 * @param alpha : Alpha value for the Exponentially Weightened Moving
 	 * Average used to smoothen the measured values.
 	 * @param targetValue : Offset subtracted from any measure before returning.
+	 * @param n : choose a value bigger than 10!
 	 */
-	public LightSensorEvaluation(float alpha, float targetValue ) {
-		super(alpha, targetValue);
+	public LightSensorEvaluation(float alpha, float targetValue, int n ) {
+		super(alpha, targetValue, n);
 		this.sensor = RobotDesign.lightSensor;
 	}
 

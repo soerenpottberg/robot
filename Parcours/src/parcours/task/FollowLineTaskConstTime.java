@@ -14,24 +14,24 @@ public class FollowLineTaskConstTime extends Task {
 	private static final int WEIGHTEN_SQR    = 2;
 	private static final int WEIGHTEN_EXP    = 3;
 	
-	private static final int WEIGHTENING_SETTING = WEIGHTEN_NONE;
+	private static final int WEIGHTENING_SETTING = 3;
 	
-	private static final long MS_COMPLETE_CYCLE_TIME = 25;
-	private static final long MS_MEASURE_CYCLE_TIME  = 4;
-	private static final long MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME = 11;
+	// allows reducing the integral by an exp. value if necessary
+	private static final float ALPHA_INTEGRAL = 0.02f;
+	private static final float INTEGRAL_100_PERCENT = 0.7f;
 	
-	private static final int BASE_POWER = 25;
+	private static final long MS_COMPLETE_CYCLE_TIME = 12;
+	private static final long MS_MEASURE_CYCLE_TIME  = 3;
+	private static final long MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME = 7;
+	
+	private static final int BASE_POWER = 40;
 	
 	private static final float DEVIATION_FROM_GRAY_TARGET = 0.2f;
 
 	private static final int K_FACTOR = 100;
-	private static final float Kp = 5.00f / K_FACTOR;
-	private static final float Ki = 0.03f / K_FACTOR;
-	private static final float Kd = 80.0f / K_FACTOR;
-	
-	// allows reducing the integral by an exp. value if necessary
-	private static final float ALPHA_INTEGRAL = 0.0f;
-	static final float INTEGRAL_100_PERCENT = 3.5f;
+	private static final float Kp = 5.50f / K_FACTOR;
+	private static final float Ki =  0.028f / K_FACTOR;
+	private static final float Kd =  1800.00f;
 	
 	private SensorEvaluation lightSensor;
 	private NXTMotor motorA;
@@ -58,7 +58,7 @@ public class FollowLineTaskConstTime extends Task {
 	protected void init() {
 		final float gray   = (RobotDesign.BLACK + RobotDesign.SILVER) / 2;
 		final float target = gray - DEVIATION_FROM_GRAY_TARGET * (RobotDesign.SILVER - RobotDesign.BLACK);
-		lightSensor = new LightSensorEvaluation(0.25f, target );
+		lightSensor = new LightSensorEvaluation(0.15f, target, 8 );
 		motorA = RobotDesign.unregulatedMotorRight;
 		motorB = RobotDesign.unregulatedMotorLeft;
 		motorA.setPower(BASE_POWER);
@@ -137,6 +137,9 @@ public class FollowLineTaskConstTime extends Task {
 	@Override
 	protected void tearDown() {
 	}
+	
+	private float lastIntegral = 0;
+	private   int intCount = 0;
 
 	/**
 	 * PID regulates the loop :)
@@ -150,7 +153,21 @@ public class FollowLineTaskConstTime extends Task {
 		
 		// accumulate integral over the last two points
 		int last_delta_t = (int)(t3 - t2);
-		final float integral = integrate(y3, y2, last_delta_t) ;
+		integral = integrate(y3, y2, last_delta_t) ;
+		
+		// Make sure to reduce the integral fast enough if it is falling for 2 periods in a row.
+		final float tmp = Math.abs( integral );
+		if ( tmp < lastIntegral ) {
+			++intCount;
+		} else {
+			intCount = 0;
+		}
+		
+		if (intCount > 1 ) {
+			integral /= 2;
+		}
+			
+		lastIntegral = tmp;
 		
 		float weightedIntegral;
 		
@@ -171,9 +188,14 @@ public class FollowLineTaskConstTime extends Task {
 			weightedIntegral = 0;
 		}
 		
+		
+		
+		
+		
 		// calculate the derivate over the last 3 points
-		final float derivate = derive2pt(y3, y2, last_delta_t);
+		//final float derivate = derive2pt(y3, y2, last_delta_t);
 		//final float derivate = derive3pt(t1, t2, t3, y1, y2, y3);
+		final float derivate = derivate();
 		
 		// remember last two measures
 		y1 = y2;
@@ -220,6 +242,12 @@ public class FollowLineTaskConstTime extends Task {
 		final double e2 = Math.E * Math.E;
 		return (float)( intTmp * ( 1 - ( Math.abs(intTmp) / Math.pow( e2, Math.abs( intTmp ) ) ) ) );
 	}
+	
+	private float derivate() {
+		lightSensor.get3Pt();
+		return derive3pt(lightSensor.pt3Time[0], lightSensor.pt3Time[1], lightSensor.pt3Time[2],
+				         lightSensor.pt3Val[0],  lightSensor.pt3Val[1],  lightSensor.pt3Val[2] );
+	}
 
 	/**
 	 * Calculates the derivate over 2 points.
@@ -237,23 +265,20 @@ public class FollowLineTaskConstTime extends Task {
 	 * (t1;y1) is the first point in time and (t3;y3) the last (current) one. (e.g. t1 < t3)
 	 * Returns the derivate at the point (t3;y3).
 	 */
-	
-	// TODO: recheck and maybe fix this.
 	protected float derive3pt(long t1, long t2, long t3, float y1, float y2, float y3) {
-		final int t1_t2 = (int) (t1 - t2);
-		final int t2_t3 = (int) (t2 - t3);
-		final int t3_t1 = (int) (t3 - t1);
+		final float y2_y1 = y2 - y1;
+		final float t2_t1 = t2 - t1;
+		final float t2sqr = t2 * t2;
+		final float t1sqr = t1 * t1;
+		final float t1_t3 = t1 - t3;
 		
-		final int divisor = t1_t2 * t3_t1 * t2_t3;
+
+		final float a = (y2_y1 * (t1_t3) + (y3 - y1) * t2_t1) /
+			((t1_t3) * (t2sqr - t1sqr) + t2_t1 * (t3 * t3 - t1sqr));
+
+		final float b = (y2_y1 - a * (t2sqr - t1sqr)) / t2_t1;
 		
-		final float y1_y2 = t3 * (y1 - y2);
-		final float y2_y3 = t1 * (y2 - y3);
-		final float y3_y1 = t2 * (y3 - y1);
-		
-		final float a = y2_y3      + y3_y1      + y1_y2     ;
-		final float b = y2_y3 * t1 + y3_y1 * t2 + y1_y2 * t3;
-		
-		return ( 2 * a * t3 + b ) / divisor;
+		return 2 * a * t3 + b;
 	}
 	
 	private void calculateMotorSpeeds(float compensation) {
