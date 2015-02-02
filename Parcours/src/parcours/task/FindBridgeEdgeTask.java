@@ -8,7 +8,6 @@ import utils.RobotDesign;
 
 public class FindBridgeEdgeTask extends Task {
 	private static final int BASE_SPEED = 20;
-	private static final int INITIAL_TRAVEL_DISTANCE = 30; // used to clear the 3 lines at the beginning
 	
 	private DifferentialPilot pilot;
 	private BridgeEdgeDetector bridgeEdgeDetector;
@@ -18,11 +17,9 @@ public class FindBridgeEdgeTask extends Task {
 		pilot = RobotDesign.differentialPilot;
 		bridgeEdgeDetector = new BridgeEdgeDetector();
 		pilot.setTravelSpeed(BASE_SPEED);
-		pilot.travel(INITIAL_TRAVEL_DISTANCE);
 		Motor.C.rotate(90);
 		pilot.rotate(10);
 		pilot.forward();
-		
 	}
 
 	@Override
