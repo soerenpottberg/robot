@@ -47,18 +47,28 @@ public class LabyrinthContext implements RotateMoveController {
 		state.handleNoButtonIsPressed(this, distance);
 	}
 	
+	final static boolean SHOW_ONLY_MAX = false;
+	
 	static int lineCount = 0;
+	static int maxTime = 0;
+	@SuppressWarnings("unused")
 	public void debugOut() {
 		final long tNow = System.currentTimeMillis();
 		
-		LCD.drawString( stateName, 0, lineCount);
-		LCD.drawChar( ':', 8, lineCount);
-		LCD.drawInt( (int)(tNow - tStart), LCD.DISPLAY_CHAR_WIDTH - 9, 9, lineCount);
+		final int tDuration = (int)(tNow - tStart);
 		
-		++lineCount;
-		lineCount %= 8;
-		
-		LCD.clear(lineCount);
+		if ( !SHOW_ONLY_MAX || tDuration > maxTime ) {
+			maxTime = tDuration;
+
+			LCD.drawString( stateName, 0, lineCount);
+			LCD.drawChar( ':', 8, lineCount);
+			LCD.drawInt( tDuration, LCD.DISPLAY_CHAR_WIDTH - 9, 9, lineCount);
+
+			++lineCount;
+			lineCount %= 8;
+			
+			LCD.clear(lineCount);
+		}
 		
 		tStart = tNow;
 		stateName = state.name();
@@ -117,7 +127,7 @@ public class LabyrinthContext implements RotateMoveController {
 	 */
 	@Override
 	public void rotate(double angle) {
-		pilot.rotate(angle);
+		pilot.rotate(angle, true);
 	}
 
 	@Override
@@ -135,7 +145,7 @@ public class LabyrinthContext implements RotateMoveController {
 	 */
 	@Override
 	public void travel(double distance) {
-		pilot.travel(distance);
+		pilot.travel(distance, true);
 	}
 
 	@Override
