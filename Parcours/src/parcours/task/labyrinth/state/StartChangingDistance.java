@@ -3,6 +3,10 @@ package parcours.task.labyrinth.state;
 import parcours.task.labyrinth.LabyrinthContext;
 
 public class StartChangingDistance extends LabyrinthStateBase {
+	
+	public String name() {
+		return "SChDi";
+	}
 
 	private final LabyrinthState endChangingDistanceState;
 

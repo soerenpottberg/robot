@@ -3,6 +3,8 @@ package parcours.task.labyrinth.state;
 import parcours.task.labyrinth.LabyrinthContext;
 
 public abstract class LabyrinthStateBase {
+	
+	public abstract String name();
 
 	public final void handleBothButtonsPressed(LabyrinthContext context,
 			int distance) {

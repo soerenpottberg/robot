@@ -4,6 +4,10 @@ import parcours.task.labyrinth.LabyrinthContext;
 
 public class EndChangingDistance extends LabyrinthStateBase {
 	
+	public String name() {
+		return "EChDist";
+	}
+	
 	public enum DistanceChange {
 		SMALL_INCREASE_OF_DISTANCE,
 		LARGE_INCREASE_OF_DISTANCE,
