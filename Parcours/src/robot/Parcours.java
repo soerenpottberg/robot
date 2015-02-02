@@ -1,6 +1,7 @@
 package robot;
 
 import parcours.level.*;
+import parcours.level.test.DebugMeasureLevel;
 import parcours.level.test.TestTravelLevel;
 
 public class Parcours {
@@ -15,7 +16,7 @@ public class Parcours {
 		levels[i++] = new Bridge();
 		levels[i++] = new Elevator();
 		// Test Levels
-		levels[i++] = new DebugMeasure();
+		levels[i++] = new DebugMeasureLevel();
 		levels[i++] = new TestTravelLevel();
 	}
 

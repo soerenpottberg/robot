@@ -24,5 +24,4 @@ public class StartLevel extends Level {
 		return tasks;
 	}
 
-
 }
