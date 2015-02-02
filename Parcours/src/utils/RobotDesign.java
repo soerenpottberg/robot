@@ -15,7 +15,7 @@ public class RobotDesign {
 	public static final int SILVER = 49;
 	
 	public static final double wheelDiameter = 8.16; // OK: Diameter in mm printed on wheels
-	public static final double trackWidth    = 13;   // TODO: find out value
+	public static final double trackWidth    = 13.75;   // TODO: find out value
 	
 	public static final TouchSensor       touchSensorRight   = new TouchSensor(SensorPort.S4);
 	public static final TouchSensor       touchSensorLeft    = new TouchSensor(SensorPort.S2);

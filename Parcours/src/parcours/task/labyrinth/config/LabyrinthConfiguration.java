@@ -1,6 +1,6 @@
 package parcours.task.labyrinth.config;
 
-public class LabyrinthConfiguration {
+public abstract class LabyrinthConfiguration {
 	
 	/*
 	 * Distances
