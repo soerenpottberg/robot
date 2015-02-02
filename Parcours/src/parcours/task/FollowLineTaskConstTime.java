@@ -14,7 +14,7 @@ public class FollowLineTaskConstTime extends Task {
 	private static final int WEIGHTEN_SQR    = 2;
 	private static final int WEIGHTEN_EXP    = 3;
 	
-	private static final int WEIGHTENING_SETTING = 3;
+	private static final int WEIGHTENING_SETTING = 0;
 	
 	// allows reducing the integral by an exp. value if necessary
 	private static final float ALPHA_INTEGRAL = 0.02f;
@@ -24,14 +24,14 @@ public class FollowLineTaskConstTime extends Task {
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
 	private static final long MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME = 7;
 	
-	private static final int BASE_POWER = 40;
+	private static final int BASE_POWER = 25;
 	
 	private static final float DEVIATION_FROM_GRAY_TARGET = 0.2f;
 
 	private static final int K_FACTOR = 100;
-	private static final float Kp = 5.50f / K_FACTOR;
-	private static final float Ki =  0.028f / K_FACTOR;
-	private static final float Kd =  1800.00f;
+	private static final float Kp = 4.0f / K_FACTOR;
+	private static final float Ki =  0.0f / K_FACTOR; // 28
+	private static final float Kd =  1.00f; // 1800
 	
 	private SensorEvaluation lightSensor;
 	private NXTMotor motorA;
@@ -188,14 +188,10 @@ public class FollowLineTaskConstTime extends Task {
 			weightedIntegral = 0;
 		}
 		
-		
-		
-		
-		
 		// calculate the derivate over the last 3 points
 		//final float derivate = derive2pt(y3, y2, last_delta_t);
 		//final float derivate = derive3pt(t1, t2, t3, y1, y2, y3);
-		final float derivate = derivate();
+		final float derivate = derivate(y3,t3);
 		
 		// remember last two measures
 		y1 = y2;
@@ -243,10 +239,11 @@ public class FollowLineTaskConstTime extends Task {
 		return (float)( intTmp * ( 1 - ( Math.abs(intTmp) / Math.pow( e2, Math.abs( intTmp ) ) ) ) );
 	}
 	
-	private float derivate() {
-		lightSensor.get3Pt();
+	private float derivate(float y3, long t3) {
+		return derive2pt(y3, y2, (int)(t3-t2));
+		/*lightSensor.get3Pt();
 		return derive3pt(lightSensor.pt3Time[0], lightSensor.pt3Time[1], lightSensor.pt3Time[2],
-				         lightSensor.pt3Val[0],  lightSensor.pt3Val[1],  lightSensor.pt3Val[2] );
+				         lightSensor.pt3Val[0],  lightSensor.pt3Val[1],  lightSensor.pt3Val[2] );*/
 	}
 
 	/**
