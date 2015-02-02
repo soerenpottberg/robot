@@ -7,7 +7,7 @@ public abstract class LabyrinthConfiguration {
 	 */
 
 	public int getCloseDistance() {
-		return 15;
+		return 15;//15
 	}
 
 	public int getMinimalDistance() {
@@ -15,7 +15,7 @@ public abstract class LabyrinthConfiguration {
 	}
 	
 	public int getMaximalDistance() {
-		return 25;
+		return 40; //25
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public abstract class LabyrinthConfiguration {
 	 * @return
 	 */
 	public int getCuttingEdge() {
-		return 20;
+		return 17;//20
 	}
 
 	/**
@@ -59,11 +59,11 @@ public abstract class LabyrinthConfiguration {
 	 */
 
 	public int getNoWallDistance() {
-		return 25;
+		return 40;//25
 	}
 
 	public int getBackwardLeftButtonWall() {
-		return -20;
+		return -15;//-20
 	}
 
 	public int getBackwardLeftButton() {
@@ -75,7 +75,7 @@ public abstract class LabyrinthConfiguration {
 	}
 
 	public int getBackwardBothButton() {
-		return -25;
+		return -15;//-25
 	}
 	
 	public int getGoingLeftAngle() {
@@ -83,7 +83,7 @@ public abstract class LabyrinthConfiguration {
 	}
 
 	public int getGoingRightAngle() {
-		return 20;
+		return 30;//20
 	}
 	
 	/*
