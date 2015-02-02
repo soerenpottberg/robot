@@ -4,6 +4,7 @@ import parcours.task.FindLineTask;
 //import parcours.task.FollowLineTask;
 //import parcours.task.FollowLineTaskAdaptive;
 import parcours.task.FollowLineTaskConstTime;
+import parcours.task.FollowLineTaskRaw;
 import parcours.task.Task;
 import parcours.task.TravelHandleCollisionTask;
 
@@ -20,7 +21,8 @@ public class FollowLine extends Level {
 		int i = 0;
 		tasks[i++] = new TravelHandleCollisionTask(INITIAL_TRAVEL_DISTANCE, BASE_SPEED);
 		tasks[i++] = new FindLineTask();
-		tasks[i++] = new FollowLineTaskConstTime();
+		tasks[i++] = new FollowLineTaskRaw();
+		//tasks[i++] = new FollowLineTaskConstTime();
 		//tasks[i++] = new FollowLineTaskAdaptive();
 	}
 	

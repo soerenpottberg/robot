@@ -53,7 +53,7 @@ public class DebugMeasureTask extends Task {
 	@Override
 	protected void control() {
 		out.write(0, (int) tCycle);
-		out.write(1, s.getLightValue());
+		out.write(1, s.getNormalizedLightValue());
 		out.write(2, u.getDistance());
 		out.write(3, motorR.getTachoCount());
 		out.write(4, motorL.getTachoCount());
