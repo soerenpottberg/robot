@@ -6,7 +6,7 @@ import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
 import parcours.task.labyrinth.LabyrinthContext;
-import parcours.task.labyrinth.config.LabyrinthConfiguration;
+import parcours.task.labyrinth.config.StartLabyrinthConfiguration;
 import utils.RobotDesign;
 
 // TODO: Don't stop all the time for turning, do it while maintaining speed
@@ -35,7 +35,7 @@ public class FollowRightWallTaskStateFull extends Task {
 		pilot = RobotDesign.differentialPilot;
 		
 		lineDetector = new LineDetector();
-		context = new LabyrinthContext(new LabyrinthConfiguration(), pilot);
+		context = new LabyrinthContext(new StartLabyrinthConfiguration(), pilot);
 		pilot.setTravelSpeed( BASE_TRAVEL_SPEED );
 		pilot.setRotateSpeed( 500 );
 		pilot.setAcceleration( 70 ); // default 210
