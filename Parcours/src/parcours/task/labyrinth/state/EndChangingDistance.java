@@ -45,9 +45,9 @@ public class EndChangingDistance extends LabyrinthStateBase {
 		case DECREASE_OF_DISTANCE:
 			return context.getDecreaseDistanceAngle();
 		case LARGE_INCREASE_OF_DISTANCE:
-			return context.getLargeInreaseDistanceAngle();
+			return context.getLargeIncreaseDistanceAngle();
 		case SMALL_INCREASE_OF_DISTANCE:
-			return context.getSmallInreaseDistanceAngle();
+			return context.getSmallIncreaseDistanceAngle();
 		}
 		throw new IllegalArgumentException();
 	}

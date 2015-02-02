@@ -79,7 +79,7 @@ public abstract class LabyrinthConfiguration {
 	}
 	
 	public int getGoingLeftAngle() {
-		return -15;
+		return -20;//
 	}
 
 	public int getGoingRightAngle() {
@@ -94,11 +94,11 @@ public abstract class LabyrinthConfiguration {
 		return 20;
 	}
 	
-	public int getSmallInreaseDistanceAngle() {
+	public int getSmallIncreaseDistanceAngle() {
 		return 10;
 	}
 	
-	public int getLargeInreaseDistanceAngle() {
+	public int getLargeIncreaseDistanceAngle() {
 		return 20;
 	}
 
