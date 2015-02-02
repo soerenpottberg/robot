@@ -3,7 +3,9 @@ package parcours.task;
 import utils.EWMA;
 import utils.RobotDesign;
 import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
 import lejos.nxt.NXTMotor;
+import lejos.nxt.TouchSensor;
 import lejos.util.Delay;
 
 public class FollowLineTaskRaw extends Task {
@@ -31,9 +33,12 @@ public class FollowLineTaskRaw extends Task {
 	private long lastTime;
 	private long nextCycleCompletion;
 	private EWMA ewma;
+	private TouchSensor touchSensorLeft;
 
 	@Override
 	protected void init() {
+		touchSensorLeft = RobotDesign.touchSensorLeft;
+		
 		ewma = new EWMA(0.125f, MIDDLE_LIGHT_VALUE);
 		motorA = RobotDesign.unregulatedMotorRight;
 		motorB = RobotDesign.unregulatedMotorLeft;
@@ -124,15 +129,12 @@ public class FollowLineTaskRaw extends Task {
 
 	@Override
 	protected boolean abort() {
-		// TODO Detect line end
-		// TODO Use ultrasonic or touch sensors
-		return false;
+		return touchSensorLeft.isPressed();
 	}
 
 	@Override
 	protected void tearDown() {
-		// TODO Auto-generated method stub
-		
+		RobotDesign.differentialPilot.stop();
 	}
 
 }

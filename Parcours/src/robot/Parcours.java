@@ -2,11 +2,12 @@ package robot;
 
 import parcours.level.*;
 import parcours.level.test.DebugMeasureLevel;
+import parcours.level.test.TestRightTurnLevel;
 import parcours.level.test.TestTravelLevel;
 
 public class Parcours {
 
-	private static int LEVEL_COUNT = 6;
+	private static int LEVEL_COUNT = 7;
 	private static Level[] levels = new Level[LEVEL_COUNT];
 
 	static {
@@ -18,6 +19,7 @@ public class Parcours {
 		// Test Levels
 		levels[i++] = new DebugMeasureLevel();
 		levels[i++] = new TestTravelLevel();
+		levels[i++] = new TestRightTurnLevel();
 	}
 
 	public static void main(String[] args) {
