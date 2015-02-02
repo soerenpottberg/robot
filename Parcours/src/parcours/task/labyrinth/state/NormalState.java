@@ -11,13 +11,19 @@ public class NormalState extends LabyrinthStateBase {
 	@Override
 	public void handleNoButtonIsPressed(LabyrinthContext context, int distance) {
 		if ((distance < context.getCloseDistance())) {
-			context.rotate(context.getLargeInreaseDistanceAngle());
+			context.rotate(context.getLargeIncreaseDistanceAngle());
+			context.setWallDistance(distance);
+			context.setDirectionLeft(true);
 			context.setState(LabyrinthState.START_CHANGING_DISTANCE_LEFT);
 		} else if (distance > context.getCloseDistance() && distance < context.getMinimalDistance()) {
-			context.rotate(context.getSmallInreaseDistanceAngle());
+			context.rotate(context.getSmallIncreaseDistanceAngle());
+			context.setWallDistance(distance);
+			context.setDirectionLeft(true);
 			context.setState(LabyrinthState.START_CHANGING_DISTANCE_LITTLE_LEFT);
 		} else if ((distance > context.getMaximalDistance() && distance < context.getFarDistance())) {
 			context.rotate(context.getDecreaseDistanceAngle());
+			context.setWallDistance(distance);
+			context.setDirectionLeft(false);
 			context.setState(LabyrinthState.START_CHANGING_DISTANCE_RIGHT);
 		} else if (distance > context.getFarDistance()) {
 			context.travel(context.getCuttingEdge());

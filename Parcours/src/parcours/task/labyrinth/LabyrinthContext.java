@@ -51,6 +51,8 @@ public class LabyrinthContext implements RotateMoveController {
 	
 	static int lineCount = 0;
 	static int maxTime = 0;
+	private int distance;
+	private boolean direction ;
 	@SuppressWarnings("unused")
 	public void debugOut() {
 		
@@ -177,16 +179,16 @@ public class LabyrinthContext implements RotateMoveController {
 		return config.getCloseDistance();
 	}
 
-	public int getLargeInreaseDistanceAngle() {
-		return config.getLargeInreaseDistanceAngle();
+	public int getLargeIncreaseDistanceAngle() {
+		return config.getLargeIncreaseDistanceAngle();
 	}
 
 	public int getMinimalDistance() {
 		return config.getMinimalDistance();
 	}
 
-	public int getSmallInreaseDistanceAngle() {
-		return config.getSmallInreaseDistanceAngle();
+	public int getSmallIncreaseDistanceAngle() {
+		return config.getSmallIncreaseDistanceAngle();
 	}
 
 	public int getMaximalDistance() {
@@ -240,5 +242,23 @@ public class LabyrinthContext implements RotateMoveController {
 	public int getGoingRightAngle() {
 		return config.getGoingRightAngle();
 	}
+
+	public void setWallDistance(int distance) {
+		this.distance = distance;
+	}
+
+	public int getWallDistance() {
+		return distance;
+	}
+
+	public void setDirectionLeft(boolean direction) {
+		this.direction = direction;
+	}
+
+	public boolean getDirectionLeft() {
+		return direction;
+	}
+
+	
 
 }
