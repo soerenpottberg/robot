@@ -15,7 +15,7 @@ import utils.RobotDesign;
 // TODO: Move generation of differential pilot object (with optimum parameters) to separate utility class to be used anywhere in the project.
 public class FollowRightWallTaskStateFull extends Task {
 
-	private static final int BASE_TRAVEL_SPEED = 200;
+	private static final int BASE_TRAVEL_SPEED = 30;
 	
 	private UltrasonicSensor distanceSensor;
 	private DifferentialPilot pilot;
@@ -37,8 +37,8 @@ public class FollowRightWallTaskStateFull extends Task {
 		lineDetector = new LineDetector();
 		context = new LabyrinthContext(new StartLabyrinthConfiguration(), pilot);
 		pilot.setTravelSpeed( BASE_TRAVEL_SPEED );
-		pilot.setRotateSpeed( 500 );
-		pilot.setAcceleration( 70 ); // default 210
+		//pilot.setRotateSpeed( 500 );
+		//pilot.setAcceleration( 70 ); // default 210
 		pilot.forward();
 	}
 
