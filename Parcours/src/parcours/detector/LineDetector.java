@@ -49,7 +49,7 @@ public class LineDetector {
 		tLastCycleStart = tNow;
 		
 		// debug output:
-		timingDebug.triggerCycle();
+		//timingDebug.triggerCycle();
 		
 		ewma.addValue(lightSensor.getLightValue());
 		if (ewma.getValue() > WHITE_LINE_DETECTION_THRESHOLD ) {

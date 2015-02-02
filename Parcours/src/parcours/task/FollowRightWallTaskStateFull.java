@@ -19,7 +19,7 @@ public class FollowRightWallTaskStateFull extends Task {
 	
 	private UltrasonicSensor distanceSensor;
 	private DifferentialPilot pilot;
-	private boolean isAboarted = false;
+	//private boolean isAboarted = false;
 
 	private TouchSensor touchL;
 	private TouchSensor touchR;
@@ -62,7 +62,8 @@ public class FollowRightWallTaskStateFull extends Task {
 
 	@Override
 	protected boolean abort() {
-		return isAboarted || lineDetector.hasDetected();
+		return //isAboarted || 
+				lineDetector.hasDetected();
 	}
 
 	@Override

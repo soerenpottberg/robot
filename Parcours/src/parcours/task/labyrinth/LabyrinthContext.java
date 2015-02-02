@@ -3,6 +3,7 @@ package parcours.task.labyrinth;
 import parcours.task.labyrinth.config.LabyrinthConfiguration;
 import parcours.task.labyrinth.state.LabyrinthState;
 import parcours.task.labyrinth.state.LabyrinthStateBase;
+import lejos.nxt.LCD;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Move;
 import lejos.robotics.navigation.MoveListener;
@@ -18,24 +19,51 @@ public class LabyrinthContext implements RotateMoveController {
 		this.config = config;
 		state = LabyrinthState.NORMAL.getState();
 		this.pilot = pilot;
+		
+		tStart = System.currentTimeMillis();
+		stateName = state.name();
 	}
+	
+	private long tStart;
+	private String stateName;
 
 	public void handleBothButtonsPressed(int distance) {
+		debugOut();
 		state.handleBothButtonsPressed(this, distance);
 	}
 
 	public void handleLeftButtonPressed(int distance) {
+		debugOut();
 		state.handleLeftButtonPressed(this, distance);
 	}
 
 	public void handleRightButtonPressed(int distance) {
+		debugOut();
 		state.handleRightButtonPressed(this, distance);
 	}
 
 	public void handleNoButtonIsPressed(int distance) {
+		debugOut();
 		state.handleNoButtonIsPressed(this, distance);
 	}
-
+	
+	static int lineCount = 0;
+	public void debugOut() {
+		final long tNow = System.currentTimeMillis();
+		
+		LCD.drawString( stateName, 0, lineCount);
+		LCD.drawChar( ':', 8, lineCount);
+		LCD.drawInt( (int)(tNow - tStart), LCD.DISPLAY_CHAR_WIDTH - 9, 9, lineCount);
+		
+		++lineCount;
+		lineCount %= 8;
+		
+		LCD.clear(lineCount);
+		
+		tStart = tNow;
+		stateName = state.name();
+	}
+	
 	public void setState(LabyrinthState stateEnumEntry) {
 		this.state = stateEnumEntry.getState();
 	}
