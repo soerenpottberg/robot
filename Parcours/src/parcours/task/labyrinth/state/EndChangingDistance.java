@@ -34,7 +34,7 @@ public class EndChangingDistance extends LabyrinthStateBase {
 		
 		int turnAngle = getTurnAngle(context);
 		int turnBackAngle = -turnAngle;
-		context.rotate(-turnBackAngle);
+		context.rotate(turnBackAngle);
 		context.setState(LabyrinthState.FINISH_MOVEMENT);
 	}
 
