@@ -53,6 +53,11 @@ public class LabyrinthContext implements RotateMoveController {
 	static int maxTime = 0;
 	@SuppressWarnings("unused")
 	public void debugOut() {
+		
+		if (true) {
+			return;
+		}
+		
 		final long tNow = System.currentTimeMillis();
 		
 		final int tDuration = (int)(tNow - tStart);

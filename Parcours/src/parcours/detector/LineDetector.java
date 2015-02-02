@@ -39,7 +39,7 @@ public class LineDetector {
 		
 		// for debugging purposes only:
 		out = new DebugOutput();
-		timingDebug = new TimingDebug(out, 10, 0, 1);
+		//timingDebug = new TimingDebug(out, 10, 0, 1);
 	}
 
 	public boolean hasDetected() {
