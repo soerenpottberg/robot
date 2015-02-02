@@ -1,10 +1,11 @@
 package robot;
 
 import parcours.level.*;
+import parcours.level.test.TestTravelLevel;
 
 public class Parcours {
 
-	private static int LEVEL_COUNT = 5;
+	private static int LEVEL_COUNT = 6;
 	private static Level[] levels = new Level[LEVEL_COUNT];
 
 	static {
@@ -13,7 +14,9 @@ public class Parcours {
 		levels[i++] = new FollowLine();
 		levels[i++] = new Bridge();
 		levels[i++] = new Elevator();
+		// Test Levels
 		levels[i++] = new DebugMeasure();
+		levels[i++] = new TestTravelLevel();
 	}
 
 	public static void main(String[] args) {
