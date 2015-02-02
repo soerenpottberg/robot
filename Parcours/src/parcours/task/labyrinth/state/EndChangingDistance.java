@@ -1,5 +1,6 @@
 package parcours.task.labyrinth.state;
 
+import lejos.nxt.Motor;
 import parcours.task.labyrinth.LabyrinthContext;
 
 public class EndChangingDistance extends LabyrinthStateBase {
@@ -27,6 +28,8 @@ public class EndChangingDistance extends LabyrinthStateBase {
 		if(context.isMoving()) {
 			return;
 		}
+		Motor.A.flt(true);
+		Motor.B.flt(true);
 		
 		
 		int turnAngle = getTurnAngle(context);
