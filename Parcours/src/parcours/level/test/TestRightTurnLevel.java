@@ -1,6 +1,6 @@
 package parcours.level.test;
 
-import parcours.level.SingleTaskLevel;
+import parcours.level.base.SingleTaskLevel;
 import parcours.task.RightTurnTask;
 
 public class TestRightTurnLevel extends SingleTaskLevel {
@@ -11,7 +11,7 @@ public class TestRightTurnLevel extends SingleTaskLevel {
 
 	@Override
 	public String getLabel() {
-		return "Test: Right Turn";
+		return "Right Turn";
 	}
 
 }

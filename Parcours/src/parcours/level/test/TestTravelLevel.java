@@ -1,6 +1,6 @@
 package parcours.level.test;
 
-import parcours.level.SingleTaskLevel;
+import parcours.level.base.SingleTaskLevel;
 import parcours.task.TravelHandleCollisionTask;
 
 public class TestTravelLevel extends SingleTaskLevel {
@@ -11,7 +11,7 @@ public class TestTravelLevel extends SingleTaskLevel {
 
 	@Override
 	public String getLabel() {
-		return "Test: Travel";
+		return "Travel";
 	}
 
 }

@@ -1,6 +1,7 @@
-package robot;
+package parcours.menu;
 
-import parcours.level.Level;
+import parcours.level.base.Level;
+import lejos.nxt.LCD;
 import lejos.util.TextMenu;
 
 public class LevelMenu extends TextMenu {
@@ -23,7 +24,9 @@ public class LevelMenu extends TextMenu {
 	}
 
 	public Level selectLevel() {
+		LCD.clear();
 		selectedLevelIndex = select();
+		LCD.clear();
 		return getLevel();
 	}
 	

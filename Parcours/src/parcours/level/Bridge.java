@@ -1,5 +1,6 @@
 package parcours.level;
 
+import parcours.level.base.Level;
 import parcours.task.FindBridgeEdgeTask;
 import parcours.task.FollowBridgeTask;
 import parcours.task.Task;

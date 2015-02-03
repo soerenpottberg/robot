@@ -1,6 +1,7 @@
 package parcours.level;
 
 import parcours.task.FollowRightWallTaskStateFull;
+import parcours.level.base.Level;
 import parcours.task.Task;
 import parcours.task.labyrinth.config.MainLabyrinthConfiguration;
 

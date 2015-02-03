@@ -1,28 +1,28 @@
 package robot;
 
-import parcours.level.*;
-import parcours.level.test.DebugMeasureLevel;
-import parcours.level.test.TestRightTurnLevel;
-import parcours.level.test.TestTravelLevel;
+import parcours.level.base.Level;
+import parcours.level.base.LevelCombination;
+import parcours.level.combination.FullParcoursVariantA;
+import parcours.level.combination.FullParcoursVariantB;
+import parcours.level.combination.QualificationVariantA;
+import parcours.level.combination.QualificationVariantB;
+import parcours.level.combination.Testing;
+import parcours.menu.LevelMenu;
+import parcours.menu.MainMenu;
 
 public class Parcours {
 
-	private static int LEVEL_COUNT = 10;
-	private static Level[] levels = new Level[LEVEL_COUNT];
+	private static final int COMBINATION_COUNT = 5;
+	private static final LevelCombination[] ITEMS = new LevelCombination[COMBINATION_COUNT];
+	private MainMenu mainMenu;
 
 	static {
 		int i = 0;
-		levels[i++] = new StartLevel();
-		levels[i++] = new FollowLine();
-		levels[i++] = new Bridge();
-		levels[i++] = new Elevator();
-		levels[i++] = new Labyrinth();
-		levels[i++] = new Obstacles();
-		levels[i++] = new FinalLevel();
-		// Test Levels
-		levels[i++] = new DebugMeasureLevel();
-		levels[i++] = new TestTravelLevel();
-		levels[i++] = new TestRightTurnLevel();
+		ITEMS[i++] = new QualificationVariantA();
+		ITEMS[i++] = new QualificationVariantB();
+		ITEMS[i++] = new FullParcoursVariantA();
+		ITEMS[i++] = new FullParcoursVariantB();
+		ITEMS[i++] = new Testing();
 	}
 
 	public static void main(String[] args) {
@@ -30,19 +30,28 @@ public class Parcours {
 	}
 
 	public Parcours() {
-		LevelMenu menu = new LevelMenu(levels);
+		mainMenu = new MainMenu(ITEMS);
 		while (true) {
-			Level selectedLevel = menu.selectLevel();
-			if (selectedLevel == null) {
+			LevelCombination selectedLevelCombination = mainMenu
+					.selectLevelCombination();
+			if (selectedLevelCombination == null) {
 				break;
 			}
-			selectedLevel.run();
+			Level[] levels = selectedLevelCombination.getLevels();
+			LevelMenu menu = new LevelMenu(levels);
 			while (true) {
-				Level nextLevel = menu.getNextLevel();
-				if (nextLevel == null) {
+				Level selectedLevel = menu.selectLevel();
+				if (selectedLevel == null) {
 					break;
 				}
-				nextLevel.run();
+				selectedLevel.run();
+				while (true) {
+					Level nextLevel = menu.getNextLevel();
+					if (nextLevel == null) {
+						break;
+					}
+					nextLevel.run();
+				}
 			}
 		}
 	}

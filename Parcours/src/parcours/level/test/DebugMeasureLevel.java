@@ -1,6 +1,6 @@
 package parcours.level.test;
 
-import parcours.level.SingleTaskLevel;
+import parcours.level.base.SingleTaskLevel;
 import parcours.task.DebugMeasureTask;
 
 

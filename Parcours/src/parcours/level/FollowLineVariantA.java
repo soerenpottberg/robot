@@ -1,5 +1,6 @@
 package parcours.level;
 
+import parcours.level.base.Level;
 import parcours.task.FindLineTask;
 //import parcours.task.FollowLineTask;
 //import parcours.task.FollowLineTaskAdaptive;
@@ -10,7 +11,7 @@ import parcours.task.Task;
 import parcours.task.TravelHandleCollisionTask;
 
 
-public class FollowLine extends Level {
+public class FollowLineVariantA extends Level {
 	
 	private static final int BASE_SPEED = 20;
 	private static final int INITIAL_TRAVEL_DISTANCE = 15; // used to clear the 3 lines at the beginning
@@ -31,7 +32,7 @@ public class FollowLine extends Level {
 	
 	@Override
 	public String getLabel() {
-		return "Follow Line";
+		return "Follow Line (A)";
 	}
 
 	@Override
