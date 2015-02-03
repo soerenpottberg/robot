@@ -4,10 +4,10 @@ import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
-import parcours.task.Task;
+import parcours.task.ControllerTask;
 import utils.RobotDesign;
 
-public class GoIntoElevatorTask extends Task {
+public class GoIntoElevatorTask extends ControllerTask {
 	protected DifferentialPilot pilot;
 	protected TouchSensor touchSensorRight, touchSensorLeft;
 	

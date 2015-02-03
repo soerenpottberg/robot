@@ -3,9 +3,8 @@ package parcours.task.bluetooth;
 import java.io.IOException;
 
 import parcours.bluetooth.TurnTableConnection;
-import parcours.task.Task;
 
-public class BluetoothFinishTurnTableTask extends Task {
+public class BluetoothFinishTurnTableTask extends BluetoothTask {
 
 	private TurnTableConnection connection;
 
@@ -14,28 +13,8 @@ public class BluetoothFinishTurnTableTask extends Task {
 	}
 
 	@Override
-	protected void init() {
-	}
-
-	@Override
-	protected void control() {
-		try {
-			connection.sendCyaCommand();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@Override
-	protected boolean abort() {
-		// TODO Auto-generated method stub
-		return true;
-	}
-
-	@Override
-	protected void tearDown() {
-		// TODO Auto-generated method stub
-
+	protected void communicate() throws IOException {
+		connection.sendCyaCommand();
 	}
 
 }

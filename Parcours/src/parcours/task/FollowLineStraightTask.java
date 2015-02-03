@@ -6,7 +6,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.util.Delay;
 
-public class FollowLineStraightTask extends Task {
+public class FollowLineStraightTask extends ControllerTask {
 	
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;

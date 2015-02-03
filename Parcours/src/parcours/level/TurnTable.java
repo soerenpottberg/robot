@@ -1,7 +1,7 @@
 package parcours.level;
 
 import parcours.level.base.Level;
-import parcours.task.Task;
+import parcours.task.ControllerTask;
 
 
 public class TurnTable extends Level {
@@ -12,7 +12,7 @@ public class TurnTable extends Level {
 	}
 
 	@Override
-	public Task[] getTasks() {
+	public ControllerTask[] getTasks() {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -6,7 +6,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
 import utils.RobotDesign;
 
-public class FindLineTask extends Task {
+public class FindLineTask extends ControllerTask {
 	private static final int BASE_SPEED = 20;	
 	private static final int BACKOFF_DISTANCE = -3;
 	private static final int IMPACT_CORRECTION_ANGLE = 15;

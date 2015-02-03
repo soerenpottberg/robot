@@ -8,7 +8,7 @@ import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;
 import lejos.util.Delay;
 
-public class FollowLineTaskRaw extends Task {
+public class FollowLineTaskRaw extends ControllerTask {
 	
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;

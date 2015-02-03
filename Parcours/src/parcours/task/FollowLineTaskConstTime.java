@@ -8,7 +8,7 @@ import sensor.evaluation.SensorEvaluation;
 import utils.RobotDesign;
 import debug.DebugOutput;
 
-public class FollowLineTaskConstTime extends Task {
+public class FollowLineTaskConstTime extends ControllerTask {
 	private static final int WEIGHTEN_NONE   = 0;
 	private static final int WEIGHTEN_LINEAR = 1;
 	private static final int WEIGHTEN_SQR    = 2;

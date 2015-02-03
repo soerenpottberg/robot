@@ -1,12 +1,9 @@
 package parcours.task.bluetooth;
 
-import javax.bluetooth.RemoteDevice;
-
-import lejos.nxt.comm.Bluetooth;
 import parcours.bluetooth.BluetoothConnection;
-import parcours.task.Task;
+import parcours.task.ControllerTask;
 
-public class BluetoothConnectTask extends Task {
+public class BluetoothConnectTask extends ControllerTask {
 
 	private BluetoothConnection connection;
 

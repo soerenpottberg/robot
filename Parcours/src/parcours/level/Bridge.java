@@ -3,14 +3,14 @@ package parcours.level;
 import parcours.level.base.Level;
 import parcours.task.FindBridgeEdgeTask;
 import parcours.task.FollowBridgeTask;
-import parcours.task.Task;
+import parcours.task.ControllerTask;
 import parcours.task.TravelHandleCollisionTask;
 
 
 public class Bridge extends Level {
 	
 	private static final int TASK_COUNT = 3;
-	private static final Task[] tasks = new Task[TASK_COUNT];
+	private static final ControllerTask[] tasks = new ControllerTask[TASK_COUNT];
 	private static final int INITIAL_TRAVEL_DISTANCE = 30; // used to clear the 3 lines at the beginning
 	
 	static {
@@ -26,7 +26,7 @@ public class Bridge extends Level {
 	}
 
 	@Override
-	public Task[] getTasks() {
+	public ControllerTask[] getTasks() {
 		return tasks;
 	}
 

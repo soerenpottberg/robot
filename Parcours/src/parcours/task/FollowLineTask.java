@@ -4,7 +4,7 @@ import utils.RobotDesign;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 
-public class FollowLineTask extends Task {
+public class FollowLineTask extends ControllerTask {
 
 	private static final int MIDDLE_LIGHT_VALUE = 40;
 	private static final int BASE_POWER = 30;

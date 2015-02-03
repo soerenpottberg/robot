@@ -2,14 +2,14 @@ package parcours.level;
 
 import parcours.level.base.Level;
 import parcours.task.FollowRightWallTaskStateFull;
-import parcours.task.Task;
+import parcours.task.ControllerTask;
 import parcours.task.labyrinth.config.StartLabyrinthConfiguration;
 
 
 public class StartLevel extends Level {
 	
 	private static int TASK_COUNT = 1;
-	private static Task[] tasks = new Task[TASK_COUNT];
+	private static ControllerTask[] tasks = new ControllerTask[TASK_COUNT];
 	
 	static {
 		int i = 0;
@@ -22,7 +22,7 @@ public class StartLevel extends Level {
 	}
 
 	@Override
-	public Task[] getTasks() {
+	public ControllerTask[] getTasks() {
 		return tasks;
 	}
 

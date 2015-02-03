@@ -7,7 +7,7 @@ import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import utils.RobotDesign;
 
-public class DebugMeasureTask extends Task {
+public class DebugMeasureTask extends ControllerTask {
 	NXTMotor motorR;
 	NXTMotor motorL;
 	NXTMotor motorS;

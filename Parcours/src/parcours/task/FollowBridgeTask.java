@@ -5,7 +5,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;
 
-public class FollowBridgeTask extends Task {
+public class FollowBridgeTask extends ControllerTask {
 
 	private TouchSensor touchSensorLeft;
 	private static final int MIDDLE_LIGHT_VALUE = 30; // Bridge = 36 ; Side = 21

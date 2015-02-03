@@ -5,7 +5,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.Sound;
 
-public class FollowLineTaskAdaptive extends Task {
+public class FollowLineTaskAdaptive extends ControllerTask {
 
 	private static final int FOUND_BLACK = -15;
 	private static final int FIND_BLACK_COMPENSATION = 20;

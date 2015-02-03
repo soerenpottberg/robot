@@ -5,7 +5,7 @@ import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import utils.RobotDesign;
 
-public class TravelHandleCollisionTask extends Task {
+public class TravelHandleCollisionTask extends ControllerTask {
 	private static final int BACKWARD_DISTANCE = -10;
 	private static final int CORRECTION_ANGLE = 20;
 	private static final int DISTANCE_LOST_BY_TURN = 2;

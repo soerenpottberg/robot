@@ -5,7 +5,7 @@ import lejos.nxt.Sound;
 import lejos.robotics.navigation.DifferentialPilot;
 import utils.RobotDesign;
 
-public class RightTurnTask extends Task {
+public class RightTurnTask extends ControllerTask {
 
 	private static final int BACKWARD_DISTANCE = -5;
 	private static final int RIGHT_ANGLE = -70;

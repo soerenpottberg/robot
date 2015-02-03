@@ -1,29 +1,19 @@
 package parcours.task.bluetooth;
 
-import parcours.task.Task;
+import java.io.IOException;
+
+import parcours.task.ControllerTask;
 import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.robotics.navigation.DifferentialPilot;
 import utils.RobotDesign;
 
-public class BluetoothOpenDoorTask extends Task {
-
-
-	@Override
-	protected void init() {
-	}
+public class BluetoothOpenDoorTask extends BluetoothTask {
 
 	@Override
-	protected void control() {
-	}
-
-	@Override
-	protected boolean abort() {
-		return true;
-	}
-
-	@Override
-	protected void tearDown() {
+	protected void communicate() throws IOException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

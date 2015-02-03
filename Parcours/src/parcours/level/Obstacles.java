@@ -5,6 +5,7 @@ import parcours.task.FindLineTask;
 import parcours.task.FollowBridgeTask;
 import parcours.task.FollowLineTaskRaw;
 import parcours.task.FollowLineStraightTask;
+import parcours.task.ControllerTask;
 import parcours.task.Task;
 import parcours.task.TraversOpenedDoorTask;
 import parcours.task.bluetooth.BluetoothCloseDoorTask;
@@ -14,7 +15,7 @@ import parcours.task.bluetooth.BluetoothOpenDoorTask;
 public class Obstacles extends Level {
 	
 	private static int TASK_COUNT = 8;
-	private static Task[] tasks = new Task[TASK_COUNT];
+	private static Task[] tasks = new ControllerTask[TASK_COUNT];
 	
 	static {
 		int i = 0;

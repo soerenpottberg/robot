@@ -7,7 +7,7 @@ import parcours.task.FindLineTask;
 import parcours.task.FollowLineTaskConstTime;
 import parcours.task.FollowLineTaskRaw;
 import parcours.task.RightTurnTask;
-import parcours.task.Task;
+import parcours.task.ControllerTask;
 import parcours.task.TravelHandleCollisionTask;
 
 
@@ -17,7 +17,7 @@ public class FollowLineVariantA extends Level {
 	private static final int INITIAL_TRAVEL_DISTANCE = 15; // used to clear the 3 lines at the beginning
 
 	private static int TASK_COUNT = 5;
-	private static Task[] tasks = new Task[TASK_COUNT];
+	private static ControllerTask[] tasks = new ControllerTask[TASK_COUNT];
 	
 	static {
 		int i = 0;
@@ -36,7 +36,7 @@ public class FollowLineVariantA extends Level {
 	}
 
 	@Override
-	public Task[] getTasks() {
+	public ControllerTask[] getTasks() {
 		return tasks;
 	}
 

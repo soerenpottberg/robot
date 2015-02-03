@@ -6,7 +6,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.BridgeEdgeDetector;
 import utils.RobotDesign;
 
-public class FindBridgeEdgeTask extends Task {
+public class FindBridgeEdgeTask extends ControllerTask {
 	private static final int BASE_SPEED = 20;
 	
 	private DifferentialPilot pilot;

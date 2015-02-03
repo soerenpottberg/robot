@@ -6,7 +6,7 @@ import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 
-public class FollowBridgePilotTask extends Task {
+public class FollowBridgePilotTask extends ControllerTask {
 
 	private static final int MIDDLE_LIGHT_VALUE = 30; // Bridge = 36 ; Side = 21
 	private static final int BASE_POWER = 50;

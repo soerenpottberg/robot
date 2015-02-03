@@ -7,7 +7,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
 import utils.RobotDesign;
 
-public class FollowRightWallTask extends Task {
+public class FollowRightWallTask extends ControllerTask {
 
 	private UltrasonicSensor distanceSensor;
 	private DifferentialPilot pilot;

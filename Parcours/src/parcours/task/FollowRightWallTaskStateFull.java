@@ -14,7 +14,7 @@ import utils.RobotDesign;
 // TODO: verify with higher speeds
 // TODO: Measure which values for wheel diameter and track width are optimal (current ones don't perfectly match angles when turning)
 // TODO: Move generation of differential pilot object (with optimum parameters) to separate utility class to be used anywhere in the project.
-public class FollowRightWallTaskStateFull extends Task {
+public class FollowRightWallTaskStateFull extends ControllerTask {
 
 	//private static final int BASE_TRAVEL_SPEED = 40;//30
 	
