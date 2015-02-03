@@ -2,6 +2,19 @@ package parcours.task.labyrinth.config;
 
 public class MainLabyrinthConfiguration extends LabyrinthConfiguration {
 
+
+	@Override
+	public int getBaseTravelSpeed() {
+		return 25;
+	}
+	
+	// Wall Distances
+	@Override
+	public int getCloseDistance() {
+		// TODO Auto-generated method stub
+		return 10;
+	}
+	
 	@Override
 	public int getMaximalDistance() {
 		return 20;
@@ -22,11 +35,8 @@ public class MainLabyrinthConfiguration extends LabyrinthConfiguration {
 		return 40;
 	}
 	
-	@Override
-	public int getBaseTravelSpeed() {
-		return 20;
-	}
 
+		//Travelling distances
 	@Override
 	public int getCuttingEdge() {
 		return 17;
@@ -38,10 +48,17 @@ public class MainLabyrinthConfiguration extends LabyrinthConfiguration {
 	}
 
 	@Override
-	public int getCloseDistance() {
+	public int getBackwardRightButton() {
 		// TODO Auto-generated method stub
-		return 10;
+		return -7;
 	}
+
+	@Override
+	public int getBackwardBothButton() {
+		// TODO Auto-generated method stub
+		return -10;
+	}
+
 
 	
 }

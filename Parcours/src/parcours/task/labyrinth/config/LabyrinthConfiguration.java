@@ -57,13 +57,9 @@ public abstract class LabyrinthConfiguration {
 		return -10;
 	}
 
-	public int getBackwardRightButton() {
-		return -10;
-	}
+	public abstract int getBackwardRightButton();
 
-	public int getBackwardBothButton() {
-		return -15;//-25
-	}
+	public abstract int getBackwardBothButton();
 	
 	public int getGoingLeftAngle() {
 		return -20;//
