@@ -1,5 +1,6 @@
-package parcours.task;
+package parcours.task.bluetooth;
 
+import parcours.task.Task;
 import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.robotics.navigation.DifferentialPilot;

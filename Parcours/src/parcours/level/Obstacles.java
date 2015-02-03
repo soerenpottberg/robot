@@ -1,14 +1,14 @@
 package parcours.level;
 
 import parcours.level.base.Level;
-import parcours.task.BluetoothCloseDoorTask;
-import parcours.task.BluetoothOpenDoorTask;
 import parcours.task.FindLineTask;
 import parcours.task.FollowBridgeTask;
 import parcours.task.FollowLineTaskRaw;
 import parcours.task.FollowLineStraightTask;
 import parcours.task.Task;
 import parcours.task.TraversOpenedDoorTask;
+import parcours.task.bluetooth.BluetoothCloseDoorTask;
+import parcours.task.bluetooth.BluetoothOpenDoorTask;
 
 
 public class Obstacles extends Level {
