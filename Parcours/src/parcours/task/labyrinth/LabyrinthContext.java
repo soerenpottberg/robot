@@ -259,6 +259,10 @@ public class LabyrinthContext implements RotateMoveController {
 		return direction;
 	}
 
+	public int getBackwardCrashed() {
+		return config.getBackwardCrashed();
+	}
+
 	
 
 }

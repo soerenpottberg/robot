@@ -6,9 +6,7 @@ public abstract class LabyrinthConfiguration {
 	 * Distances
 	 */
 
-	public int getCloseDistance() {
-		return 15;//15
-	}
+	public abstract int getCloseDistance();
 
 	public abstract int getMinimalDistance();
 	
@@ -79,9 +77,7 @@ public abstract class LabyrinthConfiguration {
 	 * Adjusting Distances (left turn -> straight -> right turn)
 	 */
 
-	public int getAdjustmentDistance() {
-		return 30;
-	}
+	public abstract int getAdjustmentDistance();
 	
 	public int getSmallIncreaseDistanceAngle() {
 		return 10;
@@ -96,6 +92,10 @@ public abstract class LabyrinthConfiguration {
 	}
 
 	public abstract int getBaseTravelSpeed();
+
+	public int getBackwardCrashed() {
+		return -5;
+	}
 
 	
 }

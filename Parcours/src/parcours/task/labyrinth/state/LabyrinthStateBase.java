@@ -6,13 +6,13 @@ public abstract class LabyrinthStateBase {
 	
 	public abstract String name();
 
-	public final void handleBothButtonsPressed(LabyrinthContext context,
+	public void handleBothButtonsPressed(LabyrinthContext context,
 			int distance) {
 		context.travel(context.getBackwardBothButton());
 		context.setState(LabyrinthState.START_90_DEGREE_LEFT_TURN);
 	}
 
-	public final void handleLeftButtonPressed(LabyrinthContext context,
+	public void handleLeftButtonPressed(LabyrinthContext context,
 			int distance) {
 		if (distance < context.getNoWallDistance()) {
 			context.travel(context.getBackwardLeftButtonWall());
@@ -23,7 +23,7 @@ public abstract class LabyrinthStateBase {
 		}
 	}
 
-	public final void handleRightButtonPressed(LabyrinthContext context,
+	public void handleRightButtonPressed(LabyrinthContext context,
 			int distance) {
 		context.travel(context.getBackwardRightButton(), true);
 		context.setState(LabyrinthState.START_GOING_RIGHT);

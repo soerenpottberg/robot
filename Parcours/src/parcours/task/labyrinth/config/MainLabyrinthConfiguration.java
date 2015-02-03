@@ -4,12 +4,12 @@ public class MainLabyrinthConfiguration extends LabyrinthConfiguration {
 
 	@Override
 	public int getMaximalDistance() {
-		return 25;
+		return 20;
 	}
 	
 	@Override
 	public int getMinimalDistance() {
-		return 16;
+		return 15;
 	}
 
 	@Override
@@ -24,12 +24,23 @@ public class MainLabyrinthConfiguration extends LabyrinthConfiguration {
 	
 	@Override
 	public int getBaseTravelSpeed() {
-		return 25;
+		return 20;
 	}
 
 	@Override
 	public int getCuttingEdge() {
 		return 17;
+	}
+
+	@Override
+	public int getAdjustmentDistance() {
+		return 20;
+	}
+
+	@Override
+	public int getCloseDistance() {
+		// TODO Auto-generated method stub
+		return 10;
 	}
 
 	

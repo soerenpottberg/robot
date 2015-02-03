@@ -36,7 +36,7 @@ public class StartChangingDistance extends LabyrinthStateBase {
 			dist1 = (int) ((b-a)/(Math.sin(rad)));
 		}
 		else{
-			Sound.beep();
+			//Sound.beep();
 			final int a = context.getWallDistance();
 			final int teta = context.getDecreaseDistanceAngle();
 			final int b = context.getMaximalDistance();
