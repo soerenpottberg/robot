@@ -2,6 +2,7 @@ package parcours.level;
 
 import parcours.task.FollowRightWallTaskStateFull;
 import parcours.task.Task;
+import parcours.task.labyrinth.config.StartLabyrinthConfiguration;
 
 
 public class StartLevel extends Level {
@@ -11,7 +12,7 @@ public class StartLevel extends Level {
 	
 	static {
 		int i = 0;
-		tasks[i++] = new FollowRightWallTaskStateFull();
+		tasks[i++] = new FollowRightWallTaskStateFull(new StartLabyrinthConfiguration());
 	}
 	
 	@Override

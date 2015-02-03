@@ -14,10 +14,7 @@ public abstract class LabyrinthConfiguration {
 		return 16;
 	}
 	
-	public int getMaximalDistance() {
-		return 40; //25
-	}
-	
+	public abstract int getMaximalDistance();	
 	/**
 	 * Determines whether there is a wall or not
 	 * @return
@@ -105,6 +102,8 @@ public abstract class LabyrinthConfiguration {
 	public int getDecreaseDistanceAngle() {
 		return -10;
 	}
+
+	public abstract int getBaseTravelSpeed();
 
 	
 }
