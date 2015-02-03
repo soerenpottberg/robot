@@ -6,7 +6,7 @@ import parcours.level.combination.FullParcoursVariantA;
 import parcours.level.combination.FullParcoursVariantB;
 import parcours.level.combination.QualificationVariantA;
 import parcours.level.combination.QualificationVariantB;
-import parcours.level.combination.Testing;
+import parcours.level.combination.TestLevelCombination;
 import parcours.menu.LevelMenu;
 import parcours.menu.MainMenu;
 
@@ -22,7 +22,7 @@ public class Parcours {
 		ITEMS[i++] = new QualificationVariantB();
 		ITEMS[i++] = new FullParcoursVariantA();
 		ITEMS[i++] = new FullParcoursVariantB();
-		ITEMS[i++] = new Testing();
+		ITEMS[i++] = new TestLevelCombination();
 	}
 
 	public static void main(String[] args) {
@@ -45,6 +45,9 @@ public class Parcours {
 					break;
 				}
 				selectedLevel.run();
+				if(selectedLevelCombination.isTestLevelCombination()) {
+					continue; // Return to menu instead of running next level
+				}
 				while (true) {
 					Level nextLevel = menu.getNextLevel();
 					if (nextLevel == null) {
