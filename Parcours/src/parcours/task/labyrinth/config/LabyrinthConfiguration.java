@@ -19,9 +19,7 @@ public abstract class LabyrinthConfiguration {
 	 * Determines whether there is a wall or not
 	 * @return
 	 */
-	public int getFarDistance() {
-		return 60;
-	}
+	public abstract int getFarDistance();
 	
 	/*
 	 * Angles
