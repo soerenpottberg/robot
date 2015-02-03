@@ -5,13 +5,11 @@ import utils.RobotDesign;
 
 public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 	
-	
-	
 	private boolean isMovingArc = false;
-	private static final int ARC_GOAL = 30;
+	private static final int ARC_GOAL = 25;
 	
 	public TraversOpenedDoorTask() {
-		super(100, (int)(RobotDesign.differentialPilot.getMaxTravelSpeed()));
+		super(120, (int)(RobotDesign.differentialPilot.getMaxTravelSpeed()));
 	}
 
 	@Override
@@ -47,9 +45,9 @@ public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 		distanceRemaining -= pilot.getMovementIncrement();
 		// turn left
 		if (angle > 0) {
-			pilot.arcForward( 20 );
+			pilot.arcForward( 100 );
 		} else { // turn right
-			pilot.arcForward( -20 );
+			pilot.arcForward( -100 );
 		}
 	}
 

@@ -51,8 +51,8 @@ public class FollowBridgeTask extends Task {
 
 		int powerMotorA = BASE_POWER + compensation;
 		int powerMotorB = BASE_POWER - compensation;
-		setMotorPower(motorA, powerMotorA, lastPowerMotorA);
-		setMotorPower(motorB, powerMotorB, lastPowerMotorB);
+		RobotDesign.setMotorPower(motorA, powerMotorA, lastPowerMotorA);
+		RobotDesign.setMotorPower(motorB, powerMotorB, lastPowerMotorB);
 		
 		lastError = error;
 		lastPowerMotorA = powerMotorA;
@@ -77,19 +77,6 @@ public class FollowBridgeTask extends Task {
 
 	private void integrateError(int error) {
 		errorIntegrated = (int) (2f / 3f * errorIntegrated) + error;
-	}
-
-	private static void setMotorPower(NXTMotor motor, int power, int oldPower) {
-		int absPower = Math.abs(power);
-		motor.setPower(absPower);
-		if (Math.signum(power) == Math.signum(oldPower)) {
-			return;
-		}
-		if (power > 0) {
-			motor.forward();
-		} else {
-			motor.backward();
-		}
 	}
 
 	@Override

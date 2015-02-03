@@ -13,8 +13,8 @@ public class FollowLineStraightTask extends Task {
 
 	private static final int BASE_POWER = 50;
 
-	private static final float Kp = 0.15f;
-	private static final float Kd = 0.20f;
+	private static final float Kp = 0.015f;
+	private static final float Kd = 0.30f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
