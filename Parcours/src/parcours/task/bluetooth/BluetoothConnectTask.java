@@ -9,7 +9,6 @@ import parcours.task.Task;
 public class BluetoothConnectTask extends Task {
 
 	private BluetoothConnection connection;
-	private RemoteDevice device;
 
 	public BluetoothConnectTask(BluetoothConnection connection) {
 		this.connection = connection;
@@ -17,13 +16,11 @@ public class BluetoothConnectTask extends Task {
 
 	@Override
 	protected void init() {
-		String deviceName = "TurnTable";
-		device = lookupDevice(deviceName);
 	}
 
 	@Override
 	protected void control() {
-		connection.establish(device);
+		connection.establish();
 	}
 
 	@Override
@@ -35,13 +32,6 @@ public class BluetoothConnectTask extends Task {
 	protected void tearDown() {
 	}
 
-	private RemoteDevice lookupDevice(String deviceName) {
-		RemoteDevice device = Bluetooth.getKnownDevice(deviceName);
-		if (device == null) {
-			System.out.println("unknown device" + deviceName);
-			System.out.println("cannot connect to TurnTable");
-		}
-		return device;
-	}
+	
 
 }

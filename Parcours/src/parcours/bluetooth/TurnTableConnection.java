@@ -2,8 +2,14 @@ package parcours.bluetooth;
 
 import java.io.IOException;
 
-public class TurnTableConnection {
+public class TurnTableConnection extends BluetoothConnection{
 	
+	private static final String BRICK_NAME = "TurnTable";
+
+	public TurnTableConnection() {
+		super(BRICK_NAME);
+	}
+
 	public enum TurnTableCommand {
 		HELLO, TURN, DONE, CYA, UNKNOWN;
 
@@ -13,12 +19,6 @@ public class TurnTableConnection {
 			}
 			return values()[commandOrdinal];
 		}
-	}
-
-	private BluetoothConnection connection;
-
-	public TurnTableConnection(BluetoothConnection connection) {
-		this.connection = connection;
 	}
 
 	public void receiveHello() throws IOException {
@@ -49,7 +49,7 @@ public class TurnTableConnection {
 	}
 
 	private TurnTableCommand receiveCommand() throws IOException {
-		int commandOrdinal = connection.receiveIntegerCommand();
+		int commandOrdinal = receiveIntegerCommand();
 		TurnTableCommand command = TurnTableCommand
 				.getByOrdinal(commandOrdinal);
 		System.out.println("Receive:" + command.name());
@@ -57,7 +57,7 @@ public class TurnTableConnection {
 	}
 
 	private void sendCommand(TurnTableCommand command) throws IOException {
-		connection.sendIntegerCommand(command.ordinal());
+		sendIntegerCommand(command.ordinal());
 		System.out.println("Send: " + command.name());
 	}
 

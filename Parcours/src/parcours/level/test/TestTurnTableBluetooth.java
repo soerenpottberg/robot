@@ -1,6 +1,5 @@
 package parcours.level.test;
 
-import parcours.bluetooth.BluetoothConnection;
 import parcours.bluetooth.TurnTableConnection;
 import parcours.level.base.Level;
 import parcours.task.Task;
@@ -15,16 +14,15 @@ public class TestTurnTableBluetooth extends Level {
 	
 	private static final int TASK_COUNT = 5;
 	private static final Task[] TASKS = new Task[TASK_COUNT];
-	static final BluetoothConnection CONNECTION = new BluetoothConnection();
-	static final TurnTableConnection TURN_TABLE_CONNECTION = new TurnTableConnection(CONNECTION);
+	static final TurnTableConnection TURN_TABLE_CONNECTION = new TurnTableConnection();
 	
 	static {
 		int i = 0;
-		TASKS[i++] = new BluetoothConnectTask(CONNECTION);
+		TASKS[i++] = new BluetoothConnectTask(TURN_TABLE_CONNECTION);
 		TASKS[i++] = new BluetoothWaitForTurnTableTask(TURN_TABLE_CONNECTION);
 		TASKS[i++] = new BluetoothTurnTurnTableTask(TURN_TABLE_CONNECTION);
 		TASKS[i++] = new BluetoothFinishTurnTableTask(TURN_TABLE_CONNECTION);
-		TASKS[i++] = new BluetoothCloseConnectionTask(CONNECTION);
+		TASKS[i++] = new BluetoothCloseConnectionTask(TURN_TABLE_CONNECTION);
 	}
 
 	@Override

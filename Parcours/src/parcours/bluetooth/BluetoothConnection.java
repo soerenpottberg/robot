@@ -9,15 +9,20 @@ import javax.bluetooth.RemoteDevice;
 import lejos.nxt.comm.BTConnection;
 import lejos.nxt.comm.Bluetooth;
 
-public class BluetoothConnection {
+public abstract class BluetoothConnection {
 
 	private BTConnection connection;
 	private DataOutputStream dataOutputStream;
 	private DataInputStream dataInputStream;
+	private RemoteDevice device;
 
-	public void establish(RemoteDevice device) {
+	public BluetoothConnection(String name) {
+		this.device = lookupDevice(name);
+	}
+
+	public void establish() {
 		connection = Bluetooth.connect(device);
-		if(connection == null) {
+		if (connection == null) {
 			return;
 		}
 		dataOutputStream = connection.openDataOutputStream();
@@ -27,7 +32,7 @@ public class BluetoothConnection {
 	public boolean isEstablished() {
 		return connection != null;
 	}
-	
+
 	public int receiveIntegerCommand() throws IOException {
 		int command = dataInputStream.readInt();
 		System.out.println("Receive:" + command);
@@ -45,6 +50,15 @@ public class BluetoothConnection {
 		connection = null;
 		dataInputStream = null;
 		dataOutputStream = null;
+	}
+
+	private RemoteDevice lookupDevice(String deviceName) {
+		RemoteDevice device = Bluetooth.getKnownDevice(deviceName);
+		if (device == null) {
+			System.out.println("unknown device" + deviceName);
+			System.out.println("cannot connect to TurnTable");
+		}
+		return device;
 	}
 
 }
