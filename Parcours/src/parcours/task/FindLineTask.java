@@ -10,10 +10,21 @@ public class FindLineTask extends Task {
 	private static final int BASE_SPEED = 20;	
 	private static final int BACKOFF_DISTANCE = -3;
 	private static final int IMPACT_CORRECTION_ANGLE = 15;
+	private static final int ARC_LEFT_RADIUS = 50;
+	private static final int ARC_RIGHT_RADIUS = -50;
 	
 	private DifferentialPilot pilot;
 	private LineDetector lineDetector;
 	private TouchSensor touchR, touchL;
+	private boolean driveStraight;
+	
+	public FindLineTask() {
+		this.driveStraight = true;
+	}
+	
+	public FindLineTask(boolean driveStraight) {
+		this.driveStraight = driveStraight;
+	}
 
 	@Override
 	protected void init() {
@@ -23,7 +34,7 @@ public class FindLineTask extends Task {
 		pilot = RobotDesign.differentialPilot;
 		lineDetector = new LineDetector();
 		pilot.setTravelSpeed(BASE_SPEED);
-		pilot.forward();
+		continueDriving( false );
 	}
 
 	@Override
@@ -32,14 +43,22 @@ public class FindLineTask extends Task {
 			pilot.stop();
 			pilot.travel(BACKOFF_DISTANCE);
 			pilot.rotate(IMPACT_CORRECTION_ANGLE);
-			pilot.forward();
+			continueDriving( true );
 		}
 		
 		if (touchL.isPressed() ) {
 			pilot.stop();
 			pilot.travel(BACKOFF_DISTANCE);
 			pilot.rotate(-1 * IMPACT_CORRECTION_ANGLE);
+			continueDriving( false );
+		}
+	}
+	
+	private void continueDriving(boolean impactRight) {
+		if ( driveStraight ) {
 			pilot.forward();
+		} else {
+			pilot.arcForward(impactRight ? ARC_LEFT_RADIUS : ARC_RIGHT_RADIUS);
 		}
 	}
 
