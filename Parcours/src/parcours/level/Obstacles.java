@@ -13,7 +13,7 @@ import parcours.task.TraversOpenedDoorTask;
 
 public class Obstacles extends Level {
 	
-	private static int TASK_COUNT = 4;
+	private static int TASK_COUNT = 8;
 	private static Task[] tasks = new Task[TASK_COUNT];
 	
 	static {
@@ -35,8 +35,7 @@ public class Obstacles extends Level {
 
 	@Override
 	public Task[] getTasks() {
-		// TODO Auto-generated method stub
-		return null;
+		return tasks;
 	}
 
 }
