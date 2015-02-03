@@ -22,6 +22,7 @@ public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 		if ( isMovingArc && pilot.getMovementIncrement() > ARC_GOAL ) {
 			distanceRemaining -= pilot.getMovementIncrement();
 			travelRemainingDistance();
+			isMovingArc = false;
 		}
 		super.control();
 	}
@@ -39,6 +40,7 @@ public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 	@Override
 	protected void turn(int angle) {
 		Sound.beep();
+		isMovingArc = true;
 		
 		distanceRemaining -= pilot.getMovementIncrement();
 		// turn left
