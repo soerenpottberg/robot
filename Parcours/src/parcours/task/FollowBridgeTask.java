@@ -3,9 +3,11 @@ package parcours.task;
 import utils.RobotDesign;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
+import lejos.nxt.TouchSensor;
 
 public class FollowBridgeTask extends Task {
 
+	private TouchSensor touchSensorLeft;
 	private static final int MIDDLE_LIGHT_VALUE = 30; // Bridge = 36 ; Side = 21
 	private static final int BASE_POWER = 50;
 
@@ -25,6 +27,7 @@ public class FollowBridgeTask extends Task {
 
 	@Override
 	protected void init() {
+		touchSensorLeft = RobotDesign.touchSensorLeft;
 		motorA = RobotDesign.unregulatedMotorRight;
 		motorB = RobotDesign.unregulatedMotorLeft;
 		light = RobotDesign.lightSensor;
@@ -81,11 +84,12 @@ public class FollowBridgeTask extends Task {
 
 	@Override
 	protected boolean abort() {
-		return false;
+		return touchSensorLeft.isPressed();
 	}
 
 	@Override
 	protected void tearDown() {
+		RobotDesign.differentialPilot.stop();
 	}
 
 }
