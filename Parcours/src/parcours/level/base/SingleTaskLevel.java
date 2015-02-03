@@ -1,4 +1,4 @@
-package parcours.level;
+package parcours.level.base;
 
 import parcours.task.Task;
 
