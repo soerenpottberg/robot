@@ -282,25 +282,9 @@ public class FollowLineTaskConstTime extends Task {
 		int powerMotorA = (int) (BASE_POWER * (1 - compensation));
 		int powerMotorB = (int) (BASE_POWER * (1 + compensation));
 		
-		setMotorPower(motorA, powerMotorA, lastPowerMotorA);
-		setMotorPower(motorB, powerMotorB, lastPowerMotorB);
+		RobotDesign.setMotorPower(motorA, powerMotorA, lastPowerMotorA);
+		RobotDesign.setMotorPower(motorB, powerMotorB, lastPowerMotorB);
 		lastPowerMotorA = powerMotorA;
 		lastPowerMotorB = powerMotorB;
-	}
-
-	private static void setMotorPower(NXTMotor motor, int power, int oldPower) {
-		final int absPower = Math.abs(power);
-		motor.setPower( absPower );
-		
-		float power_signum = Math.signum(power);
-		if ( power_signum == Math.signum(oldPower)) {
-			return;
-		}
-		
-		if ( power_signum == -1.0f) {
-			motor.backward();
-		} else {
-			motor.forward();
-		}
 	}
 }

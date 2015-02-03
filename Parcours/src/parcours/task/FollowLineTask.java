@@ -62,8 +62,8 @@ public class FollowLineTask extends Task {
 
 		int powerMotorA = BASE_POWER - compensation;
 		int powerMotorB = BASE_POWER + compensation;
-		setMotorPower(motorA, powerMotorA, lastPowerMotorA);
-		setMotorPower(motorB, powerMotorB, lastPowerMotorB);
+		RobotDesign.setMotorPower(motorA, powerMotorA, lastPowerMotorA);
+		RobotDesign.setMotorPower(motorB, powerMotorB, lastPowerMotorB);
 		
 		long time = System.currentTimeMillis();
 		// System.out.println(time - lastTime);
@@ -98,18 +98,6 @@ public class FollowLineTask extends Task {
 		}
 	}
 
-	private static void setMotorPower(NXTMotor motor, int power, int oldPower) {
-		int absPower = Math.abs(power);
-		motor.setPower(absPower);
-		if (Math.signum(power) == Math.signum(oldPower)) {
-			return;
-		}
-		if (power > 0) {
-			motor.forward();
-		} else {
-			motor.backward();
-		}
-	}
 
 	@Override
 	protected boolean abort() {
