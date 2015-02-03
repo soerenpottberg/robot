@@ -15,7 +15,7 @@ import utils.RobotDesign;
 // TODO: Move generation of differential pilot object (with optimum parameters) to separate utility class to be used anywhere in the project.
 public class FollowRightWallTaskStateFull extends Task {
 
-	private static final int BASE_TRAVEL_SPEED = 60;//30
+	private static final int BASE_TRAVEL_SPEED = 40;//30
 	
 	private UltrasonicSensor distanceSensor;
 	private DifferentialPilot pilot;
