@@ -10,11 +10,11 @@ public class TravelHandleCollisionTask extends Task {
 	private static final int CORRECTION_ANGLE = 20;
 	private static final int DISTANCE_LOST_BY_TURN = 2;
 
-	private DifferentialPilot pilot;
-	private TouchSensor touchSensorRight, touchSensorLeft;
+	protected DifferentialPilot pilot;
+	protected TouchSensor touchSensorRight, touchSensorLeft;
 
 	private final int distance;
-	private int distanceRemaining;
+	protected int distanceRemaining;
 	private int speed;
 
 	public TravelHandleCollisionTask(int distance, int speed) {
@@ -33,7 +33,7 @@ public class TravelHandleCollisionTask extends Task {
 		travelRemainingDistance();
 	}
 
-	private void travelRemainingDistance() {
+	protected void travelRemainingDistance() {
 		pilot.travel(distanceRemaining, true);
 	}
 
@@ -56,7 +56,7 @@ public class TravelHandleCollisionTask extends Task {
 		turn(CORRECTION_ANGLE);
 	}
 
-	private void turn(int angle) {
+	protected void turn(int angle) {
 		distanceRemaining += DISTANCE_LOST_BY_TURN;
 		distanceRemaining -= pilot.getMovementIncrement();
 		pilot.travel(BACKWARD_DISTANCE);
