@@ -14,7 +14,7 @@ public class Bridge extends Level {
 	
 	static {
 		int i = 0;
-		tasks[i++] = new TravelHandleCollisionTask(INITIAL_TRAVEL_DISTANCE, 30);
+		tasks[i++] = new TravelHandleCollisionTask(INITIAL_TRAVEL_DISTANCE, 40);
 		tasks[i++] = new FindBridgeEdgeTask();
 		tasks[i++] = new FollowBridgeTask();
 	}
