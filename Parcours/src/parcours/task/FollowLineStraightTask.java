@@ -13,13 +13,15 @@ public class FollowLineStraightTask extends Task {
 
 	private static final int BASE_POWER = 50;
 
-	private static final float Kp = 0.015f;
-	private static final float Kd = 0.30f;
+	private static final float Kp = 0.10f;
+	private static final float Ki = 0.01f;
+	private static final float Kd = 0.00f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
 	private NXTMotor motorB;
 
+	private float errorIntegrated;
 	private float errorDerivated;
 	private float lastError;
 	private int lastPowerMotorA;
@@ -30,7 +32,7 @@ public class FollowLineStraightTask extends Task {
 	private EWMA ewma;
 	
 	private final float targetColor = RobotDesign.BLACK_RAW +
-			0.9f * ((RobotDesign.BLACK_RAW + RobotDesign.SILVER_RAW) / 2);
+			0.9f * ((RobotDesign.SILVER_RAW - RobotDesign.BLACK_RAW) / 2);
 	
 	@Override
 	protected void init() {
@@ -57,6 +59,7 @@ public class FollowLineStraightTask extends Task {
 		
 		final float lightValue = measureLight();
 		final float error = calculateError(lightValue);
+		integrateError(error);
 		deriveError(error);
 		
 		final int compensation = pid(error);
@@ -82,7 +85,7 @@ public class FollowLineStraightTask extends Task {
 	}
 
 	private int pid(float error) {
-		return (int) ((Kp * error  + Kd * errorDerivated));
+		return (int) (Kp * error + Ki * errorIntegrated  + Kd * errorDerivated);
 	}
 
 	private float measureLight() {
@@ -95,6 +98,14 @@ public class FollowLineStraightTask extends Task {
 
 	private void deriveError(float error) {
 		errorDerivated = (error - lastError);
+	}
+	
+	private void integrateError(float error) {
+		errorIntegrated = (2f / 3f * errorIntegrated) + error;
+		if (error > 0) {
+			// Sound.beep();
+			errorIntegrated += error;
+		}
 	}
 
 	@Override
