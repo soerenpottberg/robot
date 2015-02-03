@@ -6,7 +6,7 @@ import parcours.level.test.DebugMeasureLevel;
 import parcours.level.test.TestRightTurnLevel;
 import parcours.level.test.TestTravelLevel;
 
-public class Testing extends LevelCombination {
+public class TestLevelCombination extends LevelCombination {
 	
 	private static final int LEVEL_COUNT = 3;
 	private static final Level[] LEVELS = new Level[LEVEL_COUNT];
@@ -26,6 +26,11 @@ public class Testing extends LevelCombination {
 	@Override
 	public Level[] getLevels() {
 		return LEVELS;
+	}
+	
+	@Override
+	public boolean isTestLevelCombination() {
+		return true;
 	}
 
 }

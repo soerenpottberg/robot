@@ -14,8 +14,11 @@ public class RobotDesign {
 	public static final int BLACK  = 26;
 	public static final int SILVER = 49;
 	
-	public static final double wheelDiameter = 8.16; // OK: Diameter in mm printed on wheels
-	public static final double trackWidth    = 13.75;   // TODO: find out value
+	public static final int BLACK_RAW = 260;
+	public static final int SILVER_RAW = 480;
+	
+	public static final double wheelDiameter = 8.16;  // Diameter in mm printed on wheels
+	public static final double trackWidth    = 13.75;
 	
 	public static final TouchSensor       touchSensorRight   = new TouchSensor(SensorPort.S4);
 	public static final TouchSensor       touchSensorLeft    = new TouchSensor(SensorPort.S2);
@@ -27,4 +30,18 @@ public class RobotDesign {
 	public static final NXTMotor          unregulatedMotorSensor = new NXTMotor(MotorPort.C);
 	
 	public static final DifferentialPilot differentialPilot      = new DifferentialPilot(wheelDiameter, trackWidth, Motor.B, Motor.A);
+
+	public static void setMotorPower(NXTMotor motor, int power, int oldPower) {
+		final int absPower = Math.abs( power );
+		motor.setPower( absPower );
+		
+		final float power_signum = Math.signum( power );
+		if ( power_signum != Math.signum( oldPower ) ) {
+			if ( power_signum < -0.9f) {
+				motor.backward();
+			} else {
+				motor.forward();
+			}
+		}
+	}
 }
