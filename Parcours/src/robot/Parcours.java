@@ -1,5 +1,6 @@
 package robot;
 
+import lejos.util.Delay;
 import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
 import parcours.level.combination.FullParcoursVariantA;
@@ -26,7 +27,14 @@ public class Parcours {
 	}
 
 	public static void main(String[] args) {
-		new Parcours();
+		try {
+			new Parcours();
+		} catch (Exception e) {
+			System.out.println("Exception: ");
+			System.out.println(e.getMessage());
+			Delay.msDelay(20 * 1000);
+			throw e;
+		}
 	}
 
 	public Parcours() {
@@ -45,7 +53,7 @@ public class Parcours {
 					break;
 				}
 				selectedLevel.run();
-				if(selectedLevelCombination.isTestLevelCombination()) {
+				if (selectedLevelCombination.isTestLevelCombination()) {
 					continue; // Return to menu instead of running next level
 				}
 				while (true) {
