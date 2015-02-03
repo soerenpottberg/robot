@@ -7,7 +7,7 @@ import parcours.level.test.TestTravelLevel;
 
 public class Parcours {
 
-	private static int LEVEL_COUNT = 7;
+	private static int LEVEL_COUNT = 10;
 	private static Level[] levels = new Level[LEVEL_COUNT];
 
 	static {
@@ -16,6 +16,9 @@ public class Parcours {
 		levels[i++] = new FollowLine();
 		levels[i++] = new Bridge();
 		levels[i++] = new Elevator();
+		levels[i++] = new Labyrinth();
+		levels[i++] = new Obstacles();
+		levels[i++] = new FinalLevel();
 		// Test Levels
 		levels[i++] = new DebugMeasureLevel();
 		levels[i++] = new TestTravelLevel();
