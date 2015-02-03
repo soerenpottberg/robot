@@ -10,9 +10,7 @@ public abstract class LabyrinthConfiguration {
 		return 15;//15
 	}
 
-	public int getMinimalDistance() {
-		return 16;
-	}
+	public abstract int getMinimalDistance();
 	
 	public abstract int getMaximalDistance();	
 	/**
@@ -37,9 +35,7 @@ public abstract class LabyrinthConfiguration {
 	 * Distance to travel before making a 90 degree right turn
 	 * @return
 	 */
-	public int getCuttingEdge() {
-		return 17;//20
-	}
+	public abstract int getCuttingEdge();
 
 	/**
 	 * Distance to travel after making a 90 degree right turn
@@ -53,9 +49,7 @@ public abstract class LabyrinthConfiguration {
 	 * Slight Turns (go back -> slight turn)
 	 */
 
-	public int getNoWallDistance() {
-		return 50;//25
-	}
+	public abstract int getNoWallDistance();
 
 	public int getBackwardLeftButtonWall() {
 		return -15;//-20

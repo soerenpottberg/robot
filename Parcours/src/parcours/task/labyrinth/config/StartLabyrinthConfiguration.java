@@ -19,6 +19,21 @@ public class StartLabyrinthConfiguration extends LabyrinthConfiguration {
 		return 60;
 	}
 
+	@Override
+	public int getMinimalDistance() {
+		return 16;
+	}
+
+	@Override
+	public int getCuttingEdge() {
+		return 17;
+	}
+
+	@Override
+	public int getNoWallDistance() {
+		return 50;
+	}
+
 	
 	
 }
