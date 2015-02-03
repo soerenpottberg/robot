@@ -1,5 +1,7 @@
 package parcours.level.test;
 
+import java.util.ArrayList;
+
 import parcours.bluetooth.TurnTableConnection;
 import parcours.level.base.Level;
 import parcours.task.Task;
@@ -12,19 +14,6 @@ import parcours.task.bluetooth.BluetoothWaitForTurnTableTask;
 
 public class TestTurnTableBluetooth extends Level {
 	
-	private static final int TASK_COUNT = 5;
-	private static final Task[] TASKS = new Task[TASK_COUNT];
-	static final TurnTableConnection TURN_TABLE_CONNECTION = new TurnTableConnection();
-	
-	static {
-		int i = 0;
-		TASKS[i++] = new BluetoothConnectTask(TURN_TABLE_CONNECTION);
-		TASKS[i++] = new BluetoothWaitForTurnTableTask(TURN_TABLE_CONNECTION);
-		TASKS[i++] = new BluetoothTurnTurnTableTask(TURN_TABLE_CONNECTION);
-		TASKS[i++] = new BluetoothFinishTurnTableTask(TURN_TABLE_CONNECTION);
-		TASKS[i++] = new BluetoothCloseConnectionTask(TURN_TABLE_CONNECTION);
-	}
-
 	@Override
 	public String getLabel() {
 		return "Bluetooth Turn";
@@ -32,7 +21,15 @@ public class TestTurnTableBluetooth extends Level {
 
 	@Override
 	public Task[] getTasks() {
-		return TASKS;
+		final TurnTableConnection connection = new TurnTableConnection();
+		final ArrayList<Task> taskList = new ArrayList<Task>();
+		taskList.add(new BluetoothConnectTask(connection));
+		taskList.add(new BluetoothWaitForTurnTableTask(connection));
+		taskList.add(new BluetoothTurnTurnTableTask(connection));
+		taskList.add(new BluetoothFinishTurnTableTask(connection));
+		taskList.add(new BluetoothCloseConnectionTask(connection));
+		Task[] tasks = new Task[taskList.size()];
+		return taskList.toArray(tasks);
 	}
 
 }
