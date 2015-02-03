@@ -21,10 +21,10 @@ public class Obstacles extends Level {
 		tasks[i++] = new BluetoothOpenDoorTask();
 		tasks[i++] = new TraversOpenedDoorTask();
 		tasks[i++] = new BluetoothCloseDoorTask();
-		tasks[i++] = new FindLineTask();
+		tasks[i++] = new FindLineTask( false );
 		tasks[i++] = new FollowLineStraightTask();
 		tasks[i++] = new FollowBridgeTask();
-		tasks[i++] = new FindLineTask();
+		tasks[i++] = new FindLineTask( false );
 		tasks[i++] = new FollowLineTaskRaw();
 	}
 
