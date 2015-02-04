@@ -37,7 +37,7 @@ public class GoIntoElevatorTask extends ControllerTask {
 			context.handleNoButtonIsPressed();
 		}*/
 
-		pilot.travel(30);
+		pilot.travel(15);
 		pilot.forward();
 		
 	}
