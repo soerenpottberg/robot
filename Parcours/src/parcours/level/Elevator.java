@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import parcours.level.base.Level;
+import parcours.task.GoIntoElevatorTask;
 import parcours.task.Task;
 
 
