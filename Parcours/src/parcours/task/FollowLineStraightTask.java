@@ -21,19 +21,18 @@ public class FollowLineStraightTask extends ControllerTask {
 
 	private static final float Kp = 0.10f;
 	private static final float Ki = 0.015f;
-	private static final float Kd = 0.00f;
+	//private static final float Kd = 0.00f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
 	private NXTMotor motorB;
 
 	private float errorIntegrated;
-	private float errorDerivated;
-	private float lastError;
+	//private float errorDerivated;
+	//private float lastError;
 	private int lastPowerMotorA;
 	private int lastPowerMotorB;
-	@SuppressWarnings("unused")
-	private long lastTime;
+	//private long lastTime;
 	private long nextCycleCompletion;
 	private EWMA ewma;
 	
@@ -56,11 +55,11 @@ public class FollowLineStraightTask extends ControllerTask {
 		motorB.setPower(BASE_POWER);
 		motorA.forward();
 		motorB.forward();
-		errorDerivated = 0;
-		lastError = 0;
+		//errorDerivated = 0;
+		//lastError = 0;
 		lastPowerMotorA = 0;
 		lastPowerMotorB = 0;
-		lastTime = System.currentTimeMillis();
+		//lastTime = System.currentTimeMillis();
 		
 		nextCycleCompletion = System.currentTimeMillis();
 		
@@ -75,7 +74,7 @@ public class FollowLineStraightTask extends ControllerTask {
 		final float lightValue = measureLight();
 		final float error = calculateError(lightValue);
 		integrateError(error);
-		deriveError(error);
+		//deriveError(error);
 		
 		final int compensation = pid(error);
 
@@ -84,7 +83,7 @@ public class FollowLineStraightTask extends ControllerTask {
 		RobotDesign.setMotorPower(motorA, powerMotorA, lastPowerMotorA);
 		RobotDesign.setMotorPower(motorB, powerMotorB, lastPowerMotorB);
 		
-		final long tNow = System.currentTimeMillis();
+		//final long tNow = System.currentTimeMillis();
 		// System.out.println(time - lastTime);
 		
 		while ( System.currentTimeMillis() + MS_MEASURE_CYCLE_TIME < nextCycleCompletion ) {
@@ -93,14 +92,14 @@ public class FollowLineStraightTask extends ControllerTask {
 			Delay.msDelay( MS_MEASURE_CYCLE_TIME );
 		}
 		
-		lastTime = tNow;
-		lastError = error;
+		//lastTime = tNow;
+		//lastError = error;
 		lastPowerMotorA = powerMotorA;
 		lastPowerMotorB = powerMotorB;
 	}
 
 	private int pid(float error) {
-		return (int) (Kp * error + Ki * errorIntegrated  + Kd * errorDerivated);
+		return (int) (Kp * error + Ki * errorIntegrated/*  + Kd * errorDerivated*/);
 	}
 
 	private float measureLight() {
@@ -111,9 +110,9 @@ public class FollowLineStraightTask extends ControllerTask {
 		return lightValue - targetColor;
 	}
 
-	private void deriveError(float error) {
+	/*private void deriveError(float error) {
 		errorDerivated = (error - lastError);
-	}
+	}*/
 	
 	private void integrateError(float error) {
 		errorIntegrated = (2f / 3f * errorIntegrated) + error;
