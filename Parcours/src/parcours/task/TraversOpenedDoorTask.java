@@ -34,7 +34,8 @@ public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 	
 	@Override
 	protected void turn(int angle) {
-		distanceRemaining -= pilot.getMovementIncrement();	
+		distanceRemaining -= pilot.getMovementIncrement();
+		distanceRemaining += 15;
 		pilot.rotate(angle);
 		travelRemainingDistance();
 		Sound.beep();
