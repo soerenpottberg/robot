@@ -1,5 +1,8 @@
 package parcours.level.combination;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
 import parcours.level.test.DebugMeasureLevel;
@@ -9,25 +12,19 @@ import parcours.level.test.TestTurnTableBluetooth;
 
 public class TestLevelCombination extends LevelCombination {
 	
-	private static final int LEVEL_COUNT = 4;
-	private static final Level[] LEVELS = new Level[LEVEL_COUNT];
-    
-	static {
-		int i = 0;
-		LEVELS[i++] = new DebugMeasureLevel();
-		LEVELS[i++] = new TestTravelLevel();
-		LEVELS[i++] = new TestRightTurnLevel();
-		LEVELS[i++] = new TestTurnTableBluetooth();
-	}
-
 	@Override
 	public String getLabel() {
 		return "Testing";
 	}
 
 	@Override
-	public Level[] getLevels() {
-		return LEVELS;
+	public List<Level> createLevelList() {
+		final ArrayList<Level> levelList = new ArrayList<Level>();
+		levelList.add(new DebugMeasureLevel());
+		levelList.add(new TestTravelLevel());
+		levelList.add(new TestRightTurnLevel());
+		levelList.add(new TestTurnTableBluetooth());
+		return levelList;
 	}
 	
 	@Override

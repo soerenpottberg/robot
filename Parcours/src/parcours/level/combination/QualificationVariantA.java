@@ -1,5 +1,8 @@
 package parcours.level.combination;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import parcours.level.Bridge;
 import parcours.level.Elevator;
 import parcours.level.FollowLineVariantA;
@@ -8,17 +11,6 @@ import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
 
 public class QualificationVariantA extends LevelCombination {
-	
-	private static final int LEVEL_COUNT = 4;
-	protected static final Level[] LEVELS = new Level[LEVEL_COUNT];
-    
-	static {
-		int i = 0;
-		LEVELS[i++] = new StartLevel();
-		LEVELS[i++] = new FollowLineVariantA();
-		LEVELS[i++] = new Bridge();
-		LEVELS[i++] = new Elevator();
-	}
 
 	@Override
 	public String getLabel() {
@@ -26,8 +18,13 @@ public class QualificationVariantA extends LevelCombination {
 	}
 
 	@Override
-	public Level[] getLevels() {
-		return LEVELS;
+	public List<Level> createLevelList() {
+		final ArrayList<Level> levelList = new ArrayList<Level>();
+		levelList.add(new StartLevel());
+		levelList.add(new FollowLineVariantA());
+		levelList.add(new Bridge());
+		levelList.add(new Elevator());
+		return levelList;
 	}
 
 }
