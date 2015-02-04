@@ -18,7 +18,9 @@ public class GoInFrontOfElevatorTask extends ControllerTask {
 		pilot.setTravelSpeed(20);
 		pilot.travel(-5);
 		Motor.C.rotate(-90);			
-		pilot.rotate(-30);
+		pilot.rotate(50);
+		pilot.travel(-15);
+		pilot.rotate(-50);
 	}
 
 	@Override
