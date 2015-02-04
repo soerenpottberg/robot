@@ -1,6 +1,7 @@
 package parcours.task;
 
 import lejos.nxt.LightSensor;
+import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.RegulatedMotor;
 import parcours.task.base.ControllerTask;
@@ -8,7 +9,9 @@ import parcours.utils.RobotDesign;
 
 public class FollowLineIntelligentTask extends ControllerTask {
 
-	private static final int MIDDLE_LIGHT_VALUE = 40;
+	private static final int MIDDLE_LIGHT_VALUE = 35;
+	private static final int LOST_LINE_VALUE = 45;
+	private static final int LOST_LINE_MAX = 100;
 	private static final int BASE_SPEED = 150;
 
 	private static final int Kp = (int) (5 * 100);
@@ -25,6 +28,7 @@ public class FollowLineIntelligentTask extends ControllerTask {
 	private int lastError;
 	private int lastPowerMotorA;
 	private int lastPowerMotorB;
+	private int lostLineCounter = 0;
 
 	@Override
 	protected void init() {
@@ -47,6 +51,18 @@ public class FollowLineIntelligentTask extends ControllerTask {
 	protected void control() {
 		int lightValue = measureLight();
 		
+		System.out.println(lostLineCounter);
+		if(lightValue <= LOST_LINE_VALUE) {
+			lostLineCounter ++;
+		} else {
+			lostLineCounter = 0;
+		}
+		if(lostLineCounter >= LOST_LINE_MAX) {
+			lostLineCounter = 0;
+			Sound.beep();
+		}
+		
+		
 		int error = calculateError(lightValue);
 		integrateError(error);
 		deriveError(error);
@@ -61,6 +77,10 @@ public class FollowLineIntelligentTask extends ControllerTask {
 		lastError = error;
 		lastPowerMotorA = powerMotorA;
 		lastPowerMotorB = powerMotorB;
+		
+		
+		//Motor.C.rotate(10);
+		//Motor.C.rotate(-10);
 	}
 
 	private int pid(int error) {
