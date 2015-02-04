@@ -6,6 +6,7 @@ import java.util.List;
 import parcours.level.base.Level;
 import parcours.task.FindBridgeEdgeTask;
 import parcours.task.FollowBridgeTask;
+import parcours.task.GoInFrontOfElevatorTask;
 import parcours.task.TravelHandleCollisionTask;
 import parcours.task.base.Task;
 
@@ -25,6 +26,7 @@ public class Bridge extends Level {
 		taskList.add(new TravelHandleCollisionTask(INITIAL_TRAVEL_DISTANCE, 40));
 		taskList.add(new FindBridgeEdgeTask());
 		taskList.add(new FollowBridgeTask());
+		taskList.add(new GoInFrontOfElevatorTask());
 		return taskList;
 	}
 

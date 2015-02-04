@@ -1,41 +1,37 @@
 package parcours.task;
 
-import lejos.nxt.TouchSensor;
-import lejos.robotics.navigation.DifferentialPilot;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
+import lejos.nxt.Motor;
+import lejos.nxt.TouchSensor;
+import lejos.robotics.navigation.DifferentialPilot;
 
-public class GoIntoElevatorTask extends ControllerTask {
+public class GoInFrontOfElevatorTask extends ControllerTask {
 	protected DifferentialPilot pilot;
 	protected TouchSensor touchSensorRight, touchSensorLeft;
 	
 	@Override
 	protected void init() {
-		pilot = RobotDesign.differentialPilot;
 		touchSensorRight = RobotDesign.touchSensorRight;
 		touchSensorLeft = RobotDesign.touchSensorLeft;
-		pilot.setTravelSpeed(10);
+		pilot = RobotDesign.differentialPilot;
+		pilot.setTravelSpeed(20);
+		pilot.travel(-5);
+		Motor.C.rotate(-90);			
+		pilot.rotate(-30);
 	}
 
 	@Override
 	protected void control() {
-		pilot.forward();
-		if (touchSensorRight.isPressed()){
-			pilot.rotate(15);
-		}
-		if (touchSensorLeft.isPressed()){
-			pilot.rotate(-10);
-		}
 	}
 
 	@Override
 	protected boolean abort() {
-		return (touchSensorRight.isPressed() && touchSensorLeft.isPressed());
+		return true;
 	}
 
 	@Override
 	protected void tearDown() {
-		pilot.stop();
 	}
 
 }

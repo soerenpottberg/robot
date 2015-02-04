@@ -17,7 +17,7 @@ public class BluetoothWaitForElevatorTask extends BluetoothTask {
 	protected void communicate() throws IOException {
 		boolean isDown = false;
 		do {
-			connection.sendIsDownCommand();
+			connection.sendIsReadyCommand();
 			isDown = connection.receiveBooleanCommand();
 		} while (!isDown);
 	}

@@ -33,7 +33,7 @@ public class Elevator extends Level {
 		taskList.add(new BluetoothWaitForElevatorTask(connection));
 		taskList.add(new GoIntoElevatorTask());
 		taskList.add(new BluetoothUseElevatorTask(connection));
-		taskList.add(new TravelHandleCollisionTask(DISTANCE, SPEED));		
+		taskList.add(new TravelHandleCollisionTask(DISTANCE, SPEED));
 		taskList.add(new BluetoothFinishElevatorTask(connection));
 		taskList.add(new BluetoothCloseConnectionTask(connection));
 		return taskList;
