@@ -23,11 +23,12 @@ public abstract class Level {
 	public abstract List<Task> createTaskList();
 
 	public void run() {
-		if (getTasks() == null) {
+		final Task[] tasks = getTasks();
+		if (tasks == null) {
 			showWarning("Level " + getLabel() + " contains no tasks.");
 			return;
 		}
-		for (Task task : getTasks()) {
+		for (Task task : tasks) {
 			task.run();
 		}
 		Sound.beepSequenceUp();
