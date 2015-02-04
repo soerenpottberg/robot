@@ -13,7 +13,7 @@ import parcours.task.base.Task;
 
 public class BridgeSpeed extends Level {
 	
-	private static final int INITIAL_TRAVEL_DISTANCE = 40; // used to clear the 3 lines at the beginning
+	private static final int INITIAL_TRAVEL_DISTANCE = 55; // used to clear the 3 lines at the beginning
 	
 	@Override
 	public String getLabel() {

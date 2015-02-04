@@ -9,7 +9,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 public class RightTurnTask extends ControllerTask {
 
 	private static final int BACKWARD_DISTANCE = -5;
-	private static final int RIGHT_ANGLE = -70;
+	private static final int RIGHT_ANGLE = -85;
 
 	@Override
 	protected void init() {
