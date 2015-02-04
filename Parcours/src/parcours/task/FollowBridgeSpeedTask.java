@@ -9,7 +9,7 @@ import parcours.utils.RobotDesign;
 public class FollowBridgeSpeedTask extends ControllerTask {
 
 	private static final int MIDDLE_LIGHT_VALUE = 30; // Bridge = 36 ; Side = 21
-	private static final int BASE_SPEED = 200;
+	private static final int BASE_SPEED = 300;
 
 	private static final int Kp = (int) (5 * 100);
 	private static final int Ki = (int) (1 * 100);
