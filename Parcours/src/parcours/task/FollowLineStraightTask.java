@@ -1,14 +1,18 @@
 package parcours.task;
 
+import parcours.detector.LapsedTimeDetector;
 import parcours.task.base.ControllerTask;
 import parcours.utils.EWMA;
 import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
+import lejos.nxt.UltrasonicSensor;
 import lejos.util.Delay;
 
 public class FollowLineStraightTask extends ControllerTask {
 	
+	private static final int DETECTION_COUNTER_THRESHOLD = 4;
+	private static final int DISTANCE_DETECTION_THRESHOLD = 50;
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
 
@@ -31,6 +35,12 @@ public class FollowLineStraightTask extends ControllerTask {
 	private long lastTime;
 	private long nextCycleCompletion;
 	private EWMA ewma;
+	
+	
+	private LapsedTimeDetector lapsedTimeDetector;
+	private short detectionCounter = 0;
+	private UltrasonicSensor distanceSensor;
+	
 	
 	private final float targetColor = RobotDesign.BLACK_RAW +
 			0.9f * ((RobotDesign.SILVER_RAW - RobotDesign.BLACK_RAW) / 2);
@@ -111,7 +121,17 @@ public class FollowLineStraightTask extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
-		return false;
+		return lapsedTimeDetector.hasDetected() && checkDistanceDetection();
+	}
+	
+	private boolean checkDistanceDetection() {
+		if( distanceSensor.getDistance() > DISTANCE_DETECTION_THRESHOLD ) {
+			++detectionCounter;
+		} else {
+			detectionCounter = 0;
+		}
+		
+		return detectionCounter > DETECTION_COUNTER_THRESHOLD;
 	}
 
 	@Override
