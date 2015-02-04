@@ -1,7 +1,7 @@
 package parcours.detector;
 
 import lejos.nxt.LightSensor;
-import parcours.debug.*;
+//import parcours.debug.*;
 import parcours.utils.EWMA;
 import parcours.utils.RobotDesign;
 
@@ -21,8 +21,8 @@ public class BridgeEdgeDetector {
 		private static final float EWMA_ALPHA = 0.7f;
 		private static final int DETECTION_TIME_MS = 45;
 		
-		private DebugOutput out;
-		private TimingDebug timingDebug;
+		//private DebugOutput out;
+		//private TimingDebug timingDebug;
 		
 		private long tLastCycleStart;
 		private long tCurrentDetectionIntervalLength = 0;
@@ -44,12 +44,13 @@ public class BridgeEdgeDetector {
 			lightSensor = RobotDesign.lightSensor;
 			
 			// for debugging purposes only:
-			out = new DebugOutput();
-			timingDebug = new TimingDebug(out, 10, 0, 1);
+			//out = new DebugOutput();
+			//timingDebug = new TimingDebug(out, 10, 0, 1);
 		}
 
 		public boolean hasDetected() {
 			final long tNow = System.currentTimeMillis();
+			initialTimingDelay.arm();
 			
 			// after the timer has elapsed, we start to take measures (e.g. detector armed)
 			if ( initialTimingDelay.hasDetected() ) {
@@ -57,7 +58,7 @@ public class BridgeEdgeDetector {
 				tLastCycleStart = tNow;
 				
 				// debug output:
-				timingDebug.triggerCycle();
+				//timingDebug.triggerCycle();
 				
 				final int smoothedMeasureValue = (int)(ewma.addValue( lightSensor.getLightValue() ));
 				
