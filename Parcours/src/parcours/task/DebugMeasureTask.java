@@ -1,12 +1,12 @@
 package parcours.task;
 
+import parcours.debug.DebugOutput;
 import parcours.task.base.ControllerTask;
-import debug.DebugOutput;
+import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
-import utils.RobotDesign;
 
 public class DebugMeasureTask extends ControllerTask {
 	NXTMotor motorR;

@@ -1,4 +1,4 @@
-package robot;
+package parcours;
 
 import lejos.util.Delay;
 import parcours.level.base.Level;

@@ -1,4 +1,4 @@
-package debug;
+package parcours.debug;
 
 /**
  * The TimingDebug class allows it easily to debug timing issues in coordination with the DebugOutput class.

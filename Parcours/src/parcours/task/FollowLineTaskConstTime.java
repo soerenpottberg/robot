@@ -1,13 +1,13 @@
 package parcours.task;
 
+import parcours.debug.DebugOutput;
 import parcours.task.base.ControllerTask;
+import parcours.utils.LightSensorEvaluation;
+import parcours.utils.RobotDesign;
+import parcours.utils.SensorEvaluation;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.Sound;
 import lejos.util.Delay;
-import sensor.evaluation.LightSensorEvaluation;
-import sensor.evaluation.SensorEvaluation;
-import utils.RobotDesign;
-import debug.DebugOutput;
 
 public class FollowLineTaskConstTime extends ControllerTask {
 	private static final int WEIGHTEN_NONE   = 0;

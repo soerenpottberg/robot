@@ -1,12 +1,12 @@
 package parcours.task;
 
 import parcours.task.base.ControllerTask;
+import parcours.utils.EWMA;
+import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;
 import lejos.util.Delay;
-import utils.EWMA;
-import utils.RobotDesign;
 
 public class FollowLineTaskRaw extends ControllerTask {
 	

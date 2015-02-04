@@ -1,10 +1,10 @@
 package parcours.task;
 
 import parcours.task.base.ControllerTask;
+import parcours.utils.RobotDesign;
 import lejos.nxt.Motor;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
-import utils.RobotDesign;
 
 public class GoIntoElevatorTask extends ControllerTask {
 	protected DifferentialPilot pilot;

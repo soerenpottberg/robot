@@ -5,7 +5,7 @@ import lejos.nxt.Sound;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.BridgeEdgeDetector;
 import parcours.task.base.ControllerTask;
-import utils.RobotDesign;
+import parcours.utils.RobotDesign;
 
 public class FindBridgeEdgeTask extends ControllerTask {
 	private static final int BASE_SPEED = 20;

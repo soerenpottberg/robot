@@ -1,8 +1,8 @@
 package parcours.task;
 
 import parcours.task.base.ControllerTask;
-import utils.EWMA;
-import utils.RobotDesign;
+import parcours.utils.EWMA;
+import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.util.Delay;

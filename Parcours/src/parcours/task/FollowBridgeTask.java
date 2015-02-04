@@ -1,7 +1,7 @@
 package parcours.task;
 
 import parcours.task.base.ControllerTask;
-import utils.RobotDesign;
+import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;

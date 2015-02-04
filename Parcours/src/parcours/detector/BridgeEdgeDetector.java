@@ -1,10 +1,10 @@
 package parcours.detector;
 
+import parcours.debug.DebugOutput;
+import parcours.debug.TimingDebug;
+import parcours.utils.EWMA;
+import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
-import utils.EWMA;
-import utils.RobotDesign;
-import debug.DebugOutput;
-import debug.TimingDebug;
 
 /**
  * This detects a bridge edge if one is located beneath the light sensor.

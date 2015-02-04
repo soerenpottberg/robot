@@ -8,7 +8,7 @@ import parcours.detector.LineDetector;
 import parcours.task.base.ControllerTask;
 import parcours.task.labyrinth.LabyrinthContext;
 import parcours.task.labyrinth.config.LabyrinthConfiguration;
-import utils.RobotDesign;
+import parcours.utils.RobotDesign;
 
 // TODO: Don't stop all the time for turning, do it while maintaining speed
 // TODO: verify with higher speeds

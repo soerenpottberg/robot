@@ -1,5 +1,4 @@
-package sensor.evaluation;
-import utils.RobotDesign;
+package parcours.utils;
 import lejos.nxt.LightSensor;
 
 /**

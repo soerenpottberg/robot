@@ -1,4 +1,4 @@
-package utils;
+package parcours.utils;
 
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;

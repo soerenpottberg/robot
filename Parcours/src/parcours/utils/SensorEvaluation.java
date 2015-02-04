@@ -1,6 +1,5 @@
-package sensor.evaluation;
+package parcours.utils;
 
-import utils.EWMA;
 
 /**
  * The Sensor class provides an interface for sensors to be used with

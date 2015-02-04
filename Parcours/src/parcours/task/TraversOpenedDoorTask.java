@@ -1,7 +1,7 @@
 package parcours.task;
 
+import parcours.utils.RobotDesign;
 import lejos.nxt.Sound;
-import utils.RobotDesign;
 
 public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 	

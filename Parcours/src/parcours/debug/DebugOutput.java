@@ -1,4 +1,4 @@
-package debug;
+package parcours.debug;
 import lejos.nxt.LCD;
 
 /**

@@ -1,4 +1,4 @@
-package utils;
+package parcours.utils;
 
 /**
  * This class implements an exponential weightenend moving average (EWMA) algorithm.
