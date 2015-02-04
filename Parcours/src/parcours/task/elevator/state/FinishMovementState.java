@@ -1,9 +1,9 @@
 package parcours.task.elevator.state;
 
 //import lejos.nxt.Motor;
-import parcours.task.elevator.ElevatorContext;
+import parcours.task.elevator.BossContext;
 
-public class FinishMovementState extends ElevatorStateBase {
+public class FinishMovementState extends BossStateBase {
 	
 	public String name() {
 		return "FinMov";
@@ -22,25 +22,19 @@ public class FinishMovementState extends ElevatorStateBase {
 	}*/
 
 	@Override
-	public void handleNoButtonIsPressed(ElevatorContext context) {
+	public void handleNoButtonIsPressed(BossContext context) {
 		// TODO Auto-generated method stub
-		if(context.isMoving()) {
+		/*if(context.isMoving()) {
 			return;
 		}
 		context.forward();
-		context.setState(ElevatorState.NORMAL);		
+		context.setState(ElevatorState.NORMAL);		*/
 	}
 
-	@Override
-	public void handleLeftButtonPressed(ElevatorContext context) {
-		if(context.isMoving()) {
-			return;
-		}
-		context.rotate(-15);
-	}
+	
 
 	@Override
-	public void handleRightButtonPressed(ElevatorContext context) {
+	public void handleButtonPressed(BossContext context) {
 		if(context.isMoving()) {
 			return;
 		}
