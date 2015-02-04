@@ -1,4 +1,4 @@
-package parcours.level.test;
+package parcours.task.bluetooth;
 
 import java.io.IOException;
 
