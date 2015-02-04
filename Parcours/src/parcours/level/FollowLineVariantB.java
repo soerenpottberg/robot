@@ -24,7 +24,7 @@ public class FollowLineVariantB extends Level {
 
 	@Override
 	public List<Task> createTaskList() {
-		final ArrayList<Task> taskList = new ArrayList<Task>();
+		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new TravelHandleCollisionTask(INITIAL_TRAVEL_DISTANCE,
 				BASE_SPEED));
 		taskList.add(new FindLineTask()); // Find line to follow

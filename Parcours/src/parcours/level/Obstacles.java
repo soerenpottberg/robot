@@ -23,7 +23,7 @@ public class Obstacles extends Level {
 
 	@Override
 	public List<Task> createTaskList() {
-		final ArrayList<Task> taskList = new ArrayList<Task>();
+		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new BluetoothOpenDoorTask());
 		taskList.add(new TraversOpenedDoorTask());
 		taskList.add(new BluetoothCloseDoorTask());

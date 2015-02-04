@@ -23,7 +23,7 @@ public class TestTurnTableBluetooth extends Level {
 	@Override
 	public List<Task> createTaskList() {
 		final TurnTableConnection connection = new TurnTableConnection();
-		final ArrayList<Task> taskList = new ArrayList<Task>();
+		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new BluetoothConnectTask(connection));
 		taskList.add(new BluetoothWaitForTurnTableTask(connection));
 		taskList.add(new BluetoothTurnTurnTableTask(connection));

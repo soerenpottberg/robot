@@ -16,7 +16,7 @@ public abstract class SingleTaskLevel extends Level {
 	
 	@Override
 	public final List<Task> createTaskList() {
-		final ArrayList<Task> taskList = new ArrayList<Task>();
+		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(task);
 		return taskList;
 	}

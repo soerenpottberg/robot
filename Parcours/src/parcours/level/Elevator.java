@@ -16,7 +16,7 @@ public class Elevator extends Level {
 
 	@Override
 	public List<Task> createTaskList() {
-		final ArrayList<Task> taskList = new ArrayList<Task>();
+		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new GoIntoElevatorTask());
 		return taskList;
 	}
