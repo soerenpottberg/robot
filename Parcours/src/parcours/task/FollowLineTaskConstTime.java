@@ -9,6 +9,8 @@ import lejos.nxt.NXTMotor;
 import lejos.nxt.Sound;
 import lejos.util.Delay;
 
+
+@Deprecated
 public class FollowLineTaskConstTime extends ControllerTask {
 	private static final int WEIGHTEN_NONE   = 0;
 	private static final int WEIGHTEN_LINEAR = 1;
