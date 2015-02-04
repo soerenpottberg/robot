@@ -13,7 +13,7 @@ public class TestTurnTenTimesLevelSlow extends SingleTaskLevel {
 
 	@Override
 	public String getLabel() {
-		return "Travel";
+		return "10 Turns Slow";
 	}
 
 }
