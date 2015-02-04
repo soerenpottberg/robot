@@ -33,6 +33,9 @@ public class FindBridgeEdgeTask extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
+		if ( bridgeEdgeDetector.hasDetected() )
+			Sound.beepSequence();
+		
 		return bridgeEdgeDetector.hasDetected();
 	}
 

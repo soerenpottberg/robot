@@ -3,6 +3,7 @@ package parcours.task;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
 import lejos.nxt.Motor;
+import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 
@@ -68,6 +69,9 @@ public class TravelHandleCollisionTask extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
+		if ( !pilot.isMoving() ) {
+			Sound.beepSequence();
+		}
 		return !pilot.isMoving();
 	}
 
