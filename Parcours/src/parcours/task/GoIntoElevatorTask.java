@@ -1,7 +1,6 @@
 package parcours.task;
 
 import lejos.nxt.Motor;
-import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import utils.RobotDesign;

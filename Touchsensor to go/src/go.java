@@ -1,5 +1,6 @@
-import lejos.nxt.*;
-import lejos.robotics.Touch;
+import lejos.nxt.Motor;
+import lejos.nxt.SensorPort;
+import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 
 public class go {

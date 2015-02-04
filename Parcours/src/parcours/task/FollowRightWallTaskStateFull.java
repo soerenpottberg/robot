@@ -7,7 +7,6 @@ import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
 import parcours.task.labyrinth.LabyrinthContext;
 import parcours.task.labyrinth.config.LabyrinthConfiguration;
-import parcours.task.labyrinth.config.StartLabyrinthConfiguration;
 import utils.RobotDesign;
 
 // TODO: Don't stop all the time for turning, do it while maintaining speed

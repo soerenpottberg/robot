@@ -1,7 +1,6 @@
 package parcours.task.labyrinth.state;
 
 import lejos.nxt.Motor;
-import lejos.nxt.Sound;
 import parcours.task.labyrinth.LabyrinthContext;
 
 public class StartChangingDistance extends LabyrinthStateBase {

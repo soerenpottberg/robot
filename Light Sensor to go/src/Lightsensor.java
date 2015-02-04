@@ -3,7 +3,6 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.SensorPort;
-import lejos.nxt.Sound;
 
 public class Lightsensor {
 	private static final int MIDDLE_LIGHT_VALUE = 40;
