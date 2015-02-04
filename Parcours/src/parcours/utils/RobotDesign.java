@@ -22,7 +22,7 @@ public class RobotDesign {
 	public static final int EMPTY_SPACE_RAW = 260;
 	
 	public static final double wheelDiameter = 8.16;  // Diameter in mm printed on wheels
-	public static final double trackWidth    = 13.75;
+	public static final double trackWidth    = 13.72;
 	
 	public static final TouchSensor       touchSensorRight   = new TouchSensor(SensorPort.S4);
 	public static final TouchSensor       touchSensorLeft    = new TouchSensor(SensorPort.S2);
