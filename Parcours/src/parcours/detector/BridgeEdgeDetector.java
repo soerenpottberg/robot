@@ -1,10 +1,9 @@
 package parcours.detector;
 
-import parcours.debug.DebugOutput;
-import parcours.debug.TimingDebug;
+import lejos.nxt.LightSensor;
+import parcours.debug.*;
 import parcours.utils.EWMA;
 import parcours.utils.RobotDesign;
-import lejos.nxt.LightSensor;
 
 /**
  * This detects a bridge edge if one is located beneath the light sensor.
@@ -13,50 +12,66 @@ import lejos.nxt.LightSensor;
  */
 public class BridgeEdgeDetector {
 
-		private static final int CYCLE_TIME_STARTING_VALUE = 1000;
-		private static final int BRIDGE_EDGE_DETECTION_THRESHOLD = 25;
-		private static final float EWMA_ALPHA = 0.7f;
-		private static final int DETECTION_TIME_MS = 50;
-		private static final float WHITE = 100;
+		private static final int ARM_DETECTOR_DELAY = 1000;
+		
+		private static final int EDGE_VALUE_INTERVAL = RobotDesign.BRIDGE_RAW - RobotDesign.EMPTY_SPACE_RAW;
+		private static final int BRIDGE_EDGE_DETECTION_THRESHOLD =
+				RobotDesign.EMPTY_SPACE_RAW + (int)(0.75f * EDGE_VALUE_INTERVAL);
+		
+		private static final float EWMA_ALPHA = 0.6f;
+		private static final int DETECTION_TIME_MS = 45;
 		
 		private DebugOutput out;
 		private TimingDebug timingDebug;
 		
 		private long tLastCycleStart;
+		private long tCurrentDetectionIntervalLength = 0;
 		
-		private float tCurrentDetectionIntervalLength = 0.0f;
 		private EWMA ewma;
 		private LightSensor lightSensor;
+		
+		private LapsedTimeDetector initialTimingDelay;
 
 		public BridgeEdgeDetector() {
-			// This makes sure that the detector generates no hit after its initialization if the first measure is by chance a hit.
-			tLastCycleStart = System.currentTimeMillis() + CYCLE_TIME_STARTING_VALUE; // TODO: It might be removed now, see below.
+			initialTimingDelay = new LapsedTimeDetector( ARM_DETECTOR_DELAY );
 			
-			// Initialize ewma with black
-			ewma = new EWMA(EWMA_ALPHA, WHITE);
+			// tLastCycleStart will only be used after the initial interval has passed
+			// and it is updated to the current value once per cycle in the meantime.
+			tLastCycleStart = System.currentTimeMillis();
+			
+			// Initialize ewma with bridge color (reduces risk of early detection)
+			ewma = new EWMA( EWMA_ALPHA, RobotDesign.BRIDGE_RAW );
 			lightSensor = RobotDesign.lightSensor;
 			
 			// for debugging purposes only:
 			out = new DebugOutput();
-			//timingDebug = new TimingDebug(out, 10, 0, 1);
+			timingDebug = new TimingDebug(out, 10, 0, 1);
 		}
 
 		public boolean hasDetected() {
-			// get the current cycle length (smoothed)
 			final long tNow = System.currentTimeMillis();
-			final long tDifference = tNow - tLastCycleStart;
-			tLastCycleStart = tNow;
 			
-			// debug output:
-			//timingDebug.triggerCycle();
-			
-			ewma.addValue(lightSensor.getLightValue());
-			if (ewma.getValue() < BRIDGE_EDGE_DETECTION_THRESHOLD ) {
-				tCurrentDetectionIntervalLength += tDifference;
-			} else {
-				tCurrentDetectionIntervalLength = 0;
-			}
+			// after the timer has elapsed, we start to take measures (e.g. detector armed)
+			if ( initialTimingDelay.hasDetected() ) {
+				final long tDifference = tNow - tLastCycleStart;
+				tLastCycleStart = tNow;
+				
+				// debug output:
+				timingDebug.triggerCycle();
+				
+				final int smoothedMeasureValue = (int)(ewma.addValue( lightSensor.getLightValue() ));
+				
+				// if value below the threshold: we assume hit
+				if ( smoothedMeasureValue < BRIDGE_EDGE_DETECTION_THRESHOLD ) {
+					tCurrentDetectionIntervalLength += tDifference;
+				} else {
+					tCurrentDetectionIntervalLength = 0;
+				}
 
-			return tCurrentDetectionIntervalLength > DETECTION_TIME_MS;
+				return tCurrentDetectionIntervalLength > DETECTION_TIME_MS;
+			} 
+			
+			tLastCycleStart = tNow;
+			return false;
 		}
 }

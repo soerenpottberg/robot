@@ -18,6 +18,9 @@ public class RobotDesign {
 	public static final int BLACK_RAW = 260;
 	public static final int SILVER_RAW = 480;
 	
+	public static final int BRIDGE_RAW = 360;
+	public static final int EMPTY_SPACE_RAW = 260;
+	
 	public static final double wheelDiameter = 8.16;  // Diameter in mm printed on wheels
 	public static final double trackWidth    = 13.75;
 	

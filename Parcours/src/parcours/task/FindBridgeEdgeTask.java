@@ -7,7 +7,10 @@ import parcours.detector.BridgeEdgeDetector;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
 
+
 public class FindBridgeEdgeTask extends ControllerTask {
+	private static final int SMALL_TURN_LEFT_ANGLE = 10;
+	private static final int SENSOR_EDGE_DETECTION_POSITION_ANGLE = 90;
 	private static final int BASE_SPEED = 20;
 	
 	private DifferentialPilot pilot;
@@ -18,8 +21,8 @@ public class FindBridgeEdgeTask extends ControllerTask {
 		pilot = RobotDesign.differentialPilot;
 		bridgeEdgeDetector = new BridgeEdgeDetector();
 		pilot.setTravelSpeed(BASE_SPEED);
-		Motor.C.rotate(90);
-		pilot.rotate(10);
+		Motor.C.rotate(SENSOR_EDGE_DETECTION_POSITION_ANGLE);
+		pilot.rotate(SMALL_TURN_LEFT_ANGLE);
 		pilot.forward();
 	}
 
