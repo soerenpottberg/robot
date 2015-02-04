@@ -11,6 +11,7 @@ import lejos.util.Delay;
 
 public class FollowLineStraightTask extends ControllerTask {
 	
+	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 3000;
 	private static final int DETECTION_COUNTER_THRESHOLD = 4;
 	private static final int DISTANCE_DETECTION_THRESHOLD = 50;
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
@@ -62,6 +63,9 @@ public class FollowLineStraightTask extends ControllerTask {
 		lastTime = System.currentTimeMillis();
 		
 		nextCycleCompletion = System.currentTimeMillis();
+		
+		lapsedTimeDetector = new LapsedTimeDetector( END_OF_LINE_CHECK_ENABLE_INTERVAL_MS );
+		distanceSensor = RobotDesign.distanceSensor;
 	}
 
 	@Override
