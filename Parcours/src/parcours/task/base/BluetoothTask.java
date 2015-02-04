@@ -1,8 +1,6 @@
-package parcours.task.bluetooth;
+package parcours.task.base;
 
 import java.io.IOException;
-
-import parcours.task.Task;
 
 public abstract class BluetoothTask implements Task {
 

@@ -7,8 +7,8 @@ import parcours.level.base.Level;
 import parcours.task.FindLineTask;
 import parcours.task.FollowLineTaskRaw;
 import parcours.task.RightTurnTask;
-import parcours.task.Task;
 import parcours.task.TravelHandleCollisionTask;
+import parcours.task.base.Task;
 
 public class FollowLineVariantB extends Level {
 

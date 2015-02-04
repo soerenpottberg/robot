@@ -3,6 +3,7 @@ package parcours.task.bluetooth;
 import java.io.IOException;
 
 import parcours.bluetooth.TurnTableConnection;
+import parcours.task.base.BluetoothTask;
 
 public class BluetoothTurnTurnTableTask extends BluetoothTask {
 

@@ -6,8 +6,8 @@ import java.util.List;
 import parcours.level.base.Level;
 import parcours.task.FindBridgeEdgeTask;
 import parcours.task.FollowBridgeTask;
-import parcours.task.Task;
 import parcours.task.TravelHandleCollisionTask;
+import parcours.task.base.Task;
 
 
 public class Bridge extends Level {

@@ -1,5 +1,6 @@
 package parcours.task;
 
+import parcours.task.base.ControllerTask;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;

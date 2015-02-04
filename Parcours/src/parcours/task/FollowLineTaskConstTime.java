@@ -1,5 +1,6 @@
 package parcours.task;
 
+import parcours.task.base.ControllerTask;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.Sound;
 import lejos.util.Delay;

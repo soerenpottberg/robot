@@ -1,4 +1,4 @@
-package parcours.task;
+package parcours.task.base;
 
 public interface Task {
 	

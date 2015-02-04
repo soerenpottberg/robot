@@ -8,8 +8,8 @@ import parcours.task.FindLineTask;
 import parcours.task.FollowBridgeTask;
 import parcours.task.FollowLineStraightTask;
 import parcours.task.FollowLineTaskRaw;
-import parcours.task.Task;
 import parcours.task.TraversOpenedDoorTask;
+import parcours.task.base.Task;
 import parcours.task.bluetooth.BluetoothCloseDoorTask;
 import parcours.task.bluetooth.BluetoothOpenDoorTask;
 

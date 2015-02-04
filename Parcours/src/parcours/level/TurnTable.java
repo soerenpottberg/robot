@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import parcours.level.base.Level;
-import parcours.task.Task;
+import parcours.task.base.Task;
 
 
 public class TurnTable extends Level {

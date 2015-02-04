@@ -5,6 +5,7 @@ import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
+import parcours.task.base.ControllerTask;
 import parcours.task.labyrinth.LabyrinthContext;
 import parcours.task.labyrinth.config.LabyrinthConfiguration;
 import utils.RobotDesign;

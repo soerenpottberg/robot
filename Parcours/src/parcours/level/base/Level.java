@@ -5,7 +5,7 @@ import java.util.List;
 import lejos.nxt.LCD;
 import lejos.nxt.Sound;
 import lejos.util.Delay;
-import parcours.task.Task;
+import parcours.task.base.Task;
 
 public abstract class Level {
 

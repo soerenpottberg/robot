@@ -4,6 +4,7 @@ import lejos.nxt.Motor;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
+import parcours.task.base.ControllerTask;
 import utils.RobotDesign;
 
 public class FindLineTask extends ControllerTask {

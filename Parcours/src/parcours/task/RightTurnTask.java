@@ -1,5 +1,6 @@
 package parcours.task;
 
+import parcours.task.base.ControllerTask;
 import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.robotics.navigation.DifferentialPilot;

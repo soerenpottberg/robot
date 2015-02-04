@@ -3,7 +3,7 @@ package parcours.level;
 import java.util.List;
 
 import parcours.level.base.Level;
-import parcours.task.Task;
+import parcours.task.base.Task;
 
 
 public class FinalLevel extends Level {

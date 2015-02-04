@@ -3,8 +3,8 @@ package parcours.level.base;
 import java.util.ArrayList;
 import java.util.List;
 
-import parcours.task.ControllerTask;
-import parcours.task.Task;
+import parcours.task.base.ControllerTask;
+import parcours.task.base.Task;
 
 public abstract class SingleTaskLevel extends Level {
 	

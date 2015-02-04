@@ -1,5 +1,6 @@
 package parcours.task;
 
+import parcours.task.base.ControllerTask;
 import utils.EWMA;
 import utils.RobotDesign;
 import lejos.nxt.LightSensor;

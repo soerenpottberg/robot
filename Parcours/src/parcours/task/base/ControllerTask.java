@@ -1,4 +1,5 @@
-package parcours.task;
+package parcours.task.base;
+
 
 public abstract class ControllerTask implements Task {
 

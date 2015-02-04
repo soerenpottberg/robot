@@ -5,7 +5,7 @@ import java.util.List;
 
 import parcours.bluetooth.TurnTableConnection;
 import parcours.level.base.Level;
-import parcours.task.Task;
+import parcours.task.base.Task;
 import parcours.task.bluetooth.BluetoothCloseConnectionTask;
 import parcours.task.bluetooth.BluetoothConnectTask;
 import parcours.task.bluetooth.BluetoothFinishTurnTableTask;

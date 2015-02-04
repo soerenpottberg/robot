@@ -1,7 +1,7 @@
 package parcours.task.bluetooth;
 
 import parcours.bluetooth.BluetoothConnection;
-import parcours.task.ControllerTask;
+import parcours.task.base.ControllerTask;
 
 public class BluetoothCloseConnectionTask extends ControllerTask {
 
