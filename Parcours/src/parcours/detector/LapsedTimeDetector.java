@@ -3,13 +3,22 @@ package parcours.detector;
 public class LapsedTimeDetector {
 	private long tDetection;
 	private boolean hasDetected = false;
+	private boolean armed = false;
 	
+	public void arm() {
+		if ( !armed )
+		{
+			this.armed = true;
+			tDetection += System.currentTimeMillis();
+		}
+	}
+
 	public LapsedTimeDetector(long tDetectMs) {
-		tDetection = System.currentTimeMillis() + tDetectMs;
+		tDetection = tDetectMs;
 	}
 	
 	public boolean hasDetected() {
-		return hasDetected || check();
+		return armed && (hasDetected || check());
 	}
 	
 	private boolean check() {

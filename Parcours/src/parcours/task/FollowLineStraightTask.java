@@ -57,6 +57,8 @@ public class FollowLineStraightTask extends ControllerTask {
 		nextCycleCompletion = System.currentTimeMillis();
 		
 		lapsedTimeDetector = new LapsedTimeDetector( END_OF_LINE_CHECK_ENABLE_INTERVAL_MS );
+		lapsedTimeDetector.arm();
+		
 		distanceSensor = RobotDesign.distanceSensor;
 	}
 
