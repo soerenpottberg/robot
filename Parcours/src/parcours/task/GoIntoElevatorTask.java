@@ -3,21 +3,21 @@ package parcours.task;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.task.base.ControllerTask;
-import parcours.task.elevator.ElevatorContext;
+import parcours.task.elevator.BossContext;
 import parcours.task.labyrinth.LabyrinthContext;
 import parcours.utils.RobotDesign;
 
 public class GoIntoElevatorTask extends ControllerTask {
 	protected DifferentialPilot pilot;
 	protected TouchSensor touchSensorRight, touchSensorLeft;
-	private ElevatorContext context;
+	private BossContext context;
 	
 	@Override
 	protected void init() {
 		pilot = RobotDesign.differentialPilot;
 		touchSensorRight = RobotDesign.touchSensorRight;
 		touchSensorLeft = RobotDesign.touchSensorLeft;
-		context = new ElevatorContext(pilot);
+		context = new BossContext(pilot);
 		pilot.setTravelSpeed(10);
 		pilot.forward();
 	}

@@ -4,16 +4,16 @@ import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Move;
 import lejos.robotics.navigation.MoveListener;
 import lejos.robotics.navigation.RotateMoveController;
-import parcours.task.elevator.state.ElevatorState;
-import parcours.task.elevator.state.ElevatorStateBase;
+import parcours.task.elevator.state.BossState;
+import parcours.task.elevator.state.BossStateBase;
 
-public class ElevatorContext implements RotateMoveController {
+public class BossContext implements RotateMoveController {
 
-	private ElevatorStateBase state;
+	private BossStateBase state;
 	private DifferentialPilot pilot;
 
-	public ElevatorContext(DifferentialPilot pilot) {
-		state = ElevatorState.NORMAL.getState();
+	public BossContext(DifferentialPilot pilot) {
+		state = BossState.RIGHT.getState();
 		this.pilot = pilot;
 	}
 
@@ -21,19 +21,15 @@ public class ElevatorContext implements RotateMoveController {
 		state.handleBothButtonsPressed(this, distance);
 	}*/
 
-	public void handleLeftButtonPressed() {
-		state.handleLeftButtonPressed(this);
-	}
-
-	public void handleRightButtonPressed() {
-		state.handleRightButtonPressed(this);
+	public void handleButtonPressed() {
+		state.handleButtonPressed(this);
 	}
 
 	public void handleNoButtonIsPressed() {
 		state.handleNoButtonIsPressed(this);
 	}
 	
-	public void setState(ElevatorState stateEnumEntry) {
+	public void setState(BossState stateEnumEntry) {
 		this.state = stateEnumEntry.getState();
 	}
 
