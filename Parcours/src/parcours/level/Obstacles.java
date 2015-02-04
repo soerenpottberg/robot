@@ -5,6 +5,7 @@ import java.util.List;
 
 import parcours.bluetooth.GateConnection;
 import parcours.level.base.Level;
+import parcours.task.FindBridgeEdgeTask;
 import parcours.task.FindLineTask;
 import parcours.task.FollowBridgeTask;
 import parcours.task.FollowLineStraightTask;
@@ -33,6 +34,7 @@ public class Obstacles extends Level {
 		taskList.add(new BluetoothCloseConnectionTask(connection));
 		taskList.add(new FindLineTask(false));
 		taskList.add(new FollowLineStraightTask());
+		taskList.add(new FindBridgeEdgeTask());
 		taskList.add(new FollowBridgeTask());
 		taskList.add(new FindLineTask());
 		taskList.add(new FollowLineTaskRaw());
