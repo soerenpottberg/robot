@@ -60,9 +60,7 @@ public class BridgeEdgeDetector {
 				// debug output:
 				//timingDebug.triggerCycle();
 				
-				final int smoothedMeasureValue = (int)(ewma.addValue( lightSensor.getLightValue() ));
-				
-				System.out.println( smoothedMeasureValue - BRIDGE_EDGE_DETECTION_THRESHOLD );
+				final int smoothedMeasureValue = (int)(ewma.addValue( lightSensor.getNormalizedLightValue() ));
 				
 				// if value below the threshold: we assume hit
 				if ( smoothedMeasureValue < BRIDGE_EDGE_DETECTION_THRESHOLD ) {
