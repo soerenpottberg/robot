@@ -44,6 +44,18 @@ public abstract class BluetoothConnection {
 		dataOutputStream.flush();
 		System.out.println("Send: " + command);
 	}
+	
+	public boolean receiveBooleanCommand() throws IOException {
+		boolean command = dataInputStream.readBoolean();
+		System.out.println("Receive:" + command);
+		return command;
+	}
+	
+	public void sendBooleanCommand(boolean command) throws IOException {
+		dataOutputStream.writeBoolean(command);
+		dataOutputStream.flush();
+		System.out.println("Send: " + command);
+	}
 
 	public void close() {
 		connection.close();
