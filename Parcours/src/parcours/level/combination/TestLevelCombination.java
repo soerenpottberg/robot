@@ -8,6 +8,7 @@ import parcours.level.base.LevelCombination;
 import parcours.level.test.DebugMeasureLevel;
 import parcours.level.test.TestElevatorBluetooth;
 import parcours.level.test.TestGateBluetooth;
+import parcours.level.test.TestGoIntoElevator;
 import parcours.level.test.TestRightTurnLevel;
 import parcours.level.test.TestTravelLevel;
 import parcours.level.test.TestTurnTableBluetooth;
@@ -30,6 +31,7 @@ public class TestLevelCombination extends LevelCombination {
 		levelList.add(new TestTurnTableBluetooth());
 		levelList.add(new TestGateBluetooth());
 		levelList.add(new TestElevatorBluetooth());
+		levelList.add(new TestGoIntoElevator());
 		levelList.add(new TestTurnTenTimesLevelSlow());
 		levelList.add(new TestTurnTenTimesLevelFast());
 		return levelList;

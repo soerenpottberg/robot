@@ -7,9 +7,8 @@ import parcours.bluetooth.GateConnection;
 import parcours.level.base.Level;
 import parcours.task.FindBridgeEdgeTask;
 import parcours.task.FindLineTask;
-import parcours.task.FollowBridgeTask;
+import parcours.task.FollowBridgeSuspensionTask;
 import parcours.task.FollowLineStraightTask;
-import parcours.task.FollowLineTaskRaw;
 import parcours.task.TraversOpenedDoorTask;
 import parcours.task.base.Task;
 import parcours.task.bluetooth.BluetoothCloseConnectionTask;
@@ -35,9 +34,9 @@ public class Obstacles extends Level {
 		taskList.add(new FindLineTask(false));
 		taskList.add(new FollowLineStraightTask());
 		taskList.add(new FindBridgeEdgeTask());
-		taskList.add(new FollowBridgeTask());
+		taskList.add(new FollowBridgeSuspensionTask());
 		taskList.add(new FindLineTask());
-		taskList.add(new FollowLineTaskRaw());
+		//taskList.add(new FollowLineTaskRaw());
 		return taskList;
 	}
 
