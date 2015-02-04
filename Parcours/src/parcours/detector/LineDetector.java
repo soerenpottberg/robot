@@ -1,7 +1,7 @@
 package parcours.detector;
 
-import parcours.debug.DebugOutput;
-import parcours.debug.TimingDebug;
+//import parcours.debug.DebugOutput;
+//import parcours.debug.TimingDebug;
 import parcours.utils.EWMA;
 import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
@@ -20,8 +20,8 @@ public class LineDetector {
 	private static final int DETECTION_TIME_MS = 50;
 	private static final float BLACK = 0;
 	
-	private DebugOutput out;
-	private TimingDebug timingDebug;
+	//private DebugOutput out;
+	//private TimingDebug timingDebug;
 	
 	private long tLastCycleStart;
 	
@@ -38,7 +38,7 @@ public class LineDetector {
 		lightSensor = RobotDesign.lightSensor;
 		
 		// for debugging purposes only:
-		out = new DebugOutput();
+		//out = new DebugOutput();
 		//timingDebug = new TimingDebug(out, 10, 0, 1);
 	}
 
