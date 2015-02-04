@@ -8,6 +8,8 @@ import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;
 import lejos.util.Delay;
 
+
+@Deprecated
 public class FollowLineTaskRaw extends ControllerTask {
 	
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;

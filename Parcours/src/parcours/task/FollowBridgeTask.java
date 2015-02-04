@@ -6,6 +6,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;
 
+@Deprecated
 public class FollowBridgeTask extends ControllerTask {
 
 	private static final int MIDDLE_LIGHT_VALUE = 30; // Bridge = 36 ; Side = 21

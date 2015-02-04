@@ -5,12 +5,12 @@ import java.util.List;
 
 import parcours.bluetooth.ElevatorConnection;
 import parcours.level.base.Level;
-import parcours.level.test.BluetoothFinishElevatorTask;
 import parcours.task.GoIntoElevatorTask;
 import parcours.task.TravelHandleCollisionTask;
 import parcours.task.base.Task;
 import parcours.task.bluetooth.BluetoothCloseConnectionTask;
 import parcours.task.bluetooth.BluetoothConnectTask;
+import parcours.task.bluetooth.BluetoothFinishElevatorTask;
 import parcours.task.bluetooth.BluetoothUseElevatorTask;
 import parcours.task.bluetooth.BluetoothWaitForElevatorTask;
 
