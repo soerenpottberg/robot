@@ -11,7 +11,7 @@ public class ElevatorConnection extends BluetoothConnection {
 	}
 
 	public enum ElevatorCommand {
-		GO_DOWN, IS_DOWN, CLOSE_CONNECTION, UNKNOWN;
+		GO_DOWN, IS_DOWN, CLOSE_CONNECTION, IS_READY, UNKNOWN;
 
 		public static ElevatorCommand getByOrdinal(int commandOrdinal) {
 			if (commandOrdinal >= values().length) {
@@ -23,6 +23,10 @@ public class ElevatorConnection extends BluetoothConnection {
 
 	public void sendDownCommand() throws IOException {
 		sendCommand(ElevatorCommand.GO_DOWN);
+	}
+	
+	public void sendIsReadyCommand() throws IOException {
+		sendCommand(ElevatorCommand.IS_READY);
 	}
 
 	public void sendIsDownCommand() throws IOException {
