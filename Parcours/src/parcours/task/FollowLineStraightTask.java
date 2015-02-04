@@ -11,7 +11,7 @@ import lejos.util.Delay;
 
 public class FollowLineStraightTask extends ControllerTask {
 	
-	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 3000;
+	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 1000;
 	private static final int DETECTION_COUNTER_THRESHOLD = 4;
 	private static final int DISTANCE_DETECTION_THRESHOLD = 50;
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
@@ -20,7 +20,7 @@ public class FollowLineStraightTask extends ControllerTask {
 	private static final int BASE_POWER = 50;
 
 	private static final float Kp = 0.10f;
-	private static final float Ki = 0.01f;
+	private static final float Ki = 0.015f;
 	private static final float Kd = 0.00f;
 
 	private LightSensor light;
