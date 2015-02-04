@@ -1,21 +1,24 @@
 package parcours.level.base;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import parcours.task.ControllerTask;
+import parcours.task.Task;
 
 public abstract class SingleTaskLevel extends Level {
 	
-	private static final int TASK_COUNT = 1;
 	private ControllerTask task;
 	
 	public SingleTaskLevel(ControllerTask task) {
 		this.task = task;
 	}
-
+	
 	@Override
-	public ControllerTask[] getTasks() {
-		ControllerTask[] tasks = new ControllerTask[TASK_COUNT];
-		tasks[0] = task;
-		return tasks;
+	public final List<Task> createTaskList() {
+		final ArrayList<Task> taskList = new ArrayList<Task>();
+		taskList.add(task);
+		return taskList;
 	}
 
 }

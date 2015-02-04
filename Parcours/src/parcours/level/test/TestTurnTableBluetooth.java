@@ -1,6 +1,7 @@
 package parcours.level.test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import parcours.bluetooth.TurnTableConnection;
 import parcours.level.base.Level;
@@ -20,7 +21,7 @@ public class TestTurnTableBluetooth extends Level {
 	}
 
 	@Override
-	public Task[] getTasks() {
+	public List<Task> createTaskList() {
 		final TurnTableConnection connection = new TurnTableConnection();
 		final ArrayList<Task> taskList = new ArrayList<Task>();
 		taskList.add(new BluetoothConnectTask(connection));
@@ -28,8 +29,7 @@ public class TestTurnTableBluetooth extends Level {
 		taskList.add(new BluetoothTurnTurnTableTask(connection));
 		taskList.add(new BluetoothFinishTurnTableTask(connection));
 		taskList.add(new BluetoothCloseConnectionTask(connection));
-		Task[] tasks = new Task[taskList.size()];
-		return taskList.toArray(tasks);
+		return taskList;
 	}
 
 }

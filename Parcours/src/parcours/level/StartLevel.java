@@ -1,20 +1,15 @@
 package parcours.level;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import parcours.level.base.Level;
 import parcours.task.FollowRightWallTaskStateFull;
-import parcours.task.ControllerTask;
+import parcours.task.Task;
 import parcours.task.labyrinth.config.StartLabyrinthConfiguration;
 
 
 public class StartLevel extends Level {
-	
-	private static int TASK_COUNT = 1;
-	private static ControllerTask[] tasks = new ControllerTask[TASK_COUNT];
-	
-	static {
-		int i = 0;
-		tasks[i++] = new FollowRightWallTaskStateFull(new StartLabyrinthConfiguration());
-	}
 	
 	@Override
 	public String getLabel() {
@@ -22,8 +17,10 @@ public class StartLevel extends Level {
 	}
 
 	@Override
-	public ControllerTask[] getTasks() {
-		return tasks;
+	public List<Task> createTaskList() {
+		final ArrayList<Task> taskList = new ArrayList<Task>();
+		taskList.add(new FollowRightWallTaskStateFull(new StartLabyrinthConfiguration()));
+		return taskList;
 	}
 
 }

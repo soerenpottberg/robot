@@ -1,5 +1,7 @@
 package parcours.level.base;
 
+import java.util.List;
+
 import lejos.nxt.LCD;
 import lejos.nxt.Sound;
 import lejos.util.Delay;
@@ -8,8 +10,17 @@ import parcours.task.Task;
 public abstract class Level {
 
 	public abstract String getLabel();
+	
+	public final Task[] getTasks() {
+		final List<Task> taskList = createTaskList();
+		if(taskList == null) {
+			return null;
+		}
+		Task[] tasks = new Task[taskList.size()];
+		return taskList.toArray(tasks);
+	}
 
-	public abstract Task[] getTasks();
+	public abstract List<Task> createTaskList();
 
 	public void run() {
 		if (getTasks() == null) {
