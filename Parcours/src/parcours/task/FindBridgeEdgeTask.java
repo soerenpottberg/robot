@@ -11,7 +11,7 @@ import parcours.utils.RobotDesign;
 public class FindBridgeEdgeTask extends ControllerTask {
 	private static final int SMALL_TURN_LEFT_ANGLE = 7;
 	private static final int SENSOR_EDGE_DETECTION_POSITION_ANGLE = 90;
-	private static final int BASE_SPEED = 20;
+	private static final int BASE_SPEED = 1;
 	
 	private DifferentialPilot pilot;
 	private BridgeEdgeDetector bridgeEdgeDetector;

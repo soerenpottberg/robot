@@ -19,7 +19,7 @@ public class BridgeEdgeDetector {
 				RobotDesign.EMPTY_SPACE_RAW + (int)(0.60f * EDGE_VALUE_INTERVAL);
 		
 		private static final float EWMA_ALPHA = 0.6f;
-		private static final int DETECTION_TIME_MS = 45;
+		private static final int DETECTION_TIME_MS = 45000;
 		
 		//private DebugOutput out;
 		//private TimingDebug timingDebug;
@@ -61,6 +61,8 @@ public class BridgeEdgeDetector {
 				//timingDebug.triggerCycle();
 				
 				final int smoothedMeasureValue = (int)(ewma.addValue( lightSensor.getLightValue() ));
+				
+				System.out.println( smoothedMeasureValue - BRIDGE_EDGE_DETECTION_THRESHOLD );
 				
 				// if value below the threshold: we assume hit
 				if ( smoothedMeasureValue < BRIDGE_EDGE_DETECTION_THRESHOLD ) {
