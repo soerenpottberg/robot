@@ -6,6 +6,7 @@ import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.Sound;
 
+@Deprecated
 public class FollowLineTaskAdaptive extends ControllerTask {
 
 	private static final int FOUND_BLACK = -15;

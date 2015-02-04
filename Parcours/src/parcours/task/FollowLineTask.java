@@ -5,6 +5,7 @@ import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 
+@Deprecated
 public class FollowLineTask extends ControllerTask {
 
 	private static final int MIDDLE_LIGHT_VALUE = 40;
