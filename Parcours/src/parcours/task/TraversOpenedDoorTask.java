@@ -9,7 +9,7 @@ public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 	//private static final int ARC_GOAL = 25;
 	
 	public TraversOpenedDoorTask() {
-		super(140, (int)(RobotDesign.differentialPilot.getMaxTravelSpeed()));
+		super(160, (int)(RobotDesign.differentialPilot.getMaxTravelSpeed()));
 	}
 
 	@Override
@@ -19,11 +19,6 @@ public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 
 	@Override
 	protected void control() {
-		/*if ( isMovingArc && pilot.getMovementIncrement() > ARC_GOAL ) {
-			distanceRemaining -= pilot.getMovementIncrement();
-			isMovingArc = false;
-			travelRemainingDistance();
-		}*/
 		super.control();
 	}
 
@@ -39,22 +34,10 @@ public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 	
 	@Override
 	protected void turn(int angle) {
-		//distanceRemaining += DISTANCE_LOST_BY_TURN;
-		distanceRemaining -= pilot.getMovementIncrement();
-		//pilot.travel(BACKWARD_DISTANCE);
-		//distanceRemaining -= pilot.getMovementIncrement(); // BACKWARD_DISTANCE	
+		distanceRemaining -= pilot.getMovementIncrement();	
 		pilot.rotate(angle);
 		travelRemainingDistance();
 		Sound.beep();
-		/*isMovingArc = true;
-		
-		distanceRemaining -= pilot.getMovementIncrement();
-		// turn left
-		if (angle > 0) {
-			pilot.arcForward( 100 );
-		} else { // turn right
-			pilot.arcForward( -100 );
-		}*/
 	}
 
 }
