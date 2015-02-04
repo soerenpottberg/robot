@@ -3,7 +3,8 @@ package parcours.level.combination;
 import java.util.ArrayList;
 import java.util.List;
 
-import parcours.level.Bridge;
+import parcours.level.BridgePower;
+import parcours.level.BridgeSpeed;
 import parcours.level.Elevator;
 import parcours.level.FollowLineVariantB;
 import parcours.level.StartLevel;
@@ -22,7 +23,7 @@ public class QualificationVariantB extends LevelCombination {
 		final ArrayList<Level> levelList = new ArrayList<Level>();
 		levelList.add(new StartLevel());
 		levelList.add(new FollowLineVariantB());
-		levelList.add(new Bridge());
+		levelList.add(new BridgeSpeed());
 		levelList.add(new Elevator());
 		return levelList;
 	}

@@ -7,6 +7,7 @@ import lejos.nxt.NXTMotor;
 import lejos.nxt.SensorPort;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
+import lejos.robotics.RegulatedMotor;
 import lejos.robotics.navigation.DifferentialPilot;
 
 public class RobotDesign {
@@ -30,6 +31,8 @@ public class RobotDesign {
 	public static final NXTMotor          unregulatedMotorSensor = new NXTMotor(MotorPort.C);
 	
 	public static final DifferentialPilot differentialPilot      = new DifferentialPilot(wheelDiameter, trackWidth, Motor.B, Motor.A);
+	public static final RegulatedMotor REGULATED_MOTOR_RIGHT = Motor.A;
+	public static final RegulatedMotor REGULATED_MOTOR_LEFT = Motor.B;
 
 	public static void setMotorPower(NXTMotor motor, int power, int oldPower) {
 		final int absPower = Math.abs( power );
@@ -38,6 +41,21 @@ public class RobotDesign {
 		final float power_signum = Math.signum( power );
 		if ( power_signum != Math.signum( oldPower ) ) {
 			if ( power_signum < -0.9f) {
+				motor.backward();
+			} else {
+				motor.forward();
+			}
+		}
+	}
+
+	public static void setMotorSpeed(RegulatedMotor motor, int speed,
+			int oldSpeed) {
+		final int absPower = Math.abs(speed);
+		motor.setSpeed(absPower);
+
+		final float signum = Math.signum(speed);
+		if (signum != Math.signum(oldSpeed)) {
+			if (signum < -0.9f) {
 				motor.backward();
 			} else {
 				motor.forward();

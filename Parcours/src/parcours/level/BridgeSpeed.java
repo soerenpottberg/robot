@@ -5,19 +5,19 @@ import java.util.List;
 
 import parcours.level.base.Level;
 import parcours.task.FindBridgeEdgeTask;
-import parcours.task.FollowBridgeTask;
+import parcours.task.FollowBridgeSpeedTask;
 import parcours.task.GoInFrontOfElevatorTask;
 import parcours.task.TravelHandleCollisionTask;
 import parcours.task.base.Task;
 
 
-public class Bridge extends Level {
+public class BridgeSpeed extends Level {
 	
-	private static final int INITIAL_TRAVEL_DISTANCE = 30; // used to clear the 3 lines at the beginning
+	private static final int INITIAL_TRAVEL_DISTANCE = 40; // used to clear the 3 lines at the beginning
 	
 	@Override
 	public String getLabel() {
-		return "Bridge";
+		return "Bridge Speed";
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class Bridge extends Level {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new TravelHandleCollisionTask(INITIAL_TRAVEL_DISTANCE, 40));
 		taskList.add(new FindBridgeEdgeTask());
-		taskList.add(new FollowBridgeTask());
+		taskList.add(new FollowBridgeSpeedTask());
 		taskList.add(new GoInFrontOfElevatorTask());
 		return taskList;
 	}
