@@ -6,6 +6,7 @@ import java.util.List;
 import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
 import parcours.level.test.DebugMeasureLevel;
+import parcours.level.test.TestElevatorBluetooth;
 import parcours.level.test.TestGateBluetooth;
 import parcours.level.test.TestRightTurnLevel;
 import parcours.level.test.TestTravelLevel;
@@ -26,6 +27,7 @@ public class TestLevelCombination extends LevelCombination {
 		levelList.add(new TestRightTurnLevel());
 		levelList.add(new TestTurnTableBluetooth());
 		levelList.add(new TestGateBluetooth());
+		levelList.add(new TestElevatorBluetooth());
 		return levelList;
 	}
 	
