@@ -16,9 +16,9 @@ public class BridgeEdgeDetector {
 		
 		private static final int EDGE_VALUE_INTERVAL = RobotDesign.BRIDGE_RAW - RobotDesign.EMPTY_SPACE_RAW;
 		private static final int BRIDGE_EDGE_DETECTION_THRESHOLD =
-				RobotDesign.EMPTY_SPACE_RAW + (int)(0.75f * EDGE_VALUE_INTERVAL);
+				RobotDesign.EMPTY_SPACE_RAW + (int)(0.80f * EDGE_VALUE_INTERVAL);
 		
-		private static final float EWMA_ALPHA = 0.6f;
+		private static final float EWMA_ALPHA = 0.7f;
 		private static final int DETECTION_TIME_MS = 45;
 		
 		private DebugOutput out;
