@@ -24,7 +24,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 	private static final int DETECT_LIGHT_VALUE = 35;
 	private static final int MIDDLE_LIGHT_VALUE = 35;
 	private static final int NOT_LOST_LINE_VALUE = 35;
-	private static final int LOST_LINE_MAX = 100;
+	private static final int LOST_LINE_MAX = 100; // 100 works; 500 clearly to large
 	private static final int BASE_SPEED = 150;
 
 	private static final int Kp = (int) (5 * 100);
@@ -102,7 +102,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 					// might be still a right curve
 					Sound.playTone(50 * angle, 200);
 					RobotDesign.differentialPilot.rotate(angle);
-					lostLineCounter = -1 * LOST_LINE_MAX; // TODO: to small
+					//lostLineCounter = -6 * LOST_LINE_MAX; // TODO: to small
 				} else {
 					// left curve
 					error = 0;
@@ -117,11 +117,12 @@ public class FollowLineSpeedTask extends ControllerTask {
 				RobotDesign.differentialPilot.rotate(-45, true);
 				findLineWithRobot();
 				RobotDesign.differentialPilot.stop();
-				lostLineCounter = -3 * LOST_LINE_MAX; // TODO: to small
+				//lostLineCounter = -6 * LOST_LINE_MAX; // TODO: to small
 				RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
 			}
 			Motor.A.forward(); // TODO: set oldSpeed to zero instead
 			Motor.B.forward(); // TODO: set oldSpeed to zero instead
+			nextCycleCompletion = System.currentTimeMillis() + CYCLE_TIME;
 		}
 
 		int compensation = pid(error);
