@@ -5,6 +5,7 @@ import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.RegulatedMotor;
+import lejos.util.Delay;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
 
@@ -28,6 +29,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 	private static final int Ki = (int) (0.1 * 100);
 	private static final int Kd = (int) (0 * 100);
 	private static final int SMALL_ANGLE = 20;
+	private static final long CYCLE_TIME = 4;
 
 	private TouchSensor touchSensorRight;
 	private LightSensor light;
@@ -40,6 +42,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 	private int lastPowerMotorA;
 	private int lastPowerMotorB;
 	private int lostLineCounter = 0;
+	private long nextCycleCompletion;
 
 	@Override
 	protected void init() {
@@ -56,12 +59,14 @@ public class FollowLineSpeedTask extends ControllerTask {
 		lastError = 0;
 		lastPowerMotorA = 0;
 		lastPowerMotorB = 0;
+		nextCycleCompletion = System.currentTimeMillis();
 	}
 	
 	// TODO: fixed time
 
 	@Override
 	protected void control() {
+		nextCycleCompletion += CYCLE_TIME;
 		int lightValue = measureLight();
 
 		int error = calculateError(lightValue);
@@ -128,6 +133,10 @@ public class FollowLineSpeedTask extends ControllerTask {
 
 		// Motor.C.rotate(10);
 		// Motor.C.rotate(-10);
+		long time = System.currentTimeMillis();
+		if(nextCycleCompletion > time) {
+			Delay.msDelay(nextCycleCompletion - time);
+		}
 	}
 
 	private void findLineWithRobot() {
