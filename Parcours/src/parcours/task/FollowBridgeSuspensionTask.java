@@ -38,8 +38,8 @@ public class FollowBridgeSuspensionTask extends ControllerTask {
 	@Override
 	protected void init() {
 		DifferentialPilot pilot = RobotDesign.differentialPilot;
-		pilot.setTravelSpeed(100);
-		pilot.travel( 20 );
+		pilot.setTravelSpeed(900);
+		pilot.travel( 200 );
 		pilot.stop();
 		Motor.B.suspendRegulation();
 		Motor.A.suspendRegulation();

@@ -5,9 +5,6 @@ import lejos.nxt.Sound;
 
 public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 	
-	//private boolean isMovingArc = false;
-	//private static final int ARC_GOAL = 25;
-	
 	public TraversOpenedDoorTask() {
 		super(160, (int)(RobotDesign.differentialPilot.getMaxTravelSpeed()));
 	}
@@ -35,7 +32,7 @@ public class TraversOpenedDoorTask extends TravelHandleCollisionTask {
 	@Override
 	protected void turn(int angle) {
 		distanceRemaining -= pilot.getMovementIncrement();
-		distanceRemaining += 15;
+		distanceRemaining += 10;
 		pilot.rotate(angle);
 		travelRemainingDistance();
 		Sound.beep();

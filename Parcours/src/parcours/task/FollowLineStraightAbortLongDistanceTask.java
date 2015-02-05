@@ -19,8 +19,8 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 
 	private static final int BASE_POWER = 50;
 
-	private static final float Kp = 0.075f;
-	private static final float Ki = 0.017f;
+	private static final float Kp = 0.065f;
+	private static final float Ki = 0.015f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
@@ -38,8 +38,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	private UltrasonicSensor distanceSensor;
 	
 	
-	private final float targetColor = RobotDesign.BLACK_RAW +
-			0.9f * ((RobotDesign.SILVER_RAW - RobotDesign.BLACK_RAW) / 2);
+	private final float targetColor = (RobotDesign.BLACK_RAW + RobotDesign.SILVER_RAW) / 2;
 	
 	@Override
 	protected void init() {
