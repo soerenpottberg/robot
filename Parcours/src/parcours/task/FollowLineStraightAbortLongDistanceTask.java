@@ -13,7 +13,7 @@ import lejos.util.Delay;
 public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	
 	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 1000;
-	private static final int DETECTION_COUNTER_THRESHOLD = 4;
+	private static final int DETECTION_COUNTER_THRESHOLD = 5;
 	private static final int DISTANCE_DETECTION_THRESHOLD = 60;
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
@@ -111,7 +111,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	}
 	
 	private void integrateError(float error) {
-		errorIntegrated = (2f / 3f * errorIntegrated) + error;
+		errorIntegrated = 0.9f * errorIntegrated + error;
 		if (error > 0) {
 			errorIntegrated += error;
 		}
