@@ -21,8 +21,8 @@ public class FollowLineIntelligentTask extends ControllerTask {
 	private static final int MESSURE_ANGLE = 10;
 	private static final int BACKWARD = -5;
 	private static final int DETECT_LIGHT_VALUE = 40;
-	private static final int MIDDLE_LIGHT_VALUE = 35; // TODO: try to increase
-	private static final int NOT_LOST_LINE_VALUE = 45; // TODO: also reduce?
+	private static final int MIDDLE_LIGHT_VALUE = 35;
+	private static final int NOT_LOST_LINE_VALUE = 40;
 	private static final int LOST_LINE_MAX = 100;
 	private static final int BASE_SPEED = 150;
 
@@ -67,11 +67,11 @@ public class FollowLineIntelligentTask extends ControllerTask {
 		integrateError(error);
 		deriveError(error);
 
-		//System.out.println(lostLineCounter);
-		if (lightValue <= NOT_LOST_LINE_VALUE) {
-			lostLineCounter++;
-		} else {
+		System.out.println(lostLineCounter);
+		if (lightValue >= NOT_LOST_LINE_VALUE) {
 			lostLineCounter = 0;
+		} else {
+			lostLineCounter++;
 		}
 		if (lostLineCounter >= LOST_LINE_MAX) {
 			RobotDesign.differentialPilot.stop();
@@ -120,7 +120,7 @@ public class FollowLineIntelligentTask extends ControllerTask {
 		int detectedLight = -1;
 		while (Motor.C.isMoving()) {
 			int lightValue = measureLight();
-			System.out.println(lightValue);
+			//System.out.println(lightValue);
 			if(lightValue >= DETECT_LIGHT_VALUE) {
 				detectedLight = Motor.C.getTachoCount();
 			}
