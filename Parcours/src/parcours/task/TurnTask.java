@@ -2,21 +2,22 @@ package parcours.task;
 
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
-import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
 
-public class RightTurnTask extends ControllerTask {
+public class TurnTask extends ControllerTask {
 
-	private static final int BASE_SPEED = 20;
-	private static final int BACKWARD_DISTANCE = -5;
-	private static final int RIGHT_ANGLE = -88;
+	private int angle, rotateSpeed;
+	
+	public TurnTask(int rotateSpeed, int angle) {
+		this.angle = angle;
+		this.rotateSpeed = rotateSpeed;
+	}
 
 	@Override
 	protected void init() {
 		DifferentialPilot pilot = RobotDesign.differentialPilot;
-		pilot.setTravelSpeed(BASE_SPEED);
-		pilot.travel(BACKWARD_DISTANCE);
-		pilot.rotate(RIGHT_ANGLE);
+		pilot.setRotateSpeed(rotateSpeed);
+		pilot.rotate(angle);
 	}
 
 	@Override
@@ -30,8 +31,6 @@ public class RightTurnTask extends ControllerTask {
 
 	@Override
 	protected void tearDown() {
-		Motor.A.suspendRegulation();
-		Motor.B.suspendRegulation();
 	}
 
 }

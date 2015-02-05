@@ -6,7 +6,6 @@ import java.util.List;
 import parcours.level.base.Level;
 import parcours.task.FindLineTask;
 import parcours.task.FollowLineSpeedTask;
-import parcours.task.RightTurnTask;
 import parcours.task.TravelHandleCollisionTask;
 import parcours.task.base.Task;
 

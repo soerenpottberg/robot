@@ -1,12 +1,12 @@
 package parcours.level.test;
 
 import parcours.level.base.SingleTaskLevel;
-import parcours.task.RightTurnTask;
+import parcours.task.TurnTask;
 
 public class TestRightTurnLevel extends SingleTaskLevel {
 	
 	public TestRightTurnLevel() {
-		super(new RightTurnTask());
+		super(new TurnTask());
 	}
 
 	@Override
