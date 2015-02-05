@@ -10,6 +10,8 @@ import parcours.utils.RobotDesign;
 
 public class FollowLineIntelligentTask extends ControllerTask {
 
+	private static final int MESSURE_ANGLE = 10;
+	private static final int BACKWARD = -5;
 	private static final int DETECT_LIGHT_VALUE = 50;
 	private static final int MIDDLE_LIGHT_VALUE = 35; // TODO: try to increase
 	private static final int NOT_LOST_LINE_VALUE = 45;
@@ -65,7 +67,8 @@ public class FollowLineIntelligentTask extends ControllerTask {
 		}
 		if (lostLineCounter >= LOST_LINE_MAX) {
 			RobotDesign.differentialPilot.stop();
-			RobotDesign.differentialPilot.travel(-5);
+			RobotDesign.differentialPilot.travel(BACKWARD);
+			RobotDesign.differentialPilot.rotate(MESSURE_ANGLE);
 			lostLineCounter = 0;
 			// fast and wait
 			Motor.C.setSpeed(900);
@@ -79,13 +82,15 @@ public class FollowLineIntelligentTask extends ControllerTask {
 				error = 0;
 				errorIntegrated = 0;
 				errorDerivated = 0;
-				Sound.playTone(100 * angle, 200);
+				Sound.playTone(50 * angle, 200);
 				RobotDesign.differentialPilot.rotate(angle);
 			} else {
+				// TODO: Maybe stronger negative integral
+				RobotDesign.differentialPilot.rotate(-MESSURE_ANGLE);
 				lostLineCounter = - 3 * LOST_LINE_MAX;
 			}
-			Motor.A.forward();
-			Motor.B.forward();
+			Motor.A.forward(); // TODO: set oldSpeed to zero instead
+			Motor.B.forward(); // TODO: set oldSpeed to zero instead
 		}
 
 		int compensation = pid(error);
