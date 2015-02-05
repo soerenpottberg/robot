@@ -11,15 +11,27 @@ public class FindBridgeEdgeTask extends ControllerTask {
 	private static final int SMALL_TURN_LEFT_ANGLE = 9;
 	private static final int SENSOR_EDGE_DETECTION_POSITION_ANGLE = 90;
 	private static final int BASE_SPEED = 20;
+	private static final int ACCELERATION = 80;
 	
 	private DifferentialPilot pilot;
 	private BridgeEdgeDetector bridgeEdgeDetector;
+	
+	private int baseSpeed = BASE_SPEED;
+	private int baseAcceleration = ACCELERATION;
+	
+	public FindBridgeEdgeTask() {}
+	public FindBridgeEdgeTask(int speed, int acceleration) {
+		baseSpeed = speed;
+		baseAcceleration = acceleration;
+	}
 
 	@Override
 	protected void init() {		
 		pilot = RobotDesign.differentialPilot;
 		bridgeEdgeDetector = new BridgeEdgeDetector();
-		pilot.setTravelSpeed(BASE_SPEED);
+		
+		pilot.setTravelSpeed(baseSpeed);
+		pilot.setAcceleration(baseAcceleration);
 		
 		// move sensor to bridge position.
 		Motor.C.rotate(SENSOR_EDGE_DETECTION_POSITION_ANGLE);

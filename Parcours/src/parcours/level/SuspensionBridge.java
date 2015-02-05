@@ -13,6 +13,9 @@ import parcours.task.base.Task;
 
 public class SuspensionBridge extends Level {
 	
+	private static final int BASE_SPEED = 8;
+	private static final int ACCELERATION = 10;
+	
 	@Override
 	public String getLabel() {
 		return "SuspensionBridge";
@@ -23,7 +26,7 @@ public class SuspensionBridge extends Level {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new FindLineTask(false));
 		taskList.add(new FollowLineStraightTask());
-		taskList.add(new FindBridgeEdgeTask());
+		taskList.add(new FindBridgeEdgeTask(BASE_SPEED, ACCELERATION));
 		taskList.add(new FollowBridgeSuspensionTask());
 		taskList.add(new FindLineTask());
 		return taskList;
