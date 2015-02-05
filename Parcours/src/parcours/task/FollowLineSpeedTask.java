@@ -12,7 +12,9 @@ import parcours.utils.RobotDesign;
 public class FollowLineSpeedTask extends ControllerTask {
 
 	/*
-	 * Black ~ 25; Black < 30 Gray ~ 35 White ~ 45
+	 * Black ~ 25; Black < 30
+	 * Gray ~ 35
+	 * White ~ 45
 	 */
 
 	private static final int MEASURE_SPEED = 50; // TODO faster
@@ -91,6 +93,8 @@ public class FollowLineSpeedTask extends ControllerTask {
 			Motor.C.setSpeed(MEASURE_SPEED);
 			Motor.C.rotate(-90, true);
 			int angle = findLine();
+			Motor.C.setSpeed(FULL_SPEED);
+		    waitForLightSensor();
 			boolean foundLine = (angle != -1);
 			if (foundLine) {
 				System.out.println(angle);
@@ -139,6 +143,11 @@ public class FollowLineSpeedTask extends ControllerTask {
 		}
 	}
 
+	private void waitForLightSensor() {
+		while (Motor.C.isMoving()) {
+		}
+	}
+
 	private void findLineWithRobot() {
 		while (RobotDesign.differentialPilot.isMoving()) {
 			int lightValue = measureLight();
@@ -149,15 +158,14 @@ public class FollowLineSpeedTask extends ControllerTask {
 	}
 
 	private int findLine() {
-		int detectedLight = -1;
 		while (Motor.C.isMoving()) {
 			int lightValue = measureLight();
 			// System.out.println(lightValue);
 			if (lightValue >= DETECT_LIGHT_VALUE) {
-				detectedLight = Motor.C.getTachoCount();
+				return Motor.C.getTachoCount();
 			}
 		}
-		return detectedLight;
+		return -1;
 	}
 
 	private int pid(int error) {
