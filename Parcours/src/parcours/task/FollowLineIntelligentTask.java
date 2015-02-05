@@ -8,6 +8,7 @@ import lejos.robotics.RegulatedMotor;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
 
+@Deprecated
 public class FollowLineIntelligentTask extends ControllerTask {
 	
 	/*
