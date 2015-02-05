@@ -20,7 +20,7 @@ public class FollowLineIntelligentTask extends ControllerTask {
 	private static final int Ki = (int) (0.1 * 100);
 	private static final int Kd = (int) (0 * 100);
 
-	private TouchSensor touchSensorLeft;
+	private TouchSensor touchSensorRight;
 	private LightSensor light;
 	private RegulatedMotor motorA;
 	private RegulatedMotor motorB;
@@ -34,7 +34,7 @@ public class FollowLineIntelligentTask extends ControllerTask {
 
 	@Override
 	protected void init() {
-		touchSensorLeft = RobotDesign.touchSensorLeft;
+		touchSensorRight = RobotDesign.touchSensorRight;
 		motorA = RobotDesign.REGULATED_MOTOR_RIGHT;
 		motorB = RobotDesign.REGULATED_MOTOR_LEFT;
 		light = RobotDesign.lightSensor;
@@ -133,7 +133,7 @@ public class FollowLineIntelligentTask extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
-		return touchSensorLeft.isPressed();
+		return touchSensorRight.isPressed();
 	}
 
 	@Override
