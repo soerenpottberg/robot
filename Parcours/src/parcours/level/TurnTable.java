@@ -6,7 +6,7 @@ import java.util.List;
 import parcours.bluetooth.TurnTableConnection;
 import parcours.level.base.Level;
 import parcours.task.FindLineTask;
-import parcours.task.FollowLineIntelligentTask;
+import parcours.task.FollowLineSpeedTask;
 import parcours.task.FollowLineStraightAbortLostLineTask;
 import parcours.task.TravelBackwardsTurnFindLineTask;
 import parcours.task.base.Task;
@@ -36,7 +36,7 @@ public class TurnTable extends Level {
 		taskList.add(new TravelBackwardsTurnFindLineTask());
 		taskList.add(new BluetoothFinishTurnTableTask(connection));
 		taskList.add(new BluetoothCloseConnectionTask(connection));
-		taskList.add(new FollowLineIntelligentTask());
+		taskList.add(new FollowLineSpeedTask());
 		// Endgegner...
 		
 		

@@ -11,26 +11,24 @@ import lejos.nxt.NXTMotor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.util.Delay;
 
-public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
+public class BackupCopyOfFollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	
-	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 1000;
+	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 100000;
 	private static final int DETECTION_COUNTER_THRESHOLD = 5;
 	private static final int DISTANCE_DETECTION_THRESHOLD = 60;
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
 
-	private static final int BASE_POWER = 35;
+	private static final int BASE_POWER = 40;
 
-	private static final float Kp = 0.050f;
-	private static final float Ki = 0.0060f;
-	private static final float Kd = 0.050f;
+	private static final float Kp = 0.090f;
+	private static final float Ki = 0.006f;
+	private static final float Kd = 0.150f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
 	private NXTMotor motorB;
 
-	private float beforeLastError;
-	private float lastError;
 	private EWMA lastErrors;
 	private float errorDerived;
 	private float errorIntegrated;
@@ -49,9 +47,9 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	LineSideState state;
 	
 	
-	private final float targetColor = RobotDesign.BLACK_RAW + 0.4f * (RobotDesign.SILVER_RAW - RobotDesign.BLACK_RAW);
+	private final float targetColor = (RobotDesign.BLACK_RAW + RobotDesign.SILVER_RAW) / 2;
 	
-	public FollowLineStraightAbortLongDistanceTask( LineSideState state ) {
+	public BackupCopyOfFollowLineStraightAbortLongDistanceTask( LineSideState state ) {
 		this.state = state;
 	}
 	
@@ -98,19 +96,10 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		
 		final float lightValue = measureLight();
 		final float error = calculateError(lightValue);
-		
-		if ( Math.abs(lastError) > Math.abs(error) && Math.abs(beforeLastError) > Math.abs(error)) {
-			errorIntegrated *= 0.0f;
-		}
-		
 		integrateError(error);
 		deriveError(error);
 		
 		final int compensation = pid(error);
-		
-		beforeLastError = lastError;
-		lastError = error;
-		
 		
 		out.write(1, error);
 		out.write(2, compensation);

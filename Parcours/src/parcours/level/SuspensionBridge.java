@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import parcours.level.base.Level;
-import parcours.task.FindBridgeEdgeTask;
 import parcours.task.FindLineTask;
-import parcours.task.FollowBridgeSuspensionTask;
 import parcours.task.FollowLineStraightAbortLongDistanceTask;
 import parcours.task.TravelWithSpeedTask;
 import parcours.task.base.Task;
