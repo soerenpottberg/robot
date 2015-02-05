@@ -7,6 +7,7 @@ import parcours.task.state.LineSideState;
 import parcours.utils.EWMA;
 import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
+import lejos.nxt.Motor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.util.Delay;
@@ -61,6 +62,12 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		
 		lastErrors = new EWMA(0.125f, 0f);
 		ewma = new EWMA(0.125f, targetColor);
+		
+		// Disable internal PID controller of both motors.
+		Motor.B.suspendRegulation();
+		Motor.A.suspendRegulation();
+		
+		// Set motors according to whether we start right or left.
 		if ( state.rightSideState ) {
 			motorA = RobotDesign.unregulatedMotorRight;
 			motorB = RobotDesign.unregulatedMotorLeft;
@@ -68,6 +75,8 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 			motorB = RobotDesign.unregulatedMotorRight;
 			motorA = RobotDesign.unregulatedMotorLeft;
 		}
+		
+		
 		light = RobotDesign.lightSensor;
 		motorA.setPower(BASE_POWER);
 		motorB.setPower(BASE_POWER);
