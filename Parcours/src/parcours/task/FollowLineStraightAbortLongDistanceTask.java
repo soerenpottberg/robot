@@ -20,7 +20,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 
 	private static final int BASE_POWER = 50;
 
-	private static final float Kp = 0.070f;
+	private static final float Kp = 0.090f;
 	private static final float Ki = 0.005f;
 
 	private LightSensor light;
@@ -49,7 +49,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	
 	@Override
 	protected void init() {
-		errorIntegrated = 50;
+		errorIntegrated = 100;
 		
 		ewma = new EWMA(0.125f, targetColor);
 		if ( state.rightSideState ) {
