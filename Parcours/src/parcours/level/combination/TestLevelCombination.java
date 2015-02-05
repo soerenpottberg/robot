@@ -6,6 +6,7 @@ import java.util.List;
 import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
 import parcours.level.test.DebugMeasureLevel;
+import parcours.level.test.TestArcLevel;
 import parcours.level.test.TestGoIntoElevator;
 import parcours.level.test.TestRightTurnLevel;
 import parcours.level.test.TestTravelLevel;
@@ -28,6 +29,7 @@ public class TestLevelCombination extends LevelCombination {
 		levelList.add(new TestGoIntoElevator());
 		levelList.add(new TestTurnTenTimesLevelSlow());
 		levelList.add(new TestTurnTenTimesLevelFast());
+		levelList.add(new TestArcLevel());
 		return levelList;
 	}
 	

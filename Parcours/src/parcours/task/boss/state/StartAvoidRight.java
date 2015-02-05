@@ -12,14 +12,17 @@ public class StartAvoidRight extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
 	public void handleNoButtonIsPressed(BossContext context) {
-		// TODO Auto-generated method stub
+		if(context.isMoving()) {
+			return;
+		}
 		
+		context.rotate(-90,false);
+		context.setState(BossState.LEFT);
 	}
 
 }

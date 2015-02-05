@@ -6,19 +6,13 @@ public class RightState extends BossStateBase {
 
 	@Override
 	public String name() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Right state";
 	}
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void handleNoButtonIsPressed(BossContext context) {
-		// TODO Auto-generated method stub
+		context.getPilot().arc(-50, 90);
+		context.setState(BossState.START_AVOID_RIGHT);
 		
 	}
 
