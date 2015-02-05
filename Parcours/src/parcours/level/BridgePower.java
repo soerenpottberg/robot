@@ -10,7 +10,7 @@ import parcours.task.GoInFrontOfElevatorTask;
 import parcours.task.TravelHandleCollisionTask;
 import parcours.task.base.Task;
 
-
+@Deprecated
 public class BridgePower extends Level {
 	
 	private static final int INITIAL_TRAVEL_DISTANCE = 30; // used to clear the 3 lines at the beginning
