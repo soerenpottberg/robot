@@ -1,6 +1,7 @@
 package parcours.task.boss.state;
 
 import parcours.task.boss.BossContext;
+import parcours.task.labyrinth.state.LabyrinthState;
 
 public class StartAvoidRight extends BossStateBase {
 
@@ -12,13 +13,18 @@ public class StartAvoidRight extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		// TODO Auto-generated method stub
+		//context.setState(BossState.START_AVOID_LEFT);
 		
 	}
 
 	@Override
 	public void handleNoButtonIsPressed(BossContext context) {
-		// TODO Auto-generated method stub
+		if(context.isMoving()) {
+			return;
+		}
+		
+		context.rotate(-90);
+		context.setState(BossState.LEFT);
 		
 	}
 

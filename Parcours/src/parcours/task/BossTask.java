@@ -31,7 +31,7 @@ public class BossTask extends ControllerTask {
 		pilot = RobotDesign.differentialPilot;
 		
 		context = new BossContext(pilot);
-		pilot.setTravelSpeed(50);
+		pilot.setTravelSpeed(60);
 		//pilot.setRotateSpeed( 500 );
 		//pilot.setAcceleration( 130 ); // default 210
 		pilot.forward();

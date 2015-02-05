@@ -6,19 +6,19 @@ public class LeftState extends BossStateBase {
 
 	@Override
 	public String name() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Left state";
 	}
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		// TODO Auto-generated method stub
+		context.getPilot().arc(20, -90);
+		context.setState(BossState.START_AVOID_LEFT);
 		
 	}
 
 	@Override
 	public void handleNoButtonIsPressed(BossContext context) {
-		// TODO Auto-generated method stub
+		context.forward();
 		
 	}
 
