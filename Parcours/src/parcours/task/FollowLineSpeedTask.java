@@ -102,7 +102,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 					// might be still a right curve
 					Sound.playTone(50 * angle, 200);
 					RobotDesign.differentialPilot.rotate(angle);
-					//lostLineCounter = -6 * LOST_LINE_MAX; // TODO: to small
+					lostLineCounter = -5000;
 				} else {
 					// left curve
 					error = 0;
@@ -117,7 +117,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 				RobotDesign.differentialPilot.rotate(-45, true);
 				findLineWithRobot();
 				RobotDesign.differentialPilot.stop();
-				//lostLineCounter = -6 * LOST_LINE_MAX; // TODO: to small
+				lostLineCounter = -5000;
 				RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
 			}
 			Motor.A.forward(); // TODO: set oldSpeed to zero instead
