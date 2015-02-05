@@ -21,9 +21,9 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 
 	private static final int BASE_POWER = 30;
 
-	private static final float Kp = 0.055f;
+	private static final float Kp = 0.050f;
 	private static final float Ki = 0.0055f;
-	private static final float Kd = 0.0f;//90f;
+	private static final float Kd = 0.040f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
@@ -99,7 +99,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		final float error = calculateError(lightValue);
 		
 		if ( Math.abs(lastError) > Math.abs(error) ) {
-			errorIntegrated = 0.0f;
+			errorIntegrated *= 0.75f;
 		}
 		
 		integrateError(error);
