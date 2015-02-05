@@ -33,7 +33,7 @@ public class BossTask extends ControllerTask {
 		context = new BossContext(pilot);
 		pilot.setTravelSpeed(60);
 		//pilot.setRotateSpeed( 500 );
-		//pilot.setAcceleration( 130 ); // default 210
+		//pilot.setAcceleration( 300 ); // default 210
 		pilot.forward();
 		
 	}

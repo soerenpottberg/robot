@@ -17,15 +17,18 @@ public class ArcTask extends ControllerTask {
 	@Override
 	protected void init() {
 		
-		pilot = RobotDesign.differentialPilot;	
-		pilot.setTravelSpeed(50);
+		pilot = RobotDesign.differentialPilot;
+		pilot.stop();
+		Motor.B.suspendRegulation();
+		Motor.A.suspendRegulation();
+		pilot.setTravelSpeed(90);
 		
 	}
 
 
 	@Override
 	protected void control() {
-		pilot.arc(-60, 90);
+		pilot.arc(-40, 90);
 	}
 
 	@Override

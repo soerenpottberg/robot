@@ -1,7 +1,6 @@
 package parcours.task.boss.state;
 
 import parcours.task.boss.BossContext;
-import parcours.task.labyrinth.state.LabyrinthState;
 
 public class StartAvoidRight extends BossStateBase {
 
