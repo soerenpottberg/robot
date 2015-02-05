@@ -14,8 +14,8 @@ import lejos.robotics.navigation.DifferentialPilot;
 
 public class RobotDesign {
 	// After changing the design, these values need to be obtained from DebugMeasure!
-	public static final int BLACK  = 26;
-	public static final int SILVER = 49;
+	public static final int BLACK  = 25;
+	public static final int SILVER = 45;
 	
 	public static final int BLACK_RAW = 260;
 	public static final int SILVER_RAW = 480;

@@ -1,7 +1,6 @@
 package parcours.task;
 
 import lejos.nxt.LightSensor;
-import lejos.nxt.TouchSensor;
 import lejos.robotics.RegulatedMotor;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
@@ -9,13 +8,13 @@ import parcours.utils.RobotDesign;
 public class FollowBridgeSuspensionTask extends ControllerTask {
 
 	private static final int MIDDLE_LIGHT_VALUE = 30; // Bridge = 36 ; Side = 21
-	private static final int BASE_SPEED = 80;
+	private static final int BASE_SPEED = 20;
 
-	private static final int Kp = (int) (5 * 100);
-	private static final int Ki = (int) (1 * 100);
-	//private static final int Kd = (int) (0 * 100);
+	private static final int ACCURACY_FACTOR = 1000;
+	private static final int Kp = (int) (40 * ACCURACY_FACTOR);
+	private static final int Ki = (int) (05 * ACCURACY_FACTOR);
+	//private static final int Kd = (int) (00 * ACCURACY_FACTOR);
 
-	private TouchSensor touchSensorLeft;
 	private LightSensor light;
 	private RegulatedMotor motorA;
 	private RegulatedMotor motorB;
@@ -28,7 +27,6 @@ public class FollowBridgeSuspensionTask extends ControllerTask {
 
 	@Override
 	protected void init() {
-		touchSensorLeft = RobotDesign.touchSensorLeft;
 		motorA = RobotDesign.REGULATED_MOTOR_RIGHT;
 		motorB = RobotDesign.REGULATED_MOTOR_LEFT;
 		light = RobotDesign.lightSensor;
@@ -64,7 +62,7 @@ public class FollowBridgeSuspensionTask extends ControllerTask {
 	}
 
 	private int pid(int error) {
-		return (Kp * error  + Ki * errorIntegrated/* + Kd * errorDerivated*/) / 100;
+		return (Kp * error  + Ki * errorIntegrated/* + Kd * errorDerivated*/) / ACCURACY_FACTOR;
 	}
 
 	private int measureLight() {
@@ -85,7 +83,7 @@ public class FollowBridgeSuspensionTask extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
-		return touchSensorLeft.isPressed();
+		return false;//touchSensorLeft.isPressed();
 	}
 
 	@Override

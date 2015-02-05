@@ -18,7 +18,6 @@ public class LineDetector {
 	private static final int WHITE_LINE_DETECTION_THRESHOLD = 39;
 	private static final float EWMA_ALPHA = 0.7f;
 	private static final int DETECTION_TIME_MS = 50;
-	private static final float BLACK = 0;
 	
 	//private DebugOutput out;
 	//private TimingDebug timingDebug;
@@ -34,7 +33,7 @@ public class LineDetector {
 		tLastCycleStart = System.currentTimeMillis() + CYCLE_TIME_STARTING_VALUE; // TODO: It might be removed now, see below.
 		
 		// Initialize ewma with black
-		ewma = new EWMA(EWMA_ALPHA, BLACK);
+		ewma = new EWMA(EWMA_ALPHA, RobotDesign.BLACK);
 		lightSensor = RobotDesign.lightSensor;
 		
 		// for debugging purposes only:
