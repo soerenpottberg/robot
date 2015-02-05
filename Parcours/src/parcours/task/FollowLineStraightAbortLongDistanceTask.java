@@ -2,6 +2,7 @@ package parcours.task;
 
 import parcours.detector.LapsedTimeDetector;
 import parcours.task.base.ControllerTask;
+import parcours.task.state.LineSideState;
 import parcours.utils.EWMA;
 import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
@@ -20,7 +21,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	private static final int BASE_POWER = 50;
 
 	private static final float Kp = 0.065f;
-	private static final float Ki = 0.015f;
+	private static final float Ki = 0.010f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
@@ -37,14 +38,25 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	private short detectionCounter = 0;
 	private UltrasonicSensor distanceSensor;
 	
+	LineSideState state;
+	
 	
 	private final float targetColor = (RobotDesign.BLACK_RAW + RobotDesign.SILVER_RAW) / 2;
+	
+	public FollowLineStraightAbortLongDistanceTask( LineSideState state ) {
+		this.state = state;
+	}
 	
 	@Override
 	protected void init() {
 		ewma = new EWMA(0.125f, targetColor);
-		motorA = RobotDesign.unregulatedMotorRight;
-		motorB = RobotDesign.unregulatedMotorLeft;
+		if ( state.rightSideState ) {
+			motorA = RobotDesign.unregulatedMotorRight;
+			motorB = RobotDesign.unregulatedMotorLeft;
+		} else {
+			motorB = RobotDesign.unregulatedMotorRight;
+			motorA = RobotDesign.unregulatedMotorLeft;
+		}
 		light = RobotDesign.lightSensor;
 		motorA.setPower(BASE_POWER);
 		motorB.setPower(BASE_POWER);

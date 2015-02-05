@@ -10,6 +10,7 @@ import parcours.task.FollowBridgeSuspensionTask;
 import parcours.task.FollowLineStraightAbortLongDistanceTask;
 import parcours.task.TravelWithSpeedTask;
 import parcours.task.base.Task;
+import parcours.task.state.LineSideState;
 
 
 public class SuspensionBridge extends Level {
@@ -24,9 +25,10 @@ public class SuspensionBridge extends Level {
 
 	@Override
 	public List<Task> createTaskList() {
+		LineSideState state = new LineSideState();
 		final List<Task> taskList = new ArrayList<Task>();
-		taskList.add(new FindLineTask(false));
-		taskList.add(new FollowLineStraightAbortLongDistanceTask());
+		taskList.add(new FindLineTask( false, state ));
+		taskList.add(new FollowLineStraightAbortLongDistanceTask( state ));
 		taskList.add(new TravelWithSpeedTask(20, 500, 100));
 		taskList.add(new FindBridgeEdgeTask(BASE_SPEED, ACCELERATION));
 		taskList.add(new FollowBridgeSuspensionTask());
