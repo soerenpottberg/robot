@@ -32,7 +32,7 @@ public class TurnTable extends Level {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new BluetoothConnectTask(connection));
 		taskList.add(new BluetoothWaitForTurnTableTask(connection));
-		taskList.add(new TurnTask(30, 20));
+		taskList.add(new TurnTask(30, 10));
 		taskList.add(new FindLineTask());
 		taskList.add(new FollowLineStraightAbortLostLineTask());
 		taskList.add(new BluetoothTurnTurnTableTask(connection));

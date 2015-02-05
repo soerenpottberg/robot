@@ -3,6 +3,7 @@ package parcours.task;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.NXTMotor;
+import lejos.nxt.TouchSensor;
 import lejos.util.Delay;
 import parcours.debug.DebugOutput;
 import parcours.detector.LapsedTimeDetector;
@@ -25,6 +26,7 @@ public class FollowLineStraightAbortLostLineTask extends ControllerTask {
 	private LightSensor light;
 	private NXTMotor motorA;
 	private NXTMotor motorB;
+	private TouchSensor t1, t2;
 
 	private float beforeLastError;
 	private float lastError;
@@ -64,7 +66,8 @@ public class FollowLineStraightAbortLostLineTask extends ControllerTask {
 		motorA = RobotDesign.unregulatedMotorRight;
 		motorB = RobotDesign.unregulatedMotorLeft;
 		
-		
+		t1 = RobotDesign.touchSensorLeft;
+		t2 = RobotDesign.touchSensorRight;
 		light = RobotDesign.lightSensor;
 		motorA.setPower(BASE_POWER);
 		motorB.setPower(BASE_POWER);
@@ -154,7 +157,7 @@ public class FollowLineStraightAbortLostLineTask extends ControllerTask {
 	
 	@Override
 	protected boolean abort() {
-		return false;
+		return t1.isPressed() || t2.isPressed();
 	}
 	
 	@Override
