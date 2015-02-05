@@ -7,7 +7,7 @@ import parcours.level.base.Level;
 import parcours.task.FindBridgeEdgeTask;
 import parcours.task.FindLineTask;
 import parcours.task.FollowBridgeSuspensionTask;
-import parcours.task.FollowLineStraightTask;
+import parcours.task.FollowLineStraightAbortLongDistanceTask;
 import parcours.task.base.Task;
 
 
@@ -25,7 +25,7 @@ public class SuspensionBridge extends Level {
 	public List<Task> createTaskList() {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new FindLineTask(false));
-		taskList.add(new FollowLineStraightTask());
+		taskList.add(new FollowLineStraightAbortLongDistanceTask());
 		taskList.add(new FindBridgeEdgeTask(BASE_SPEED, ACCELERATION));
 		taskList.add(new FollowBridgeSuspensionTask());
 		taskList.add(new FindLineTask());
