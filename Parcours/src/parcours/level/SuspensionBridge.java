@@ -15,8 +15,8 @@ import parcours.task.state.LineSideState;
 
 public class SuspensionBridge extends Level {
 	
-	private static final int BASE_SPEED = 20;
-	private static final int ACCELERATION = 30;
+	//private static final int BASE_SPEED = 20;
+	//private static final int ACCELERATION = 30;
 	
 	@Override
 	public String getLabel() {
