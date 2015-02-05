@@ -44,6 +44,8 @@ public class FollowLineSpeedTask extends ControllerTask {
 	private int lastPowerMotorB;
 	private int lostLineCounter = 0;
 	private long nextCycleCompletion;
+	private int error = 0;
+	private boolean isAborted = false;
 
 	@Override
 	protected void init() {
@@ -70,7 +72,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 		nextCycleCompletion += CYCLE_TIME;
 		int lightValue = measureLight();
 
-		int error = calculateError(lightValue);
+		calculateError(lightValue);
 		integrateError(error);
 		deriveError(error);
 
@@ -81,7 +83,11 @@ public class FollowLineSpeedTask extends ControllerTask {
 			lostLineCounter++;
 		}
 		if (lostLineCounter >= LOST_LINE_MAX) {
-			error = handleLostLine(error);
+			boolean findLine = handleLostLine(error);
+			if(!findLine) {
+				isAborted  = true;
+				return;
+			}
 		}
 
 		int compensation = pid(error);
@@ -104,7 +110,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 		}
 	}
 
-	private int handleLostLine(int error) {
+	private boolean handleLostLine(int error) {
 		RobotDesign.differentialPilot.stop();
 		RobotDesign.differentialPilot.travel(BACKWARD);
 		RobotDesign.differentialPilot.rotate(MESSURE_ANGLE);
@@ -136,8 +142,15 @@ public class FollowLineSpeedTask extends ControllerTask {
 		} else {
 			// straight or right curve
 			RobotDesign.differentialPilot.setRotateSpeed(MEASURE_SPEED);
-			RobotDesign.differentialPilot.rotate(-45, true);
-			findLineWithRobot();
+			RobotDesign.differentialPilot.rotate(-MESSURE_ANGLE - 90 - 10, true);
+			boolean foundLineWithRobot =  findLineWithRobot();
+			if(!foundLineWithRobot) {
+				RobotDesign.differentialPilot
+				.setRotateSpeed(.8f * RobotDesign.differentialPilot
+						.getMaxRotateSpeed());
+				RobotDesign.differentialPilot.rotate(90 + 10, false);
+				return false;
+			}
 			RobotDesign.differentialPilot.stop();
 			RobotDesign.differentialPilot
 					.setRotateSpeed(.8f * RobotDesign.differentialPilot
@@ -146,7 +159,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 		Motor.A.forward(); // TODO: set oldSpeed to zero instead
 		Motor.B.forward(); // TODO: set oldSpeed to zero instead
 		nextCycleCompletion = System.currentTimeMillis() + CYCLE_TIME;
-		return error;
+		return true;
 	}
 
 	private void waitForLightSensor() {
@@ -154,14 +167,15 @@ public class FollowLineSpeedTask extends ControllerTask {
 		}
 	}
 
-	private void findLineWithRobot() {
+	private boolean findLineWithRobot() {
 		while (RobotDesign.differentialPilot.isMoving()) {
 			int lightValue = measureLight();
 			if (lightValue >= DETECT_LIGHT_VALUE) {
-				break;
+				Delay.msDelay(150);
+				return true;
 			}
 		}
-		Delay.msDelay(150);
+		return false;
 	}
 
 	private int findLine() {
@@ -183,8 +197,8 @@ public class FollowLineSpeedTask extends ControllerTask {
 		return light.getLightValue();
 	}
 
-	private int calculateError(int lightValue) {
-		return lightValue - MIDDLE_LIGHT_VALUE;
+	private void calculateError(int lightValue) {
+		error =  lightValue - MIDDLE_LIGHT_VALUE;
 	}
 
 	private void deriveError(int error) {
@@ -197,12 +211,14 @@ public class FollowLineSpeedTask extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
-		return touchSensorRight.isPressed();
+		return isAborted;
 	}
 
 	@Override
 	protected void tearDown() {
 		RobotDesign.differentialPilot.stop();
+		RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
+		RobotDesign.differentialPilot.setTravelSpeed(.8f * RobotDesign.differentialPilot.getTravelSpeed());
 		Motor.C.setSpeed(FULL_SPEED);
 	}
 
