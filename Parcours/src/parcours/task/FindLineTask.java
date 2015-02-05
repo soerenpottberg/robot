@@ -5,6 +5,7 @@ import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.LineDetector;
 import parcours.task.base.ControllerTask;
+import parcours.task.state.LineSideState;
 import parcours.utils.RobotDesign;
 
 public class FindLineTask extends ControllerTask {
@@ -18,13 +19,15 @@ public class FindLineTask extends ControllerTask {
 	private LineDetector lineDetector;
 	private TouchSensor touchR, touchL;
 	private boolean driveStraight;
+	private LineSideState state;
 	
 	public FindLineTask() {
 		this.driveStraight = true;
 	}
 	
-	public FindLineTask(boolean driveStraight) {
+	public FindLineTask(boolean driveStraight, LineSideState state) {
 		this.driveStraight = driveStraight;
+		this.state = state;
 	}
 
 	@Override
@@ -60,6 +63,7 @@ public class FindLineTask extends ControllerTask {
 			pilot.forward();
 		} else {
 			pilot.arcForward(impactRight ? ARC_LEFT_RADIUS : ARC_RIGHT_RADIUS);
+			state.rightSideState = impactRight;
 		}
 	}
 

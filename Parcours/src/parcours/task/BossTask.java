@@ -1,17 +1,11 @@
 package parcours.task;
 
-import parcours.detector.LineDetector;
+import lejos.nxt.TouchSensor;
+import lejos.robotics.navigation.DifferentialPilot;
 import parcours.task.base.ControllerTask;
 import parcours.task.boss.BossContext;
-import parcours.task.labyrinth.LabyrinthContext;
-import parcours.utils.EWMA;
 import parcours.utils.RobotDesign;
-import lejos.nxt.LightSensor;
-import lejos.nxt.NXTMotor;
-import lejos.nxt.TouchSensor;
-import lejos.nxt.UltrasonicSensor;
-import lejos.robotics.navigation.DifferentialPilot;
-import lejos.util.Delay;
+
 
 public class BossTask extends ControllerTask {
 	

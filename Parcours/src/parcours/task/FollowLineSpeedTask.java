@@ -8,27 +8,26 @@ import lejos.robotics.RegulatedMotor;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
 
-public class FollowLineIntelligentTask extends ControllerTask {
-	
+public class FollowLineSpeedTask extends ControllerTask {
+
 	/*
-	 * Black ~ 25;  Black < 30
-	 * Gray  ~ 35
-	 * White ~ 45
+	 * Black ~ 25; Black < 30 Gray ~ 35 White ~ 45
 	 */
 
-	private static final int MEASURE_SPEED = 25;
+	private static final int MEASURE_SPEED = 50; // TODO faster
 	private static final int FULL_SPEED = 900;
 	private static final int MESSURE_ANGLE = 10;
 	private static final int BACKWARD = -5;
-	private static final int DETECT_LIGHT_VALUE = 40;
+	private static final int DETECT_LIGHT_VALUE = 35;
 	private static final int MIDDLE_LIGHT_VALUE = 35;
-	private static final int NOT_LOST_LINE_VALUE = 40;
+	private static final int NOT_LOST_LINE_VALUE = 35;
 	private static final int LOST_LINE_MAX = 100;
 	private static final int BASE_SPEED = 150;
 
 	private static final int Kp = (int) (5 * 100);
 	private static final int Ki = (int) (0.1 * 100);
 	private static final int Kd = (int) (0 * 100);
+	private static final int SMALL_ANGLE = 20;
 
 	private TouchSensor touchSensorRight;
 	private LightSensor light;
@@ -58,11 +57,13 @@ public class FollowLineIntelligentTask extends ControllerTask {
 		lastPowerMotorA = 0;
 		lastPowerMotorB = 0;
 	}
+	
+	// TODO: fixed time
 
 	@Override
 	protected void control() {
 		int lightValue = measureLight();
-		
+
 		int error = calculateError(lightValue);
 		integrateError(error);
 		deriveError(error);
@@ -83,19 +84,32 @@ public class FollowLineIntelligentTask extends ControllerTask {
 			Motor.C.rotate(90, false);
 			// slow and non-blocking
 			Motor.C.setSpeed(MEASURE_SPEED);
-			Motor.C.rotate(-90, true);			
+			Motor.C.rotate(-90, true);
 			int angle = findLine();
 			boolean foundLine = (angle != -1);
-			if(foundLine) {
-				error = 0;
-				errorIntegrated = 0;
-				errorDerivated = 0;
-				Sound.playTone(50 * angle, 200);
-				RobotDesign.differentialPilot.rotate(angle);
+			if (foundLine) {
+				System.out.println(angle);
+				if (angle < SMALL_ANGLE) {
+					// might be still a right curve
+					Sound.playTone(50 * angle, 200);
+					RobotDesign.differentialPilot.rotate(angle);
+					lostLineCounter = -1 * LOST_LINE_MAX; // TODO: to small
+				} else {
+					// left curve
+					error = 0;
+					errorIntegrated = 0;
+					errorDerivated = 0;
+					Sound.playTone(50 * angle, 200);
+					RobotDesign.differentialPilot.rotate(angle);
+				}
 			} else {
-				// TODO: Maybe stronger negative integral
-				RobotDesign.differentialPilot.rotate(-MESSURE_ANGLE);
-				lostLineCounter = - 3 * LOST_LINE_MAX;
+				// straight or right curve
+				RobotDesign.differentialPilot.setRotateSpeed(MEASURE_SPEED);
+				RobotDesign.differentialPilot.rotate(-45, true);
+				findLineWithRobot();
+				RobotDesign.differentialPilot.stop();
+				lostLineCounter = -3 * LOST_LINE_MAX; // TODO: to small
+				RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
 			}
 			Motor.A.forward(); // TODO: set oldSpeed to zero instead
 			Motor.B.forward(); // TODO: set oldSpeed to zero instead
@@ -116,12 +130,21 @@ public class FollowLineIntelligentTask extends ControllerTask {
 		// Motor.C.rotate(-10);
 	}
 
+	private void findLineWithRobot() {
+		while (RobotDesign.differentialPilot.isMoving()) {
+			int lightValue = measureLight();
+			if (lightValue >= DETECT_LIGHT_VALUE) {
+				return;
+			}
+		}
+	}
+
 	private int findLine() {
 		int detectedLight = -1;
 		while (Motor.C.isMoving()) {
 			int lightValue = measureLight();
-			//System.out.println(lightValue);
-			if(lightValue >= DETECT_LIGHT_VALUE) {
+			// System.out.println(lightValue);
+			if (lightValue >= DETECT_LIGHT_VALUE) {
 				detectedLight = Motor.C.getTachoCount();
 			}
 		}

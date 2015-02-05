@@ -8,8 +8,11 @@ import parcours.level.Elevator;
 import parcours.level.FinalLevel;
 import parcours.level.FollowLineRaceVariant;
 import parcours.level.Labyrinth;
-import parcours.level.Obstacles;
+import parcours.level.SeeSaw;
+import parcours.level.SuspensionBridge;
+import parcours.level.Swamp;
 import parcours.level.StartLevel;
+import parcours.level.TurnTable;
 import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
 
@@ -28,7 +31,10 @@ public class FullParcours extends LevelCombination {
 		levelList.add(new BridgeSpeed());
 		levelList.add(new Elevator());
 		levelList.add(new Labyrinth());
-		levelList.add(new Obstacles());
+		levelList.add(new Swamp());
+		levelList.add(new SuspensionBridge());
+		levelList.add(new SeeSaw());
+		levelList.add(new TurnTable());
 		levelList.add(new FinalLevel());
 		return levelList;
 	}

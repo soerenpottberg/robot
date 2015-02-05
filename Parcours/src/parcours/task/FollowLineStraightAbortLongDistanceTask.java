@@ -2,6 +2,7 @@ package parcours.task;
 
 import parcours.detector.LapsedTimeDetector;
 import parcours.task.base.ControllerTask;
+import parcours.task.state.LineSideState;
 import parcours.utils.EWMA;
 import parcours.utils.RobotDesign;
 import lejos.nxt.LightSensor;
@@ -9,18 +10,18 @@ import lejos.nxt.NXTMotor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.util.Delay;
 
-public class FollowLineStraightTask extends ControllerTask {
+public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	
 	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 1000;
 	private static final int DETECTION_COUNTER_THRESHOLD = 4;
-	private static final int DISTANCE_DETECTION_THRESHOLD = 50;
+	private static final int DISTANCE_DETECTION_THRESHOLD = 60;
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
 
 	private static final int BASE_POWER = 50;
 
-	private static final float Kp = 0.10f;
-	private static final float Ki = 0.015f;
+	private static final float Kp = 0.060f;
+	private static final float Ki = 0.002f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
@@ -37,15 +38,25 @@ public class FollowLineStraightTask extends ControllerTask {
 	private short detectionCounter = 0;
 	private UltrasonicSensor distanceSensor;
 	
+	LineSideState state;
 	
-	private final float targetColor = RobotDesign.BLACK_RAW +
-			0.9f * ((RobotDesign.SILVER_RAW - RobotDesign.BLACK_RAW) / 2);
+	
+	private final float targetColor = (RobotDesign.BLACK_RAW + RobotDesign.SILVER_RAW) / 2;
+	
+	public FollowLineStraightAbortLongDistanceTask( LineSideState state ) {
+		this.state = state;
+	}
 	
 	@Override
 	protected void init() {
 		ewma = new EWMA(0.125f, targetColor);
-		motorA = RobotDesign.unregulatedMotorRight;
-		motorB = RobotDesign.unregulatedMotorLeft;
+		if ( state.rightSideState ) {
+			motorA = RobotDesign.unregulatedMotorRight;
+			motorB = RobotDesign.unregulatedMotorLeft;
+		} else {
+			motorB = RobotDesign.unregulatedMotorRight;
+			motorA = RobotDesign.unregulatedMotorLeft;
+		}
 		light = RobotDesign.lightSensor;
 		motorA.setPower(BASE_POWER);
 		motorB.setPower(BASE_POWER);
