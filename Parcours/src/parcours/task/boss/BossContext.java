@@ -6,6 +6,7 @@ import lejos.robotics.navigation.MoveListener;
 import lejos.robotics.navigation.RotateMoveController;
 import parcours.task.boss.state.BossState;
 import parcours.task.boss.state.BossStateBase;
+import parcours.utils.RobotDesign;
 
 public class BossContext implements RotateMoveController {
 
@@ -13,7 +14,7 @@ public class BossContext implements RotateMoveController {
 	private DifferentialPilot pilot;
 
 	public BossContext(DifferentialPilot pilot) {
-		state = BossState.RIGHT.getState();
+		setState(BossState.RIGHT);
 		this.pilot = pilot;
 	}
 
@@ -26,6 +27,7 @@ public class BossContext implements RotateMoveController {
 	}
 	
 	public void setState(BossState stateEnumEntry) {
+		RobotDesign.setCurrentState(stateEnumEntry);
 		this.state = stateEnumEntry.getState();
 	}
 
