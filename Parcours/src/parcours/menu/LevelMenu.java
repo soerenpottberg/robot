@@ -1,6 +1,7 @@
 package parcours.menu;
 
 import parcours.level.base.Level;
+import parcours.level.base.LevelCombination;
 import lejos.nxt.LCD;
 import lejos.util.TextMenu;
 
@@ -9,12 +10,14 @@ public class LevelMenu extends TextMenu {
 	private Level[] levels;
 	private int selectedLevelIndex = -1;
 
-	public LevelMenu(Level[] levels) {
-		super(getItems(levels));
-		this.levels = levels;
+	public LevelMenu(LevelCombination levelCombination) {
+		super(getItems(levelCombination));
+		setTitle(levelCombination.getLabel());
+		this.levels = levelCombination.getLevels();
 	}
 
-	private static String[] getItems(Level[] levels) {
+	private static String[] getItems(LevelCombination levelCombination) {
+		Level[] levels = levelCombination.getLevels();
 		String[] items = new String[levels.length];
 		for (int i = 0; i < levels.length; i++) {
 			Level level = levels[i];

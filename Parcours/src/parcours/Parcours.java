@@ -43,8 +43,7 @@ public class Parcours {
 			if (selectedLevelCombination == null) {
 				break;
 			}
-			Level[] levels = selectedLevelCombination.getLevels();
-			LevelMenu menu = new LevelMenu(levels);
+			LevelMenu menu = new LevelMenu(selectedLevelCombination);
 			while (true) {
 				Level selectedLevel = menu.selectLevel();
 				if (selectedLevel == null) {

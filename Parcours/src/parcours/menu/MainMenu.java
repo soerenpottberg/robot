@@ -11,6 +11,7 @@ public class MainMenu extends TextMenu {
 
 	public MainMenu(LevelCombination[] levelCombinations) {
 		super(getItems(levelCombinations));
+		setTitle("Main Menu");
 		this.levelCombinations = levelCombinations;
 	}
 
