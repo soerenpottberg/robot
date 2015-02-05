@@ -3,35 +3,29 @@ package parcours.level;
 import java.util.ArrayList;
 import java.util.List;
 
-import parcours.bluetooth.TurnTableConnection;
+import parcours.bluetooth.GateConnection;
 import parcours.level.base.Level;
+import parcours.task.TraversOpenedDoorTask;
 import parcours.task.base.Task;
 import parcours.task.bluetooth.BluetoothCloseConnectionTask;
+import parcours.task.bluetooth.BluetoothCloseGateTask;
 import parcours.task.bluetooth.BluetoothConnectTask;
-import parcours.task.bluetooth.BluetoothFinishTurnTableTask;
-import parcours.task.bluetooth.BluetoothTurnTurnTableTask;
-import parcours.task.bluetooth.BluetoothWaitForTurnTableTask;
 
 
-public class Swamp extends Level {
+public class TurnTable extends Level {
 	
 	@Override
 	public String getLabel() {
-		return "Swamp";
+		return "Obstacles";
 	}
 
 	@Override
 	public List<Task> createTaskList() {
-		final TurnTableConnection connection = new TurnTableConnection();
+		final GateConnection connection = new GateConnection();
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new BluetoothConnectTask(connection));
-		taskList.add(new BluetoothWaitForTurnTableTask(connection));
-		
-		
-		taskList.add(new BluetoothTurnTurnTableTask(connection));
-		
-		
-		taskList.add(new BluetoothFinishTurnTableTask(connection));
+		taskList.add(new TraversOpenedDoorTask());
+		taskList.add(new BluetoothCloseGateTask(connection));
 		taskList.add(new BluetoothCloseConnectionTask(connection));
 		return taskList;
 	}
