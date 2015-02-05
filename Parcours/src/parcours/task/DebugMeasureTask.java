@@ -3,6 +3,7 @@ package parcours.task;
 import parcours.debug.DebugOutput;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
+import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
 import lejos.nxt.NXTMotor;
 import lejos.nxt.TouchSensor;
@@ -38,8 +39,8 @@ public class DebugMeasureTask extends ControllerTask {
 		touchR = RobotDesign.touchSensorRight;
 		
 
-		out.setDescription( 0, "cycl_ms" );
-		out.setDescription( 1, "light" );
+		out.setDescription( 0, "light %" );
+		out.setDescription( 1, "light r" );
 		out.setDescription( 2, "distanc" );
 		out.setDescription( 3, "tacho R" );
 		out.setDescription( 4, "tacho L" );
@@ -53,8 +54,8 @@ public class DebugMeasureTask extends ControllerTask {
 
 	@Override
 	protected void control() {
-		out.write(0, (int) tCycle);
-		out.write(1, s.getLightValue());
+		out.write(0, s.getLightValue());
+		out.write(1, s.getNormalizedLightValue());
 		out.write(2, u.getDistance());
 		out.write(3, motorR.getTachoCount());
 		out.write(4, motorL.getTachoCount());
@@ -70,7 +71,7 @@ public class DebugMeasureTask extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
-		return false;
+		return Button.ESCAPE.isDown();
 	}
 
 	@Override
