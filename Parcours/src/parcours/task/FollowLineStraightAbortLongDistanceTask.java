@@ -13,13 +13,13 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	
 	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 1000;
 	private static final int DETECTION_COUNTER_THRESHOLD = 4;
-	private static final int DISTANCE_DETECTION_THRESHOLD = 50;
+	private static final int DISTANCE_DETECTION_THRESHOLD = 60;
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
 
 	private static final int BASE_POWER = 50;
 
-	private static final float Kp = 0.08f;
+	private static final float Kp = 0.075f;
 	private static final float Ki = 0.017f;
 
 	private LightSensor light;

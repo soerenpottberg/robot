@@ -1,8 +1,10 @@
 package parcours.task;
 
 
+import lejos.nxt.Motor;
 import lejos.nxt.Sound;
 import lejos.robotics.RegulatedMotor;
+import lejos.robotics.navigation.DifferentialPilot;
 import parcours.task.base.ControllerTask;
 import parcours.utils.LightSensorEvaluation;
 import parcours.utils.RobotDesign;
@@ -35,6 +37,12 @@ public class FollowBridgeSuspensionTask extends ControllerTask {
 
 	@Override
 	protected void init() {
+		DifferentialPilot pilot = RobotDesign.differentialPilot;
+		pilot.setTravelSpeed(100);
+		pilot.travel( 20 );
+		pilot.stop();
+		Motor.B.suspendRegulation();
+		Motor.A.suspendRegulation();
 
 		final float gray   = (RobotDesign.BLACK + RobotDesign.SILVER) / 2;
 		final float target = gray - DEVIATION_FROM_GRAY_TARGET * (RobotDesign.SILVER - RobotDesign.BLACK);
