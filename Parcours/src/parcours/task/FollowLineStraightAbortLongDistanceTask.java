@@ -49,6 +49,8 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	
 	@Override
 	protected void init() {
+		errorIntegrated = 50;
+		
 		ewma = new EWMA(0.125f, targetColor);
 		if ( state.rightSideState ) {
 			motorA = RobotDesign.unregulatedMotorRight;
@@ -111,7 +113,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	}
 	
 	private void integrateError(float error) {
-		errorIntegrated = 0.7f * errorIntegrated + error;
+		errorIntegrated = 0.8f * errorIntegrated + error;
 	}
 
 	@Override
