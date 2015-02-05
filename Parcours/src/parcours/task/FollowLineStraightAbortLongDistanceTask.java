@@ -1,5 +1,6 @@
 package parcours.task;
 
+import parcours.debug.DebugOutput;
 import parcours.detector.LapsedTimeDetector;
 import parcours.task.base.ControllerTask;
 import parcours.task.state.LineSideState;
@@ -22,7 +23,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 
 	private static final float Kp = 0.090f;
 	private static final float Ki = 0.006f;
-	private static final float Kd = 0.090f;
+	private static final float Kd = 0.150f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
@@ -35,6 +36,8 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	private int lastPowerMotorB;
 	private long nextCycleCompletion;
 	private EWMA ewma;
+	
+	private DebugOutput out;
 	
 	
 	private LapsedTimeDetector lapsedTimeDetector;
@@ -77,6 +80,14 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		lapsedTimeDetector.arm();
 		
 		distanceSensor = RobotDesign.distanceSensor;
+		
+		out = new DebugOutput();
+		out.setDescription( 0, "cycle_t" );
+		out.setDescription( 1, "deviat." );
+		out.setDescription( 2, "compens" );
+		out.setDescription( 4, "Kp * p" );
+		out.setDescription( 5, "Ki * i" );
+		out.setDescription( 7, "Kd * d" );
 	}
 
 	@Override
@@ -89,6 +100,12 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		deriveError(error);
 		
 		final int compensation = pid(error);
+		
+		out.write(1, error);
+		out.write(2, compensation);
+		out.write(4, error * Kp);
+		out.write(5, errorIntegrated * Ki);
+		out.write(7, errorDerived * Kd);
 
 		final int powerMotorA = BASE_POWER - compensation;
 		final int powerMotorB = BASE_POWER + compensation;
