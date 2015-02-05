@@ -64,23 +64,26 @@ public class FollowLineIntelligentTask extends ControllerTask {
 			lostLineCounter = 0;
 		}
 		if (lostLineCounter >= LOST_LINE_MAX) {
-			Sound.beep();
 			RobotDesign.differentialPilot.stop();
 			RobotDesign.differentialPilot.travel(-5);
 			lostLineCounter = 0;
+			// fast and wait
+			Motor.C.setSpeed(900);
+			Motor.C.rotate(90, false);
+			// slow and non-blocking
 			Motor.C.setSpeed(100);
-			Motor.C.rotate(90, true);
-			boolean foundLine = findLine();
+			Motor.C.rotate(-90, true);			
+			int angle = findLine();
+			boolean foundLine = (angle != -1);
 			if(foundLine) {
 				error = 0;
 				errorIntegrated = 0;
 				errorDerivated = 0;
-				RobotDesign.differentialPilot.rotate(45);
+				Sound.playTone(100 * angle, 200);
+				RobotDesign.differentialPilot.rotate(angle);
 			} else {
 				lostLineCounter = - 3 * LOST_LINE_MAX;
 			}
-			Motor.C.setSpeed(900);
-			Motor.C.rotate(-90);
 			Motor.A.forward();
 			Motor.B.forward();
 		}
@@ -100,12 +103,12 @@ public class FollowLineIntelligentTask extends ControllerTask {
 		// Motor.C.rotate(-10);
 	}
 
-	private boolean findLine() {
-		boolean detectedLight = false;
+	private int findLine() {
+		int detectedLight = -1;
 		while (Motor.C.isMoving()) {
 			int lightValue = measureLight();
 			if(lightValue >= DETECT_LIGHT_VALUE) {
-				detectedLight = true;
+				detectedLight = Motor.C.getTachoCount();
 			}
 		}
 		return detectedLight;
