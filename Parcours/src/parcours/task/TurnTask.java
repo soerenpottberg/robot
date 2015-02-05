@@ -2,14 +2,13 @@ package parcours.task;
 
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
-import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
 
 public class TurnTask extends ControllerTask {
 
 	private int angle, rotateSpeed;
 	
-	void TurnTask(int rotateSpeed, int angle) {
+	public TurnTask(int rotateSpeed, int angle) {
 		this.angle = angle;
 		this.rotateSpeed = rotateSpeed;
 	}

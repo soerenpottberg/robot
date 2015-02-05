@@ -8,6 +8,7 @@ import parcours.level.base.Level;
 import parcours.task.FindLineTask;
 import parcours.task.FollowLineSpeedTask;
 import parcours.task.FollowLineStraightAbortLostLineTask;
+import parcours.task.TurnTask;
 import parcours.task.TravelBackwardsTurnFindLineTask;
 import parcours.task.base.Task;
 import parcours.task.bluetooth.BluetoothCloseConnectionTask;
@@ -30,6 +31,7 @@ public class TurnTable extends Level {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new BluetoothConnectTask(connection));
 		taskList.add(new BluetoothWaitForTurnTableTask(connection));
+		taskList.add(new TurnTask(30, 20));
 		taskList.add(new FindLineTask());
 		taskList.add(new FollowLineStraightAbortLostLineTask());
 		taskList.add(new BluetoothTurnTurnTableTask(connection));
