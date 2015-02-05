@@ -29,10 +29,10 @@ public class SuspensionBridge extends Level {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new FindLineTask( false, state ));
 		taskList.add(new FollowLineStraightAbortLongDistanceTask( state ));
-		taskList.add(new TravelWithSpeedTask(20, 500, 100));
-		taskList.add(new FindBridgeEdgeTask(BASE_SPEED, ACCELERATION));
-		taskList.add(new FollowBridgeSuspensionTask());
-		taskList.add(new FindLineTask());
+		taskList.add(new TravelWithSpeedTask(200, 400, 80));
+		//taskList.add(new FindBridgeEdgeTask(BASE_SPEED, ACCELERATION));
+		//taskList.add(new FollowBridgeSuspensionTask());
+		taskList.add(new FindLineTask( false, state ));
 		return taskList;
 	}
 
