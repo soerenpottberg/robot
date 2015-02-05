@@ -29,6 +29,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	private NXTMotor motorA;
 	private NXTMotor motorB;
 
+	private float lastError;
 	private EWMA lastErrors;
 	private float errorDerived;
 	private float errorIntegrated;
@@ -96,10 +97,17 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		
 		final float lightValue = measureLight();
 		final float error = calculateError(lightValue);
+		
+		if ( Math.abs(lastError) > Math.abs(error) ) {
+			errorIntegrated = 0.0f;
+		}
+		
 		integrateError(error);
 		deriveError(error);
 		
 		final int compensation = pid(error);
+		
+		lastError = error;
 		
 		out.write(1, error);
 		out.write(2, compensation);
