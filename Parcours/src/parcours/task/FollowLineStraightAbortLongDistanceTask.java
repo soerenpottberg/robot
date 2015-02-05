@@ -19,7 +19,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
 
-	private static final int BASE_POWER = 30;
+	private static final int BASE_POWER = 35;
 
 	private static final float Kp = 0.050f;
 	private static final float Ki = 0.0055f;

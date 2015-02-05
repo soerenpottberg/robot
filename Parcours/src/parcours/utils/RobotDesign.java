@@ -17,7 +17,7 @@ public class RobotDesign {
 	public static final int BLACK  = 25;
 	public static final int SILVER = 45;
 	
-	public static final int BLACK_RAW = 260;
+	public static final int BLACK_RAW = 270;
 	public static final int SILVER_RAW = 480;
 	
 	public static final int BRIDGE_RAW = 360;
