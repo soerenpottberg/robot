@@ -2,24 +2,18 @@ package parcours.task.boss.state;
 
 import parcours.task.boss.BossContext;
 
-public class EndAvoidRight extends BossStateBase {
-
-	@Override
-	public String name() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+public class ForwardRight extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		// TODO Auto-generated method stub
-		
+		context.travel(-20, false);
+		context.rotate(180, false);
+		context.travel(30);
+		context.setState(BossState.BACK_RIGHT);
 	}
 
 	@Override
 	public void handleNoButtonIsPressed(BossContext context) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

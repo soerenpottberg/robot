@@ -17,10 +17,6 @@ public class BossContext implements RotateMoveController {
 		this.pilot = pilot;
 	}
 
-	/*public void handleBothButtonsPressed(int distance) {
-		state.handleBothButtonsPressed(this, distance);
-	}*/
-
 	public void handleButtonPressed() {
 		state.handleButtonPressed(this);
 	}

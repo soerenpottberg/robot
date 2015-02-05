@@ -5,15 +5,21 @@ import parcours.task.boss.BossContext;
 public class RightState extends BossStateBase {
 
 	@Override
-	public String name() {
-		return "Right state";
+	public void handleButtonPressed(BossContext context) {
+		context.rotate(180, false);
+		context.travel(100);
+		context.setState(BossState.LEFT);
 	}
 
 	@Override
-	public void handleButtonPressed(BossContext context) {
-		context.getPilot().arc(-40, 90);
-		context.setState(BossState.START_AVOID_RIGHT);
+	public void handleNoButtonIsPressed(BossContext context) {
+		if(context.isMoving()) {
+			return;
+		}
 		
+		context.rotate(90, false);
+		context.forward();
+		context.setState(BossState.FORWARD_RIGHT);
 	}
 
 }
