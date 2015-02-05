@@ -99,7 +99,9 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		final float lightValue = measureLight();
 		final float error = calculateError(lightValue);
 		
-		if ( Math.abs(lastError) > Math.abs(error) && Math.abs(beforeLastError) > Math.abs(error)) {
+		if ( Math.abs(lastError) > Math.abs(error) &&
+			 Math.abs(beforeLastError) > Math.abs(error) &&
+			 Math.abs(lastErrors.getValue()) > Math.abs(error)) {
 			errorIntegrated *= 0.0f;
 		}
 		
