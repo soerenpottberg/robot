@@ -6,7 +6,7 @@ import parcours.task.TurnTask;
 public class TestRightTurnLevel extends SingleTaskLevel {
 	
 	public TestRightTurnLevel() {
-		super(new TurnTask());
+		super(new TurnTask(30,-90));
 	}
 
 	@Override
