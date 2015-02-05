@@ -101,7 +101,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		
 		if ( Math.abs(lastError) > Math.abs(error) &&
 			 Math.abs(beforeLastError) > Math.abs(error) &&
-			 Math.abs(lastErrors.getValue()) > Math.abs(error)) {
+			 Math.abs(lastErrors.getValue()) > Math.abs(error) ) {
 			errorIntegrated *= 0.0f;
 		}
 		
