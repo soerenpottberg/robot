@@ -18,15 +18,18 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
 
-	private static final int BASE_POWER = 80;
+	private static final int BASE_POWER = 40;
 
 	private static final float Kp = 0.090f;
-	private static final float Ki = 0.004f;
+	private static final float Ki = 0.006f;
+	private static final float Kd = 0.090f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
 	private NXTMotor motorB;
 
+	private EWMA lastErrors;
+	private float errorDerived;
 	private float errorIntegrated;
 	private int lastPowerMotorA;
 	private int lastPowerMotorB;
@@ -51,6 +54,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	protected void init() {
 		errorIntegrated = 1000;
 		
+		lastErrors = new EWMA(0.125f, 0f);
 		ewma = new EWMA(0.125f, targetColor);
 		if ( state.rightSideState ) {
 			motorA = RobotDesign.unregulatedMotorRight;
@@ -82,6 +86,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		final float lightValue = measureLight();
 		final float error = calculateError(lightValue);
 		integrateError(error);
+		deriveError(error);
 		
 		final int compensation = pid(error);
 
@@ -101,7 +106,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	}
 
 	private int pid(float error) {
-		return (int) (Kp * error + Ki * errorIntegrated);
+		return (int) (Kp * error + Ki * errorIntegrated + Kd * errorDerived);
 	}
 
 	private float measureLight() {
@@ -114,6 +119,12 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	
 	private void integrateError(float error) {
 		errorIntegrated = 0.95f * errorIntegrated + error;
+	}
+	
+	private void deriveError(float error) {
+		final float last = lastErrors.getValue();
+		errorDerived = error - last;
+		lastErrors.addValue(error);
 	}
 
 	@Override
