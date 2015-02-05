@@ -156,6 +156,7 @@ public class FollowLineIntelligentTask extends ControllerTask {
 	@Override
 	protected void tearDown() {
 		RobotDesign.differentialPilot.stop();
+		Motor.C.setSpeed(FULL_SPEED);
 	}
 
 }
