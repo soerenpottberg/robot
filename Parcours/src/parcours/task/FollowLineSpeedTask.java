@@ -20,7 +20,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 	private static final int MEASURE_SPEED = 50; // TODO faster
 	private static final int FULL_SPEED = 900;
 	private static final int MESSURE_ANGLE = 10;
-	private static final int BACKWARD = -5;
+	private static final int BACKWARD = -2;
 	private static final int DETECT_LIGHT_VALUE = 35;
 	private static final int MIDDLE_LIGHT_VALUE = 35;
 	private static final int NOT_LOST_LINE_VALUE = 35;
