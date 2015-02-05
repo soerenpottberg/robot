@@ -7,7 +7,6 @@ import parcours.bluetooth.TurnTableConnection;
 import parcours.level.base.Level;
 import parcours.task.FindLineTask;
 import parcours.task.FollowLineIntelligentTask;
-import parcours.task.FollowLineStraightAbortLongDistanceTask;
 import parcours.task.FollowLineStraightAbortLostLineTask;
 import parcours.task.TravelBackwardsTurnFindLineTask;
 import parcours.task.base.Task;
