@@ -28,9 +28,6 @@ public class TestLevelCombination extends LevelCombination {
 		levelList.add(new DebugMeasureLevel());
 		levelList.add(new TestTravelLevel());
 		levelList.add(new TestRightTurnLevel());
-		levelList.add(new TestTurnTableBluetooth());
-		levelList.add(new TestGateBluetooth());
-		levelList.add(new TestElevatorBluetooth());
 		levelList.add(new TestGoIntoElevator());
 		levelList.add(new TestTurnTenTimesLevelSlow());
 		levelList.add(new TestTurnTenTimesLevelFast());

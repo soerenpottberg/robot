@@ -3,6 +3,7 @@ package parcours;
 import lejos.util.Delay;
 import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
+import parcours.level.combination.BluetoothLevelCombination;
 import parcours.level.combination.FullParcours;
 import parcours.level.combination.QualificationVariantA;
 import parcours.level.combination.QualificationVariantB;
@@ -12,7 +13,7 @@ import parcours.menu.MainMenu;
 
 public class Parcours {
 
-	private static final int COMBINATION_COUNT = 4;
+	private static final int COMBINATION_COUNT = 5;
 	private static final LevelCombination[] ITEMS = new LevelCombination[COMBINATION_COUNT];
 	private MainMenu mainMenu;
 
@@ -22,6 +23,7 @@ public class Parcours {
 		ITEMS[i++] = new QualificationVariantA();
 		ITEMS[i++] = new QualificationVariantB();
 		ITEMS[i++] = new TestLevelCombination();
+		ITEMS[i++] = new BluetoothLevelCombination();
 	}
 
 	public static void main(String[] args) {
