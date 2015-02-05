@@ -12,18 +12,17 @@ public class StartAvoidLeft extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		if(context.isMoving()) {
-			return;
-		}
-		
-		context.rotate(90);
-		context.setState(BossState.RIGHT);
-		
+	
 	}
 
 	@Override
 	public void handleNoButtonIsPressed(BossContext context) {
+		if(context.isMoving()) {
+			return;
+		}
 		
+		context.rotate(90,false);
+		context.setState(BossState.RIGHT);
 		
 	}
 

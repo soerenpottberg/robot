@@ -11,15 +11,8 @@ public class LeftState extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		context.getPilot().arc(20, -90);
-		context.setState(BossState.START_AVOID_LEFT);
-		
-	}
-
-	@Override
-	public void handleNoButtonIsPressed(BossContext context) {
-		context.forward();
-		
+		context.getPilot().arc(40, -90);
+		context.setState(BossState.START_AVOID_LEFT);	
 	}
 
 }

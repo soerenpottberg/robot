@@ -13,8 +13,7 @@ public class StartAvoidRight extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		//context.setState(BossState.START_AVOID_LEFT);
-		
+	
 	}
 
 	@Override
@@ -23,9 +22,8 @@ public class StartAvoidRight extends BossStateBase {
 			return;
 		}
 		
-		context.rotate(-90);
+		context.rotate(-90,false);
 		context.setState(BossState.LEFT);
-		
 	}
 
 }

@@ -11,14 +11,9 @@ public class RightState extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		context.getPilot().arc(-20, 90);
+		context.getPilot().arc(-40, 90);
 		context.setState(BossState.START_AVOID_RIGHT);
 		
-	}
-
-	@Override
-	public void handleNoButtonIsPressed(BossContext context) {
-		context.forward();		
 	}
 
 }

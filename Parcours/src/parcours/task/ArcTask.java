@@ -17,9 +17,7 @@ public class ArcTask extends ControllerTask {
 	@Override
 	protected void init() {
 		
-		pilot = RobotDesign.differentialPilot;
-
-		
+		pilot = RobotDesign.differentialPilot;	
 		pilot.setTravelSpeed(50);
 		
 	}

@@ -12,6 +12,9 @@ public abstract class BossStateBase {
 	}*/
 
 	public abstract void handleButtonPressed(BossContext context);
-	public abstract void handleNoButtonIsPressed(BossContext context);
+	
+	public void handleNoButtonIsPressed(BossContext context){
+		context.forward();
+	}
 
 }
