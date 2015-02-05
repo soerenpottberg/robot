@@ -47,7 +47,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 	LineSideState state;
 	
 	
-	private final float targetColor = (RobotDesign.BLACK_RAW + RobotDesign.SILVER_RAW) / 2;
+	private final float targetColor = RobotDesign.BLACK_RAW + 0.4f * (RobotDesign.SILVER_RAW - RobotDesign.BLACK_RAW);
 	
 	public FollowLineStraightAbortLongDistanceTask( LineSideState state ) {
 		this.state = state;
