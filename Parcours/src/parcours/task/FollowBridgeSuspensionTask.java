@@ -1,25 +1,33 @@
 package parcours.task;
 
-import lejos.nxt.LightSensor;
+
+import lejos.nxt.Sound;
 import lejos.robotics.RegulatedMotor;
 import parcours.task.base.ControllerTask;
+import parcours.utils.LightSensorEvaluation;
 import parcours.utils.RobotDesign;
+import parcours.utils.SensorEvaluation;
 
 public class FollowBridgeSuspensionTask extends ControllerTask {
-
-	private static final int MIDDLE_LIGHT_VALUE = 30; // Bridge = 36 ; Side = 21
+	private static final float DEVIATION_FROM_GRAY_TARGET = 0.1f;
 	private static final int BASE_SPEED = 20;
 
-	private static final int ACCURACY_FACTOR = 1000;
-	private static final int Kp = (int) (40 * ACCURACY_FACTOR);
-	private static final int Ki = (int) (05 * ACCURACY_FACTOR);
+	private static final long MS_COMPLETE_CYCLE_TIME = 12;
+	//private static final long MS_MEASURE_CYCLE_TIME  = 3;
+	private static final long MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME = 7;
+
+	private static final float Kp = 40;
+	private static final float Ki = 05;
 	//private static final int Kd = (int) (00 * ACCURACY_FACTOR);
 
-	private LightSensor light;
+
+	private SensorEvaluation lightSensor;
 	private RegulatedMotor motorA;
 	private RegulatedMotor motorB;
+	
+	private long nextCycleCompletion;
 
-	private int errorIntegrated;
+	private float errorIntegrated;
 	//private int errorDerivated;
 	//private int lastError;
 	private int lastPowerMotorA;
@@ -27,9 +35,13 @@ public class FollowBridgeSuspensionTask extends ControllerTask {
 
 	@Override
 	protected void init() {
+
+		final float gray   = (RobotDesign.BLACK + RobotDesign.SILVER) / 2;
+		final float target = gray - DEVIATION_FROM_GRAY_TARGET * (RobotDesign.SILVER - RobotDesign.BLACK);
+		lightSensor = new LightSensorEvaluation(0.15f, target, 8 );
+		
 		motorA = RobotDesign.REGULATED_MOTOR_RIGHT;
 		motorB = RobotDesign.REGULATED_MOTOR_LEFT;
-		light = RobotDesign.lightSensor;
 		motorA.setSpeed(BASE_SPEED);
 		motorB.setSpeed(BASE_SPEED);
 		motorA.forward();
@@ -39,17 +51,32 @@ public class FollowBridgeSuspensionTask extends ControllerTask {
 		//lastError = 0;
 		lastPowerMotorA = 0;
 		lastPowerMotorB = 0;
+
+		nextCycleCompletion = System.currentTimeMillis();
 	}
 
 	@Override
 	protected void control() {
-		int lightValue = measureLight();
-		
-		int error = calculateError(lightValue);
-		integrateError(error);
+		nextCycleCompletion += MS_COMPLETE_CYCLE_TIME;
+		// get at least 1 time new data from the sensor.
+		final float deviation = lightSensor.measureError();
+
+		// Warn if insufficient cycle time is detected.
+		// This can be an early warning system for all kinds of problems.
+		if ( nextCycleCompletion - System.currentTimeMillis()
+				< MS_REMAINING_TIME_INSUFICCIENT_WARNING_TIME ) {
+			Sound.beep();
+
+			// beeping is synchronous, so without this a beep would cause an 
+			// other one and so on...
+			nextCycleCompletion = System.currentTimeMillis() +
+					MS_COMPLETE_CYCLE_TIME;
+		}
+
+		integrateError(deviation);
 		//deriveError(error);
 		
-		int compensation = pid(error);
+		int compensation = pid(deviation);
 
 		int powerMotorA = BASE_SPEED + compensation;
 		int powerMotorB = BASE_SPEED - compensation;
@@ -61,29 +88,21 @@ public class FollowBridgeSuspensionTask extends ControllerTask {
 		lastPowerMotorB = powerMotorB;
 	}
 
-	private int pid(int error) {
-		return (Kp * error  + Ki * errorIntegrated/* + Kd * errorDerivated*/) / ACCURACY_FACTOR;
-	}
-
-	private int measureLight() {
-		return light.getLightValue();
-	}
-
-	private int calculateError(int lightValue) {
-		return lightValue - MIDDLE_LIGHT_VALUE;
+	private int pid(float deviation) {
+		return (int)(Kp * deviation  + Ki * errorIntegrated/* + Kd * errorDerivated*/);
 	}
 
 	/*private void deriveError(int error) {
 		errorDerivated = (error - lastError);
 	}*/
 
-	private void integrateError(int error) {
-		errorIntegrated = (int) (2f / 3f * errorIntegrated) + error;
+	private void integrateError(float deviation) {
+		errorIntegrated = errorIntegrated + deviation;
 	}
 
 	@Override
 	protected boolean abort() {
-		return false;//touchSensorLeft.isPressed();
+		return false;
 	}
 
 	@Override

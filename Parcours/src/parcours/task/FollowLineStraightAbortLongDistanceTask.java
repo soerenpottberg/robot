@@ -19,8 +19,8 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 
 	private static final int BASE_POWER = 50;
 
-	private static final float Kp = 0.09f;
-	private static final float Ki = 0.015f;
+	private static final float Kp = 0.08f;
+	private static final float Ki = 0.017f;
 
 	private LightSensor light;
 	private NXTMotor motorA;
