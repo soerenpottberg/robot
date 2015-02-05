@@ -6,6 +6,7 @@ import lejos.nxt.LCD;
 import lejos.nxt.Sound;
 import lejos.util.Delay;
 import parcours.task.base.Task;
+import parcours.utils.RobotDesign;
 
 public abstract class Level {
 
@@ -23,6 +24,7 @@ public abstract class Level {
 	public abstract List<Task> createTaskList();
 
 	public void run() {
+		RobotDesign.setCurrentLevel(this);
 		final Task[] tasks = getTasks();
 		if (tasks == null) {
 			showWarning("Level " + getLabel() + " contains no tasks.");

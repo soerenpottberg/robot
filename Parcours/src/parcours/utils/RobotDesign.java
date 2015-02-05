@@ -1,5 +1,7 @@
 package parcours.utils;
 
+import parcours.level.base.Level;
+import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.MotorPort;
@@ -64,5 +66,10 @@ public class RobotDesign {
 				motor.forward();
 			}
 		}
+	}
+
+	public static void setCurrentLevel(Level level) {
+		LCD.clear();
+		LCD.drawString(level.getLabel(), 0, 0);
 	}
 }
