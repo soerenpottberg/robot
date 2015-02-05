@@ -24,7 +24,8 @@ public class FollowLineSpeedTask extends ControllerTask {
 	private static final int DETECT_LIGHT_VALUE = 35;
 	private static final int MIDDLE_LIGHT_VALUE = 35;
 	private static final int NOT_LOST_LINE_VALUE = 35;
-	private static final int LOST_LINE_MAX = 100; // 100 works; 500 clearly to large
+	private static final int LOST_LINE_MAX = 100; // 100 works; 500 clearly to
+													// large
 	private static final int BASE_SPEED = 150;
 
 	private static final int Kp = (int) (5 * 100);
@@ -63,7 +64,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 		lastPowerMotorB = 0;
 		nextCycleCompletion = System.currentTimeMillis();
 	}
-	
+
 	// TODO: fixed time
 
 	@Override
@@ -94,7 +95,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 			Motor.C.rotate(-90, true);
 			int angle = findLine();
 			Motor.C.setSpeed(FULL_SPEED);
-		    waitForLightSensor();
+			waitForLightSensor();
 			boolean foundLine = (angle != -1);
 			if (foundLine) {
 				System.out.println(angle);
@@ -102,7 +103,6 @@ public class FollowLineSpeedTask extends ControllerTask {
 					// might be still a right curve
 					Sound.playTone(50 * angle, 200);
 					RobotDesign.differentialPilot.rotate(angle);
-					lostLineCounter = -5000;
 				} else {
 					// left curve
 					error = 0;
@@ -117,8 +117,9 @@ public class FollowLineSpeedTask extends ControllerTask {
 				RobotDesign.differentialPilot.rotate(-45, true);
 				findLineWithRobot();
 				RobotDesign.differentialPilot.stop();
-				lostLineCounter = -5000;
-				RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
+				RobotDesign.differentialPilot
+						.setRotateSpeed(.8f * RobotDesign.differentialPilot
+								.getMaxRotateSpeed());
 			}
 			Motor.A.forward(); // TODO: set oldSpeed to zero instead
 			Motor.B.forward(); // TODO: set oldSpeed to zero instead
@@ -139,7 +140,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 		// Motor.C.rotate(10);
 		// Motor.C.rotate(-10);
 		long time = System.currentTimeMillis();
-		if(nextCycleCompletion > time) {
+		if (nextCycleCompletion > time) {
 			Delay.msDelay(nextCycleCompletion - time);
 		}
 	}
