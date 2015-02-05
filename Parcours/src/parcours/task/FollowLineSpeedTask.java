@@ -14,7 +14,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 	 * Black ~ 25; Black < 30 Gray ~ 35 White ~ 45
 	 */
 
-	private static final int MEASURE_SPEED = 25;
+	private static final int MEASURE_SPEED = 25; // TODO faster
 	private static final int FULL_SPEED = 900;
 	private static final int MESSURE_ANGLE = 10;
 	private static final int BACKWARD = -5;
@@ -57,6 +57,8 @@ public class FollowLineSpeedTask extends ControllerTask {
 		lastPowerMotorA = 0;
 		lastPowerMotorB = 0;
 	}
+	
+	// TODO: fixed time
 
 	@Override
 	protected void control() {
@@ -91,7 +93,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 					// might be still a right curve
 					Sound.playTone(50 * angle, 200);
 					RobotDesign.differentialPilot.rotate(angle);
-					lostLineCounter = -1 * LOST_LINE_MAX;
+					lostLineCounter = -1 * LOST_LINE_MAX; // TODO: to small
 				} else {
 					// left curve
 					error = 0;
@@ -106,7 +108,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 				RobotDesign.differentialPilot.rotate(-45, true);
 				findLineWithRobot();
 				RobotDesign.differentialPilot.stop();
-				lostLineCounter = -3 * LOST_LINE_MAX;
+				lostLineCounter = -3 * LOST_LINE_MAX; // TODO: to small
 				RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
 			}
 			Motor.A.forward(); // TODO: set oldSpeed to zero instead
