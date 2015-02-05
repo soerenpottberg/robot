@@ -1,8 +1,8 @@
-package parcours.task.elevator.state;
+package parcours.task.boss.state;
 
-import parcours.task.elevator.BossContext;
+import parcours.task.boss.BossContext;
 
-public class RightState extends BossStateBase {
+public class StartAvoidLeft extends BossStateBase {
 
 	@Override
 	public String name() {

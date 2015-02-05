@@ -3,7 +3,7 @@ package parcours.task;
 import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.task.base.ControllerTask;
-import parcours.task.elevator.BossContext;
+import parcours.task.boss.BossContext;
 import parcours.task.labyrinth.LabyrinthContext;
 import parcours.utils.RobotDesign;
 

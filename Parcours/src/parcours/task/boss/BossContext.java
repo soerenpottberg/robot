@@ -1,11 +1,11 @@
-package parcours.task.elevator;
+package parcours.task.boss;
 
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Move;
 import lejos.robotics.navigation.MoveListener;
 import lejos.robotics.navigation.RotateMoveController;
-import parcours.task.elevator.state.BossState;
-import parcours.task.elevator.state.BossStateBase;
+import parcours.task.boss.state.BossState;
+import parcours.task.boss.state.BossStateBase;
 
 public class BossContext implements RotateMoveController {
 
