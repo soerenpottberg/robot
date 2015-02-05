@@ -99,7 +99,7 @@ public class FollowLineStraightAbortLongDistanceTask extends ControllerTask {
 		final float error = calculateError(lightValue);
 		
 		if ( Math.abs(lastError) > Math.abs(error) ) {
-			errorIntegrated *= 0.75f;
+			errorIntegrated *= 0.7f;
 		}
 		
 		integrateError(error);
