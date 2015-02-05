@@ -76,7 +76,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 		integrateError(error);
 		deriveError(error);
 
-		System.out.println(lostLineCounter);
+		System.out.println(errorIntegrated);
 		if (lightValue >= NOT_LOST_LINE_VALUE) {
 			lostLineCounter = 0;
 		} else {
@@ -187,7 +187,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 	}
 
 	private void integrateError(int error) {
-		errorIntegrated = (int) (2f / 3f * errorIntegrated) + error;
+		errorIntegrated = (int) (0.8f * errorIntegrated) + error;
 	}
 
 	@Override
