@@ -11,6 +11,16 @@ import parcours.task.labyrinth.config.StartLabyrinthConfiguration;
 
 public class StartLevel extends Level {
 	
+	private boolean detectEnd;
+	
+	public StartLevel() {
+		detectEnd = true;
+	}
+
+	public StartLevel(boolean detectEnd) {
+		this.detectEnd = detectEnd;
+	}
+
 	@Override
 	public String getLabel() {
 		return "Start Level";
@@ -19,7 +29,7 @@ public class StartLevel extends Level {
 	@Override
 	public List<Task> createTaskList() {
 		final List<Task> taskList = new ArrayList<Task>();
-		taskList.add(new FollowRightWallTaskStateFull(new StartLabyrinthConfiguration()));
+		taskList.add(new FollowRightWallTaskStateFull(new StartLabyrinthConfiguration(), detectEnd));
 		return taskList;
 	}
 
