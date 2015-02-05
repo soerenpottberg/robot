@@ -11,7 +11,7 @@ import parcours.utils.RobotDesign;
 public class FollowLineIntelligentTask extends ControllerTask {
 
 	private static final int DETECT_LIGHT_VALUE = 50;
-	private static final int MIDDLE_LIGHT_VALUE = 35;
+	private static final int MIDDLE_LIGHT_VALUE = 35; // TODO: try to increase
 	private static final int NOT_LOST_LINE_VALUE = 45;
 	private static final int LOST_LINE_MAX = 100;
 	private static final int BASE_SPEED = 150;
