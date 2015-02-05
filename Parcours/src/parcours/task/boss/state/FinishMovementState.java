@@ -1,7 +1,7 @@
-package parcours.task.elevator.state;
+package parcours.task.boss.state;
 
 //import lejos.nxt.Motor;
-import parcours.task.elevator.BossContext;
+import parcours.task.boss.BossContext;
 
 public class FinishMovementState extends BossStateBase {
 	

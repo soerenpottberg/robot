@@ -1,6 +1,6 @@
-package parcours.task.elevator.state;
+package parcours.task.boss.state;
 
-import parcours.task.elevator.BossContext;
+import parcours.task.boss.BossContext;
 
 public class StartAvoidRight extends BossStateBase {
 
