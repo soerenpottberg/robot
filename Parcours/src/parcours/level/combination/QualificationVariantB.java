@@ -19,7 +19,7 @@ public class QualificationVariantB extends LevelCombination {
 	public List<Level> createLevelList() {
 		final ArrayList<Level> levelList = new ArrayList<Level>();
 		levelList.add(new FollowLineVariantB());
-		levelList.add(new Labyrinth());
+		levelList.add(new Labyrinth(false));
 		return levelList;
 	}
 

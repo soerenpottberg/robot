@@ -29,7 +29,6 @@ public class FollowLineRaceVariant extends Level {
 				BASE_SPEED));
 		taskList.add(new FindLineTask()); // Find line to follow
 		taskList.add(new FollowLineSpeedTask());
-		taskList.add(new RightTurnTask());
 		taskList.add(new FindLineTask()); // Find line of next level
 		return taskList;
 	}

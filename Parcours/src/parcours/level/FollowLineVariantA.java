@@ -1,37 +1,17 @@
 package parcours.level;
 
-import java.util.ArrayList;
-import java.util.List;
+import parcours.level.base.SingleTaskLevel;
+import parcours.task.FollowLineSpeedTask;
 
-import parcours.level.base.Level;
-import parcours.task.FindLineTask;
-import parcours.task.FollowLineIntelligentTask;
-import parcours.task.RightTurnTask;
-import parcours.task.TravelHandleCollisionTask;
-import parcours.task.base.Task;
+public class FollowLineVariantA extends SingleTaskLevel {
 
-public class FollowLineVariantA extends Level {
-
-	private static final int BASE_SPEED = 20;
-	private static final int INITIAL_TRAVEL_DISTANCE = 15; // used to clear the
-															// 3 lines at the
-															// beginning
+	public FollowLineVariantA() {
+		super(new FollowLineSpeedTask());
+	}
 
 	@Override
 	public String getLabel() {
 		return "Follow Line (A)";
-	}
-
-	@Override
-	public List<Task> createTaskList() {
-		final List<Task> taskList = new ArrayList<Task>();
-		taskList.add(new TravelHandleCollisionTask(INITIAL_TRAVEL_DISTANCE,
-				BASE_SPEED));
-		taskList.add(new FindLineTask()); // Find line to follow
-		taskList.add(new FollowLineIntelligentTask());
-		taskList.add(new RightTurnTask());
-		taskList.add(new FindLineTask()); // Find line of next level
-		return taskList;
 	}
 
 }
