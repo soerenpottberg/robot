@@ -4,7 +4,6 @@ import lejos.nxt.TouchSensor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.task.base.ControllerTask;
 import parcours.task.boss.BossContext;
-import parcours.task.labyrinth.LabyrinthContext;
 import parcours.utils.RobotDesign;
 
 public class GoIntoElevatorTask extends ControllerTask {
