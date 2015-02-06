@@ -245,13 +245,11 @@ public class FollowLineSpeedTask extends ControllerTask {
 
 	@Override
 	protected void tearDown() {
-		Motor.A.setAcceleration(6000);
 		Motor.A.setSpeed(0);
-		Motor.B.setAcceleration(6000);
 		Motor.B.setSpeed(0);
 		RobotDesign.differentialPilot.stop();
 		RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
-		RobotDesign.differentialPilot.setTravelSpeed(.8f * RobotDesign.differentialPilot.getTravelSpeed());
+		RobotDesign.differentialPilot.setTravelSpeed(.8f * RobotDesign.differentialPilot.getMaxTravelSpeed());
 		Motor.C.setSpeed(FULL_SPEED);
 	}
 

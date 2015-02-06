@@ -6,6 +6,7 @@ import java.util.List;
 import parcours.bluetooth.ElevatorConnection;
 import parcours.level.base.Level;
 import parcours.task.GoIntoElevatorTask;
+import parcours.task.ResetTask;
 import parcours.task.TravelHandleCollisionTask;
 import parcours.task.base.Task;
 import parcours.task.bluetooth.BluetoothCloseConnectionTask;
@@ -34,6 +35,7 @@ public class Elevator extends Level {
 		taskList.add(new GoIntoElevatorTask());
 		taskList.add(new BluetoothUseElevatorTask(connection));
 		taskList.add(new TravelHandleCollisionTask(DISTANCE, SPEED));
+		taskList.add(new ResetTask());
 		taskList.add(new BluetoothFinishElevatorTask(connection));
 		taskList.add(new BluetoothCloseConnectionTask(connection));
 		return taskList;

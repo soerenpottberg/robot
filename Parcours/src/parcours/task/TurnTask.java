@@ -31,6 +31,7 @@ public class TurnTask extends ControllerTask {
 
 	@Override
 	protected void tearDown() {
+		RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
 	}
 
 }
