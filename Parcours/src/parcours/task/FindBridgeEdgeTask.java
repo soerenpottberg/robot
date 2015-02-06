@@ -3,6 +3,7 @@ package parcours.task;
 import lejos.nxt.Motor;
 import lejos.robotics.navigation.DifferentialPilot;
 import parcours.detector.BridgeEdgeDetector;
+import parcours.detector.LapsedTimeDetector;
 import parcours.task.base.ControllerTask;
 import parcours.utils.RobotDesign;
 
@@ -15,9 +16,11 @@ public class FindBridgeEdgeTask extends ControllerTask {
 	
 	private DifferentialPilot pilot;
 	private BridgeEdgeDetector bridgeEdgeDetector;
+	private LapsedTimeDetector lapsedTimeDetector = new LapsedTimeDetector(3 * 1000);
 	
 	private int baseSpeed = BASE_SPEED;
 	private int baseAcceleration = ACCELERATION;
+	private boolean tryAgain = true;
 	
 	public FindBridgeEdgeTask() {}
 	public FindBridgeEdgeTask(int speed, int acceleration) {
@@ -39,11 +42,17 @@ public class FindBridgeEdgeTask extends ControllerTask {
 		// make sure we reach the edge of the bridge during the incline and with a small angle
 		pilot.rotate(SMALL_TURN_LEFT_ANGLE);
 		pilot.forward();
+		lapsedTimeDetector.arm();
 	}
 
 	@Override
 	protected void control() {
-		
+		if(lapsedTimeDetector.hasDetected() && tryAgain ) {
+			tryAgain = false;
+			pilot.stop();
+			pilot.rotate(SMALL_TURN_LEFT_ANGLE);
+			pilot.forward();
+		}
 	}
 
 	@Override
