@@ -20,8 +20,15 @@ public class FindLineTask extends ControllerTask {
 	private TouchSensor touchR, touchL;
 	private boolean driveStraight;
 	private LineSideState state;
+	private boolean abortOnImpact = false;
+	private boolean abortDetected = false;
 	
 	public FindLineTask() {
+		this.driveStraight = true;
+	}
+	
+	public FindLineTask(boolean abortOnImpact) {
+		this.abortOnImpact = abortOnImpact;
 		this.driveStraight = true;
 	}
 	
@@ -44,6 +51,7 @@ public class FindLineTask extends ControllerTask {
 	@Override
 	protected void control() {
 		if ( touchR.isPressed() ) {
+			abortDetected = abortOnImpact;
 			pilot.stop();
 			pilot.travel(BACKOFF_DISTANCE);
 			pilot.rotate(IMPACT_CORRECTION_ANGLE);
@@ -51,6 +59,7 @@ public class FindLineTask extends ControllerTask {
 		}
 		
 		if (touchL.isPressed() ) {
+			abortDetected = abortOnImpact;
 			pilot.stop();
 			pilot.travel(BACKOFF_DISTANCE);
 			pilot.rotate(-1 * IMPACT_CORRECTION_ANGLE);
@@ -69,7 +78,7 @@ public class FindLineTask extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
-		return lineDetector.hasDetected();
+		return abortDetected || lineDetector.hasDetected();
 	}
 
 	@Override
