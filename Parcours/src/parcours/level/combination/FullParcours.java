@@ -34,7 +34,6 @@ public class FullParcours extends LevelCombination {
 		levelList.add(new Swamp());
 		levelList.add(new SuspensionBridge());
 		levelList.add(new SeeSaw());
-		levelList.add(new TurnTable());
 		levelList.add(new FinalLevel());
 		return levelList;
 	}
