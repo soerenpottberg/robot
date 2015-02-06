@@ -145,6 +145,9 @@ public class FollowLineSpeedTask extends ControllerTask {
 			RobotDesign.differentialPilot.rotate(-MESSURE_ANGLE - 90 - 10, true);
 			boolean foundLineWithRobot =  findLineWithRobotWithDelay();
 			if(!foundLineWithRobot) {
+				Motor.C.setSpeed(FULL_SPEED);
+				Motor.C.rotate(90, false);
+				Motor.C.rotate(-90, false);
 				RobotDesign.differentialPilot.rotate(- 90 - 10, true);
 				boolean foundBackLineWithRobot = findLineWithRobot();
 				// turn back
