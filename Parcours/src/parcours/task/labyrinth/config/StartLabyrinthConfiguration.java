@@ -15,7 +15,7 @@ public class StartLabyrinthConfiguration extends LabyrinthConfiguration {
 
 	@Override
 	public int getFarDistance() {	
-		return 120;  // 60
+		return 80;  // 60
 	}
 
 	@Override
