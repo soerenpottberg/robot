@@ -29,7 +29,7 @@ public class Parcours {
 
 	public static void main(String[] args) {
 		try {
-			init();
+			//init();
 			new Parcours();
 		} catch (Exception e) {
 			System.out.println("Exception: ");
