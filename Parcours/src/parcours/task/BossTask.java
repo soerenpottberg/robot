@@ -28,6 +28,7 @@ public class BossTask extends ControllerTask {
 		pilot.setTravelSpeed(0.8 * pilot.getMaxTravelSpeed());
 		//pilot.setRotateSpeed( 500 );
 		//pilot.setAcceleration( 300 ); // default 210
+		pilot.rotate(21);
 		pilot.travel(90);
 		pilot.rotate(-90);
 		pilot.travel(50, true);
