@@ -4,11 +4,11 @@ import lejos.nxt.Motor;
 import lejos.nxt.TouchSensor;
 import lejos.nxt.UltrasonicSensor;
 import lejos.robotics.navigation.DifferentialPilot;
+import parcours.detector.LapsedTimeDetector;
 import parcours.detector.LineDetector;
 import parcours.task.base.ControllerTask;
 import parcours.task.labyrinth.LabyrinthContext;
 import parcours.task.labyrinth.config.LabyrinthConfiguration;
-import parcours.task.labyrinth.config.StartLabyrinthConfiguration;
 import parcours.utils.RobotDesign;
 
 // TODO: Don't stop all the time for turning, do it while maintaining speed
@@ -31,6 +31,7 @@ public class FollowRightWallTaskStateFull extends ControllerTask {
 
 	private LabyrinthConfiguration configuration;
 	private boolean detectEnd = true;
+	private LapsedTimeDetector timeoutDetector = new LapsedTimeDetector(20 * 1000);
 
 	public FollowRightWallTaskStateFull(LabyrinthConfiguration configuration,
 			boolean detectEnd) {
@@ -55,6 +56,7 @@ public class FollowRightWallTaskStateFull extends ControllerTask {
 		// pilot.setRotateSpeed( 500 );
 		pilot.setAcceleration(130); // default 210
 		pilot.forward();
+		timeoutDetector.arm();
 	}
 
 	@Override
@@ -78,7 +80,7 @@ public class FollowRightWallTaskStateFull extends ControllerTask {
 
 	@Override
 	protected boolean abort() {
-		return detectEnd && lineDetector.hasDetected();
+		return detectEnd && timeoutDetector.hasDetected() && lineDetector.hasDetected();
 	}
 
 	@Override

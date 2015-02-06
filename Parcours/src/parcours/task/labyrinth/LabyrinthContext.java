@@ -3,6 +3,7 @@ package parcours.task.labyrinth;
 import parcours.task.labyrinth.config.LabyrinthConfiguration;
 import parcours.task.labyrinth.state.LabyrinthState;
 import parcours.task.labyrinth.state.LabyrinthStateBase;
+import parcours.utils.RobotDesign;
 import lejos.nxt.LCD;
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Move;
@@ -17,7 +18,7 @@ public class LabyrinthContext implements RotateMoveController {
 
 	public LabyrinthContext(LabyrinthConfiguration config, DifferentialPilot pilot) {
 		this.config = config;
-		state = LabyrinthState.NORMAL.getState();
+		setState(LabyrinthState.NORMAL);
 		this.pilot = pilot;
 		
 		tStart = System.currentTimeMillis();
@@ -83,6 +84,7 @@ public class LabyrinthContext implements RotateMoveController {
 	
 	public void setState(LabyrinthState stateEnumEntry) {
 		this.state = stateEnumEntry.getState();
+		RobotDesign.setCurrentState(stateEnumEntry);
 	}
 
 	public DifferentialPilot getPilot() {

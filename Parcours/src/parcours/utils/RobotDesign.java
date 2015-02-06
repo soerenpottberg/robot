@@ -2,6 +2,7 @@ package parcours.utils;
 
 import parcours.level.base.Level;
 import parcours.task.boss.state.BossState;
+import parcours.task.labyrinth.state.LabyrinthState;
 import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
@@ -75,6 +76,11 @@ public class RobotDesign {
 	}
 
 	public static void setCurrentState(BossState state) {
+		LCD.clear(1);
+		LCD.drawString(state.name(), 0, 1);
+	}
+
+	public static void setCurrentState(LabyrinthState state) {
 		LCD.clear(1);
 		LCD.drawString(state.name(), 0, 1);
 	}
