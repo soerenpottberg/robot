@@ -7,6 +7,7 @@ import parcours.level.base.Level;
 import parcours.task.FindLineTask;
 import parcours.task.FollowLineSpeedTask;
 import parcours.task.TravelHandleCollisionTask;
+import parcours.task.TurnTask;
 import parcours.task.base.Task;
 
 public class FollowLineRaceVariant extends Level {
@@ -26,6 +27,7 @@ public class FollowLineRaceVariant extends Level {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new TravelHandleCollisionTask(INITIAL_TRAVEL_DISTANCE,
 				BASE_SPEED));
+		taskList.add(new TurnTask(50, -15));
 		taskList.add(new FindLineTask()); // Find line to follow
 		taskList.add(new FollowLineSpeedTask());
 		taskList.add(new FindLineTask()); // Find line of next level
