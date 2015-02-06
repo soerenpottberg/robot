@@ -57,5 +57,10 @@ public class StartLabyrinthConfiguration extends LabyrinthConfiguration {
 		return -15;
 	}
 	
+	@Override
+	public int getGoingRightAngle() {
+		return 50; // Just changed for race
+	}
+	
 	
 }
