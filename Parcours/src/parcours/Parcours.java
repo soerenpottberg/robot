@@ -1,5 +1,6 @@
 package parcours;
 
+import lejos.nxt.Motor;
 import lejos.util.Delay;
 import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
@@ -28,6 +29,7 @@ public class Parcours {
 
 	public static void main(String[] args) {
 		try {
+			init();
 			new Parcours();
 		} catch (Exception e) {
 			System.out.println("Exception: ");
@@ -35,6 +37,17 @@ public class Parcours {
 			Delay.msDelay(20 * 1000);
 			throw e;
 		}
+	}
+
+	private static void init() {
+		Motor.C.setSpeed(100);
+		Motor.C.backward();
+		Delay.msDelay(800);
+		Motor.C.stop();
+		Motor.C.suspendRegulation();
+		Motor.C.stop();
+		Motor.C.resetTachoCount();
+		Motor.C.setSpeed(900);
 	}
 
 	public Parcours() {
