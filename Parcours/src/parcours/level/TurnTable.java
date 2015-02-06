@@ -10,7 +10,6 @@ import parcours.task.FollowLineSpeedTask;
 import parcours.task.FollowLineStraightAbortLostLineTask;
 import parcours.task.TravelWithSpeedTask;
 import parcours.task.TurnTask;
-import parcours.task.TurnFindLineTask;
 import parcours.task.base.Task;
 import parcours.task.bluetooth.BluetoothCloseConnectionTask;
 import parcours.task.bluetooth.BluetoothConnectTask;
@@ -32,18 +31,22 @@ public class TurnTable extends Level {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new BluetoothConnectTask(connection));
 		taskList.add(new BluetoothWaitForTurnTableTask(connection));
-		taskList.add(new TurnTask(30, 10));
+		taskList.add(new TravelWithSpeedTask(10, 30, 60));
+		taskList.add(new TurnTask(50, 30));
 		taskList.add(new FindLineTask());
 		taskList.add(new FollowLineStraightAbortLostLineTask());
+		taskList.add(new TravelWithSpeedTask(-15, 20, 60));
+		taskList.add(new TurnTask(50, -20));
+		taskList.add(new TravelWithSpeedTask(30, 20, 60));
 		taskList.add(new BluetoothTurnTurnTableTask(connection));
-		taskList.add(new TravelWithSpeedTask(-30, 30, 60));
+		taskList.add(new TravelWithSpeedTask(-50, 30, 60));
 		taskList.add(new BluetoothFinishTurnTableTask(connection));
 		taskList.add(new BluetoothCloseConnectionTask(connection));
-		taskList.add(new TurnFindLineTask());
+		taskList.add(new TurnTask(90, 180));
+		taskList.add(new TravelWithSpeedTask(80, 150, 150));
+		taskList.add(new TurnTask(50, 45));
+		taskList.add(new FindLineTask());
 		taskList.add(new FollowLineSpeedTask());
-		// Endgegner...
-		
-		
 		return taskList;
 	}
 

@@ -13,7 +13,7 @@ import parcours.utils.RobotDesign;
 
 public class FollowLineStraightAbortLostLineTask extends ControllerTask {
 	
-	private static final int END_OF_LINE_CHECK_ENABLE_INTERVAL_MS = 1000;
+	private static final int TIMEOUT_TRIGGER_MS = 10000;
 	private static final long MS_COMPLETE_CYCLE_TIME = 12;
 	private static final long MS_MEASURE_CYCLE_TIME  = 3;
 
@@ -40,8 +40,7 @@ public class FollowLineStraightAbortLostLineTask extends ControllerTask {
 	
 	private DebugOutput out;
 	
-	
-	private LapsedTimeDetector lapsedTimeDetector;
+	private LapsedTimeDetector timeoutDetector;
 	//private short detectionCounter = 0;
 	
 	
@@ -78,8 +77,8 @@ public class FollowLineStraightAbortLostLineTask extends ControllerTask {
 		
 		nextCycleCompletion = System.currentTimeMillis();
 		
-		lapsedTimeDetector = new LapsedTimeDetector( END_OF_LINE_CHECK_ENABLE_INTERVAL_MS );
-		lapsedTimeDetector.arm();
+		timeoutDetector = new LapsedTimeDetector( TIMEOUT_TRIGGER_MS );
+		timeoutDetector.arm();
 		
 		out = new DebugOutput();
 		out.setDescription( 0, "cycle_t" );
@@ -157,7 +156,7 @@ public class FollowLineStraightAbortLostLineTask extends ControllerTask {
 	
 	@Override
 	protected boolean abort() {
-		return t1.isPressed() || t2.isPressed();
+		return t1.isPressed() || t2.isPressed() || timeoutDetector.hasDetected();
 	}
 	
 	@Override

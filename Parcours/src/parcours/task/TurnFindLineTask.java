@@ -27,9 +27,7 @@ public class TurnFindLineTask extends ControllerTask {
 		pilot.setTravelSpeed(BASE_SPEED);
 		pilot.setAcceleration(BASE_ACCELERATION);
 		pilot.setRotateSpeed(80);
-		
-		//pilot.travel(BACKWARD_DISTANCE);
-		pilot.rotate(185, true);
+		pilot.rotate(210, true);
 	}
 
 
@@ -38,7 +36,7 @@ public class TurnFindLineTask extends ControllerTask {
 		if ( !pilot.isMoving() ) {
 			pilot.reset();
 			minimalTriggerAngle = 200;
-			pilot.rotate(365, true);
+			pilot.rotate(360, true);
 		}
 	}
 
