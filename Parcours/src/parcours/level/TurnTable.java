@@ -31,7 +31,7 @@ public class TurnTable extends Level {
 		final List<Task> taskList = new ArrayList<Task>();
 		taskList.add(new BluetoothConnectTask(connection));
 		taskList.add(new BluetoothWaitForTurnTableTask(connection));
-		taskList.add(new TravelWithSpeedTask(9, 50, 60));
+		taskList.add(new TravelWithSpeedTask(5, 50, 60));
 		taskList.add(new TurnTask(50, 30));
 		taskList.add(new FindLineTask(true));
 		taskList.add(new FollowLineStraightAbortLostLineTask());
@@ -43,7 +43,7 @@ public class TurnTable extends Level {
 		taskList.add(new BluetoothFinishTurnTableTask(connection));
 		taskList.add(new BluetoothCloseConnectionTask(connection));
 		taskList.add(new TurnTask(90, 180));
-		taskList.add(new TravelWithSpeedTask(80, 150, 150));
+		taskList.add(new TravelWithSpeedTask(90, 150, 150));
 		taskList.add(new TurnTask(50, 45));
 		taskList.add(new FindLineTask());
 		taskList.add(new FollowLineSpeedTask());
