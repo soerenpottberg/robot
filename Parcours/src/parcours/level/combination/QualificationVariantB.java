@@ -5,6 +5,7 @@ import java.util.List;
 
 import parcours.level.FollowLineVariantB;
 import parcours.level.Labyrinth;
+import parcours.level.QualificationLabyrinth;
 import parcours.level.base.Level;
 import parcours.level.base.LevelCombination;
 
@@ -19,7 +20,7 @@ public class QualificationVariantB extends LevelCombination {
 	public List<Level> createLevelList() {
 		final ArrayList<Level> levelList = new ArrayList<Level>();
 		levelList.add(new FollowLineVariantB());
-		levelList.add(new Labyrinth(false));
+		levelList.add(new QualificationLabyrinth());
 		return levelList;
 	}
 

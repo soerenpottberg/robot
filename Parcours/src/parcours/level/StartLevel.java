@@ -29,6 +29,7 @@ public class StartLevel extends Level {
 	@Override
 	public List<Task> createTaskList() {
 		final List<Task> taskList = new ArrayList<Task>();
+		taskList.add(new GoStraightFastTask());
 		taskList.add(new FollowRightWallTaskStateFull(new StartLabyrinthConfiguration(), detectEnd));
 		return taskList;
 	}

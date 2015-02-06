@@ -69,7 +69,7 @@ public class FollowRightWallTaskStateFull extends ControllerTask {
 		if (leftIsPressed && rightIsPressed) {
 			context.handleBothButtonsPressed(distance);
 		} else if (leftIsPressed) {
-			context.handleLeftButtonPressed(distance);
+			context.handleRightButtonPressed(distance);
 		} else if (rightIsPressed) {
 			context.handleRightButtonPressed(distance);
 		} else {

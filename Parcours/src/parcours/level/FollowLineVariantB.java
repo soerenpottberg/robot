@@ -1,12 +1,12 @@
 package parcours.level;
 
 import parcours.level.base.SingleTaskLevel;
-import parcours.task.FollowLineSpeedTask;
+import parcours.task.FollowLineExtremeTask;
 
 public class FollowLineVariantB extends SingleTaskLevel {
 
 	public FollowLineVariantB() {
-		super(new FollowLineSpeedTask());
+		super(new FollowLineExtremeTask());
 	}
 
 	@Override
