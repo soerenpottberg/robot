@@ -6,6 +6,7 @@ public class RightState extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
+		context.travel(-5, false);
 		context.rotate(180, false);
 		context.travel(100);
 		context.setState(BossState.LEFT);

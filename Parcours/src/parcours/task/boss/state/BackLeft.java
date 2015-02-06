@@ -9,18 +9,14 @@ public class BackLeft extends BossStateBase {
 		if(context.isMoving()) {
 			return;
 		}
-		turn90degreeRightAndTravel(context);
+		context.rotate(90, false);
+		context.travel(50);
+		context.setState(BossState.LEFT);
 	}
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		turn90degreeRightAndTravel(context);
-	}
-
-	private void turn90degreeRightAndTravel(BossContext context) {
-		context.rotate(-90, false);
-		context.travel(50);
-		context.setState(BossState.LEFT);
+		context.travel(-30, false);
 	}
 
 }

@@ -30,7 +30,7 @@ public class BossTask extends ControllerTask {
 		//pilot.setAcceleration( 300 ); // default 210
 		pilot.travel(90);
 		pilot.rotate(-90);
-		pilot.forward();
+		pilot.travel(50, true);
 		
 	}
 

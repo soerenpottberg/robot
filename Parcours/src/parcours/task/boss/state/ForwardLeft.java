@@ -6,9 +6,7 @@ public class ForwardLeft extends BossStateBase {
 
 	@Override
 	public void handleButtonPressed(BossContext context) {
-		context.travel(-20, false);
-		context.rotate(180, false);
-		context.travel(30);
+		context.travel(-30, false);
 		context.setState(BossState.BACK_LEFT);
 	}
 
