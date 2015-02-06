@@ -143,12 +143,23 @@ public class FollowLineSpeedTask extends ControllerTask {
 			// straight or right curve
 			RobotDesign.differentialPilot.setRotateSpeed(MEASURE_SPEED);
 			RobotDesign.differentialPilot.rotate(-MESSURE_ANGLE - 90 - 10, true);
-			boolean foundLineWithRobot =  findLineWithRobot();
+			boolean foundLineWithRobot =  findLineWithRobotWithDelay();
 			if(!foundLineWithRobot) {
+				RobotDesign.differentialPilot.rotate(- 90 - 10, true);
+				boolean foundBackLineWithRobot = findLineWithRobot();
+				// turn back
 				RobotDesign.differentialPilot
-				.setRotateSpeed(.8f * RobotDesign.differentialPilot
-						.getMaxRotateSpeed());
-				RobotDesign.differentialPilot.rotate(90 + 10, false);
+						.setRotateSpeed(.8f * RobotDesign.differentialPilot
+								.getMaxRotateSpeed());
+				if (!foundBackLineWithRobot) {
+					Sound.beep();
+					Sound.beep();
+					RobotDesign.differentialPilot.rotate(MESSURE_ANGLE + 90 + 10 + 90 + 10, false);
+				} else {
+					RobotDesign.differentialPilot.stop();
+					RobotDesign.differentialPilot.setRotateSpeed(MEASURE_SPEED);
+					RobotDesign.differentialPilot.rotate(180, false);
+				}
 				return false;
 			}
 			RobotDesign.differentialPilot.stop();
@@ -167,11 +178,21 @@ public class FollowLineSpeedTask extends ControllerTask {
 		}
 	}
 
-	private boolean findLineWithRobot() {
+	private boolean findLineWithRobotWithDelay() {
 		while (RobotDesign.differentialPilot.isMoving()) {
 			int lightValue = measureLight();
 			if (lightValue >= DETECT_LIGHT_VALUE) {
 				Delay.msDelay(150);
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean findLineWithRobot() {
+		while (RobotDesign.differentialPilot.isMoving()) {
+			int lightValue = measureLight();
+			if (lightValue >= DETECT_LIGHT_VALUE) {
 				return true;
 			}
 		}
