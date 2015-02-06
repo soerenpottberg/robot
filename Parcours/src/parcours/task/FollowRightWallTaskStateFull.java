@@ -85,8 +85,6 @@ public class FollowRightWallTaskStateFull extends ControllerTask {
 
 	@Override
 	protected void tearDown() {
-		Motor.B.suspendRegulation();
-		Motor.A.suspendRegulation();
 	}
 
 }

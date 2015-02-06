@@ -12,6 +12,7 @@ import parcours.level.test.TestRightTurnLevel;
 import parcours.level.test.TestTravelLevel;
 import parcours.level.test.TestTurnTenTimesLevelFast;
 import parcours.level.test.TestTurnTenTimesLevelSlow;
+import parcours.level.test.TestUTurnLevel;
 
 public class TestLevelCombination extends LevelCombination {
 	
@@ -30,6 +31,7 @@ public class TestLevelCombination extends LevelCombination {
 		levelList.add(new TestTurnTenTimesLevelSlow());
 		levelList.add(new TestTurnTenTimesLevelFast());
 		levelList.add(new TestArcLevel());
+		levelList.add(new TestUTurnLevel());
 		return levelList;
 	}
 	

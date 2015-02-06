@@ -84,8 +84,6 @@ public class FindLineTask extends ControllerTask {
 	@Override
 	protected void tearDown() {
 		pilot.stop();
-		Motor.B.suspendRegulation();
-		Motor.A.suspendRegulation();
 	}
 
 }

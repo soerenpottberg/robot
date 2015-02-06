@@ -3,7 +3,6 @@ package parcours.task;
 import lejos.nxt.LightSensor;
 import lejos.nxt.Motor;
 import lejos.nxt.Sound;
-import lejos.nxt.TouchSensor;
 import lejos.robotics.RegulatedMotor;
 import lejos.util.Delay;
 import parcours.task.base.ControllerTask;
@@ -32,7 +31,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 	private static final int SMALL_ANGLE = 20;
 	private static final int CYCLE_TIME = 4;
 
-	private TouchSensor touchSensorRight;
+	//private TouchSensor touchSensorRight;
 	private LightSensor light;
 	private RegulatedMotor motorA;
 	private RegulatedMotor motorB;
@@ -49,7 +48,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 
 	@Override
 	protected void init() {
-		touchSensorRight = RobotDesign.touchSensorRight;
+		//touchSensorRight = RobotDesign.touchSensorRight;
 		motorA = RobotDesign.REGULATED_MOTOR_RIGHT;
 		motorB = RobotDesign.REGULATED_MOTOR_LEFT;
 		light = RobotDesign.lightSensor;
@@ -121,6 +120,7 @@ public class FollowLineSpeedTask extends ControllerTask {
 		// slow and non-blocking
 		Motor.C.setSpeed(MEASURE_SPEED);
 		Motor.C.rotate(-90, true);
+		
 		int angle = findLine();
 		Motor.C.setSpeed(FULL_SPEED);
 		waitForLightSensor();
@@ -156,6 +156,11 @@ public class FollowLineSpeedTask extends ControllerTask {
 					Sound.beep();
 					RobotDesign.differentialPilot.rotate(MESSURE_ANGLE + 90 + 10 + 90 + 10, false);
 				} else {
+					RobotDesign.differentialPilot.stop();
+					Motor.A.setAcceleration(6000);
+					Motor.A.setSpeed(0);
+					Motor.B.setAcceleration(6000);
+					Motor.B.setSpeed(0);
 					RobotDesign.differentialPilot.stop();
 					RobotDesign.differentialPilot.setRotateSpeed(MEASURE_SPEED);
 					RobotDesign.differentialPilot.rotate(180, false);
@@ -237,6 +242,10 @@ public class FollowLineSpeedTask extends ControllerTask {
 
 	@Override
 	protected void tearDown() {
+		Motor.A.setAcceleration(6000);
+		Motor.A.setSpeed(0);
+		Motor.B.setAcceleration(6000);
+		Motor.B.setSpeed(0);
 		RobotDesign.differentialPilot.stop();
 		RobotDesign.differentialPilot.setRotateSpeed(.8f * RobotDesign.differentialPilot.getMaxRotateSpeed());
 		RobotDesign.differentialPilot.setTravelSpeed(.8f * RobotDesign.differentialPilot.getTravelSpeed());
